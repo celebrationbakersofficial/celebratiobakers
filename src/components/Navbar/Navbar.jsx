@@ -1,6 +1,7 @@
 // Navbar.js
 import React from "react";
 import './Navbar.css'
+import { Link } from "react-router-dom";
 const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
   return (
     <nav
@@ -17,8 +18,8 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
         <li>ABOUT US</li>
         <li>PRODUCTS</li>
         <li>SPECIALITY CAKES</li>
-        <li>FIND US</li>
-        <li>CONTACT US</li>
+        <li><Link to="/finds-us">FIND US</Link></li>
+        <li><Link to="/contact-us">CONTACT US</Link></li>
       </ul>
 
       {/* Right-side buttons */}

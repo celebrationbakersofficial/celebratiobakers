@@ -38,7 +38,7 @@
 
 // // // // //       {/* Navbar */}
 // // // // //       <nav className="navbar">
-// // // // //         <div className="logo">theobroma</div>
+// // // // //         <div className="logo">celeberationbakers</div>
 // // // // //         <ul className="nav-links">
 // // // // //           <li>ABOUT US</li>
 // // // // //           <li>PRODUCTS</li>
@@ -109,7 +109,7 @@
 
 // // // //       {/* Navbar */}
 // // // //       <nav className="navbar">
-// // // //         <div className="logo">theobroma</div>
+// // // //         <div className="logo">celeberationbakers</div>
 // // // //         <ul className="nav-links">
 // // // //           <li>ABOUT US</li>
 // // // //           <li>PRODUCTS</li>
@@ -181,7 +181,7 @@
 
 // // // //       {/* Navbar */}
 // // // //       <nav className="navbar">
-// // // //         <div className="logo">theobroma</div>
+// // // //         <div className="logo">celeberationbakers</div>
 // // // //         <ul className="nav-links">
 // // // //           <li>ABOUT US</li>
 // // // //           <li>PRODUCTS</li>
@@ -252,7 +252,7 @@
 
 // // //       {/* Navbar */}
 // // //       <nav className="navbar">
-// // //         <div className="logo">theobroma</div>
+// // //         <div className="logo">celeberationbakers</div>
 // // //         <ul className="nav-links">
 // // //           <li>ABOUT US</li>
 // // //           <li>PRODUCTS</li>
@@ -567,6 +567,14 @@ import slider2 from "./images/mae-mu-m9pzwmxm2rk-unsplash.jpg";
 import slider3 from "./images/umesh-soni-LDnmyOaA-ew-unsplash.jpg";
 import Navbar from "./components/Navbar/Navbar";
 import SpecialHampers from "./components/specialhampers/SpecialHampers";
+import TeaTimeDelights from "./components/teatimedelights/TeaTimeDelights";
+import BakerySection from "./components/bakerysection/BakerySection";
+import TestimonialsSlider from "./components/testimonials/TestimonialsSlider";
+import OrderSection from "./components/ordersection/OrderSection";
+import StoreLocator from "./components/findus/StoreLocator";
+import ContactForm from "./components/contactus/ContactForm";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header/Header";
 
 const slides = [
   {
@@ -608,54 +616,26 @@ const App = () => {
   };
 
   return (
+    <Router>
+    <Routes>
+    <Route path="/" element={
     <div >
-      {/* Background Image Slider */}
 
-      <Swiper
-        modules={[Autoplay, Navigation, Pagination]}
-        spaceBetween={0}
-        slidesPerView={1}
-        loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        className="background-slider"
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <div
-              className="slide relative"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="absolute bottom-10 right-10">
-                <button className="know-more">{slide.text}</button>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-
-      {/* Navbar */}
-      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-
-        <div className="hamburger" onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div>
-      {/* Hero Section */}
-      <header className="hero">
-        {/* <div className="hero-text ml-4">
-          <h1>A taste of savoury heaven!</h1>
-          <p>CHOOSE FROM OUR RANGE OF SANDWICHES &amp; SAVOURIES.</p>
-          <button className="know-more text-right">KNOW MORE</button>
-        </div> */}
-      </header>
-
-      <AuthenticRecipes />
-      <Products />
+<Header />
       <SpecialHampers />
+      <Products />
+      <BakerySection />
+      <TestimonialsSlider />
+      <TeaTimeDelights />
+      <OrderSection />
+      <AuthenticRecipes />
       <Footer />
-    </div>
+    </div>}
+     />
+    <Route path="/finds-us" element={<ContactForm />} />
+    <Route path="/contact-us" element={<StoreLocator />} />
+    </Routes>
+    </Router>
   );
 };
 

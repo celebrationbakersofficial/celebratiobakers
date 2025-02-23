@@ -20,8 +20,8 @@ const Footer = () => {
           <div className="space-y-3">
             <p className="font-bold text-[15px] mb-2">OUR PRODUCTS</p>
             <p className="font-bold text-[15px]">COOKIE POLICY</p>
-            <a href="mailto:contact@theobroma.in" className="block mt-4 text-[13px] hover:text-amber-700">
-              contact@theobroma.in
+            <a href="mailto:contact@celeberationbakers.in" className="block mt-4 text-[13px] hover:text-amber-700">
+              contact@celeberationbakers.in
             </a>
           </div>
 
@@ -81,7 +81,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <div className="pt-8 mt-4 text-center text-[13px]">
-          <p>© {new Date().getFullYear()} THEOBROMA FOODS. ALL RIGHTS RESERVED.</p>
+          <p>© {new Date().getFullYear()} celeberationbakers FOODS. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>

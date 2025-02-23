@@ -1,12 +1,12 @@
 import React from 'react';
 import './AuthenticRecipes.css';
-
+import images from "./colin-lee-1FXyOIpoIlI-unsplash.jpg"
 const AuthenticRecipes = () => {
   return (
     <div className="authentic-recipes">
       <div className="image-container">
         <img
-          src="https://theobroma.in/cdn/shop/files/theo-home_03c4e3a4-9dc9-4de7-9464-16e655a238ed_2.jpg?v=1630652883"
+          src={images}
           alt="Food Image"
           className="mx-auto mb-4 rounded-lg shadow-lg"
         />
