@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer";
 import Navbar from "../Navbar/Navbar";
+import OrderSection from "../ordersection/OrderSection";
 
 const ContactForm = () => {
           const [isSticky, setIsSticky] = useState(false);
@@ -77,6 +78,7 @@ const ContactForm = () => {
         </div>
       </div>
     </div>
+    <OrderSection />
     <Footer />
     </>
   );
