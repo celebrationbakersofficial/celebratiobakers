@@ -4,15 +4,13 @@ import images from "./colin-lee-1FXyOIpoIlI-unsplash.jpg"
 const AuthenticRecipes = () => {
   return (
     <div className="authentic-recipes">
-      <div className="image-container">
-        <img
-          src={images}
-          alt="Food Image"
-          className="mx-auto mb-4 rounded-lg shadow-lg"
-        />
-        <a href="#" className="know-more-btn">Know More</a>
-      </div>
-<div className="content flex flex-row flex-wrap justify-between items-center">
+        <div className="heading left w-full lg:w-1/2 p-4">
+          <h1 className=" text-4xl font-bold text-gray-800">Food of The Gods, Freshly Baked!
+          </h1>
+          <p className="text-lg text-gray-600 mt-4">
+          Since 2004, we've been serving our guests the best quality treats, traditionally made and presented with care.          </p>
+        </div>
+<div className="content">
         <div className="left w-full lg:w-1/2 p-4">
           <h1 className="text-4xl font-bold text-gray-800">AUTHENTIC RECIPES</h1>
           <p className="text-lg text-gray-600 mt-4">
@@ -31,6 +29,14 @@ const AuthenticRecipes = () => {
             We constantly strive to offer the best products at the right prices.
           </p> */}
         </div>
+        <div className="image-container">
+        <img
+          src={images}
+          alt="Food Image"
+          className="mx-auto mb-4 rounded-lg shadow-lg"
+        />
+        {/* <a href="#" className="know-more-btn">Know More</a> */}
+      </div>
         <div className="right w-full lg:w-1/2 p-4">
           <h3 className="text-3xl font-semibold text-gray-700 mb-4">Food of The Gods, Freshly Baked!</h3>
           <p className="text-lg text-gray-600">

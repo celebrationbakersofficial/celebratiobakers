@@ -78,3 +78,16 @@
         padding: 7px 14px;  /* Adjust padding for smaller screens */
     }
 }
+.content {
+    display: flex;
+    gap: 31px;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.heading.left.w-full.lg\:w-1\/2.p-4 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

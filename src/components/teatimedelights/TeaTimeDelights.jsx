@@ -1,9 +1,9 @@
 import React from "react";
 import TeaTimeDelightss from "./sebastian-kuss-r7Zq9cErU2w-unsplash.jpg";
+import "./TeaTimeDelights.css"
 const TeaTimeDelights = () => {
   return (
-    <div className="bg-beige min-h-screen flex items-center justify-center p-6">
-      <div className="bg-[#FAEBD7] p-8 rounded-lg flex items-center max-w-4xl shadow-lg">
+      <div className="tea-time-container bg-[#FAEBD7] p-8 rounded-lg flex items-center shadow-lg">
         {/* Image Section */}
         <div className="relative border-2 border-gold p-2 rounded-md">
           <img
@@ -30,7 +30,6 @@ const TeaTimeDelights = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

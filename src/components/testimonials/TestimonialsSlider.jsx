@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import "./testimonial.css"
 const testimonials = [
   {
     text: "Always a delight coming here for pastries. This Theobrama outlet may not be very spacious but their pastries are lip-smacking good. Loved hazelnut pastry among the ones I tried. Value for money and a must-visit place!",
@@ -37,7 +37,7 @@ export default function TestimonialsSlider() {
   };
 
   return (
-    <div className="relative flex flex-col items-center text-center p-6 max-w-3xl mx-auto">
+    <div className=" testimonials relative flex flex-col items-center text-center p-6 max-w-3xl mx-auto">
       <h2 className="text-sm text-gold font-semibold uppercase tracking-wide">Testimonials</h2>
       <div className="flex items-center gap-4 mt-4">
         <button onClick={prevSlide} className="text-gray-500 hover:text-gray-700">

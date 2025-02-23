@@ -1,0 +1,7 @@
+.tea-time-container.bg-\[\#FAEBD7\].p-8.rounded-lg.flex.items-center.shadow-lg {
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: larger;
+}
