@@ -86,8 +86,66 @@
     height: 60vh;
 }
 
-.heading.left.w-full.lg\:w-1\/2.p-4 {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+/* Media Query for Mobile (Max width 768px) */
+@media (max-width: 768px) {
+    .authentic-recipes {
+        padding: 15px;
+    }
+
+    .image-container {
+        height: 200px; /* Adjust height for mobile */
+        max-width: 100%;  /* Make image container fully responsive */
+    }
+
+    .know-more-btn {
+        font-size: 1em;  /* Smaller button text */
+        padding: 8px 16px;
+    }
+
+    .content {
+        flex-direction: column;  /* Stack the content vertically */
+        align-items: flex-start;  /* Align content to start */
+    }
+}
+
+/* Media Query for Smaller Screens (Max width 480px) */
+@media (max-width: 480px) {
+    .authentic-recipes {
+        padding: 10px; /* Even smaller padding */
+    }
+
+    .image-container {
+        height: 180px;  /* Further reduce image height */
+    }
+
+    .know-more-btn {
+        font-size: 0.9em; /* Smaller font for very small screens */
+        padding: 7px 14px;
+    }
+
+    .content {
+        gap: 16px; /* Reduce the gap between content elements */
+        align-items: center; /* Align elements in the center */
+    }
+}
+
+/* Ensure full responsiveness for large desktop (Min width 1200px) */
+@media (min-width: 1200px) {
+    .authentic-recipes {
+        padding: 25px; /* Add extra padding for larger screens */
+    }
+
+    .image-container {
+        height: 300px; /* Slightly larger image on bigger screens */
+        max-width: 80%; /* Max width for large screens */
+    }
+
+    .know-more-btn {
+        font-size: 1.2em; /* Larger button text */
+        padding: 12px 24px; /* Larger button padding */
+    }
+
+    .content {
+        gap: 40px; /* Increased gap on larger screens */
+    }
 }
