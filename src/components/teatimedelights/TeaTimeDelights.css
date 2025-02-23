@@ -19,3 +19,16 @@
     flex-direction: column;
   }
   }
+  .royal-frame {
+    border: 10px solid #f8bdb5;
+    border-radius: 15px;
+    padding: 10px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 215, 0, 0.3));
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .royal-frame img {
+    border-radius: 10px;
+  }
+  
+  
