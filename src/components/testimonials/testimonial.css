@@ -4,3 +4,9 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 480px) {
+.testimonials.relative.flex.flex-col.items-center.text-center.p-6.max-w-3xl.mx-auto {
+    height: 50vh;
+}
+}

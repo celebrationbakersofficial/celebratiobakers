@@ -23,7 +23,7 @@ export default function TestimonialsSlider() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonials.length);
-    }, 1000); // Auto-slide every 5 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);

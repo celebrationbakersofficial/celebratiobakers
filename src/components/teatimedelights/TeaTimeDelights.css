@@ -5,3 +5,17 @@
   justify-content: center;
   font-size: larger;
 }
+@media (max-width: 480px) {
+
+.tea-time-container.bg-\[\#FAEBD7\].p-8.rounded-lg.flex.items-center.shadow-lg {
+  height: 75vh;
+  flex-direction: column;
+}
+}
+@media (max-width: 720px) {
+
+  .tea-time-container.bg-\[\#FAEBD7\].p-8.rounded-lg.flex.items-center.shadow-lg {
+    height: 75vh;
+    flex-direction: column;
+  }
+  }

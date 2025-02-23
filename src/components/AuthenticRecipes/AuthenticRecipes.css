@@ -10,7 +10,9 @@
     width: 100%;
     box-sizing: border-box;
 }
-
+img.mx-auto.mb-4.rounded-lg.shadow-lg {
+    width: 22vw;
+}
 .image-container {
     position: relative;
     height: 261px;
@@ -83,7 +85,6 @@
     gap: 31px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 @media (max-width: 768px) {
@@ -133,7 +134,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        flex-direction: column;
     }
     
 }

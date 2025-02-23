@@ -1,10 +1,11 @@
 import React from 'react'
 import SpecialHamper from './anthony-demarino-MIghDHwPsVg-unsplash.jpg'
+import "./specialhampers.css";
 
 function SpecialHampers() {
   return (
     <section className="bg-red-50 py-12 px-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex items-center justify-between" id='specialhampers'>
         <div className="text-left max-w-xl">
           <h2 className="text-4xl md:text-5xl font-bold text-red-900 mb-4">
             Packed with love &<br />
