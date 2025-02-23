@@ -575,6 +575,7 @@ import StoreLocator from "./components/findus/StoreLocator";
 import ContactForm from "./components/contactus/ContactForm";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
+import ScrollToTopButton from "./components/scrolltotop/ScrollToTopButton";
 
 const slides = [
   {
@@ -639,6 +640,7 @@ const App = () => {
       <AuthenticRecipes />
       <OrderSection />
       <Footer />
+      <ScrollToTopButton />
     </div>}
      />
     <Route path="/finds-us" element={<ContactForm />} />
