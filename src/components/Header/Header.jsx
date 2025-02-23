@@ -49,12 +49,7 @@ function Header() {
   return (
     <div>
             {/* Background Image Slider */}
-            <div className="promo-banner">
-        <p>
-          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
-          <strong>SIGNUP10</strong>
-        </p>
-      </div>
+
             <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         spaceBetween={0}

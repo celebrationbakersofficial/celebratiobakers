@@ -632,8 +632,8 @@ const App = () => {
       <BakerySection />
       <TestimonialsSlider />
       <TeaTimeDelights />
-      <OrderSection />
       <AuthenticRecipes />
+      <OrderSection />
       <Footer />
     </div>}
      />
