@@ -40,8 +40,8 @@ export default function StoreLocator() {
         Bakery Shop Near You.
       </h2>
       <div className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
-        <div className="flex-1 h-[500px] border rounded-lg overflow-hidden">
-          <MapContainer center={[location.lat, location.lng]} zoom={13} className="h-full w-full">
+      <div class="flex-1 h-[500px] border rounded-lg overflow-hidden flex-shrink-0">
+      <MapContainer center={[location.lat, location.lng]} zoom={13} className="h-full w-full">
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -6,17 +6,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    /* height: 70vh; */
-    align-items: center;
-}
-
-/* .image-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
     align-items: center;
     width: 100%;
-} */
+    box-sizing: border-box;
+}
+
 .image-container {
     position: relative;
     height: 261px;
@@ -24,9 +18,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* top: 200px; */
-    width: 544px;
+    width: 100%;  /* Make the image container responsive */
+    max-width: 544px; /* Set a max width for larger screens */
     border-radius: 17px;
+    margin-bottom: 20px; /* Add some space between image and content */
 }
 
 .know-more-btn {
@@ -50,4 +45,36 @@
     height: 1px;
     background: #ddd;
     margin: 20px 0;
+}
+
+/* Media Query for mobile responsiveness */
+@media (max-width: 768px) {
+    .authentic-recipes {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .image-container {
+        height: 200px; /* Adjust the height for smaller screens */
+        max-width: 100%;  /* Make the image container fully responsive */
+    }
+
+    .know-more-btn {
+        font-size: 1em;  /* Reduce font size for smaller devices */
+        padding: 8px 16px;  /* Adjust button padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .authentic-recipes {
+        padding: 10px; /* Further reduce padding on very small screens */
+    }
+
+    .image-container {
+        height: 180px; /* Further reduce the image container height */
+    }
+
+    .know-more-btn {
+        font-size: 0.9em; /* Smaller font size for very small screens */
+        padding: 7px 14px;  /* Adjust padding for smaller screens */
+    }
 }
