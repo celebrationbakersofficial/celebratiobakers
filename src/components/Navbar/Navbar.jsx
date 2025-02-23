@@ -28,11 +28,13 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
         <button className="order-button">ORDER ONLINE</button>
       </div>
 
+      {/* Hamburger Icon */}
       <div className="hamburger" onClick={toggleMenu}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
       </div>
+
     </nav>
   );
 };
