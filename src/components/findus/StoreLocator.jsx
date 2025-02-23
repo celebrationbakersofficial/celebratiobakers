@@ -1,25 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import { MapPin, Search } from "lucide-react";
-import { Card, CardContent } from "../ui/Card";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer";
+import OrderSection from "../ordersection/OrderSection";
 
 export default function StoreLocator() {
   const [radius, setRadius] = useState(5);
+  const [location, setLocation] = useState({ lat: 30.3782, lng: 76.7767 }); // Default to Ambala Cantt
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => console.error("Error getting location:", error),
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+  }, []);
 
   return (
-    <div className="bg-[#fdf1e6] min-h-screen flex flex-col items-center p-8">
+    <>
+                        <div className="promo-banner">
+        <p>
+          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
+          <strong>SIGNUP10</strong>
+        </p>
+      </div>
+      <Navbar isSticky={true} menuOpen={false} toggleMenu={() => {}} />
+      <div className="bg-[#fdf1e6] min-h-screen flex flex-col items-center p-8 flex-grow">
       <h2 className="text-lg text-gray-700 text-center mb-4">
         We are present in over 200+ locations across 30+ cities. Find a Theobroma
         Bakery Shop Near You.
       </h2>
       <div className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
         <div className="flex-1 h-[500px] border rounded-lg overflow-hidden">
-          <iframe
-            title="Google Maps"
-            className="w-full h-full"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.123456789!2d75.8577258!3d30.9002016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a83b06f83d6df%3A0x123456789abcd!2sKIPPS%20Market!5e0!3m2!1sen!2sin!4v1672020000000"
-            allowFullScreen
-            loading="lazy"
-          ></iframe>
+          <MapContainer center={[location.lat, location.lng]} zoom={13} className="h-full w-full">
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker position={[location.lat, location.lng]}>
+              <Popup>Your Location</Popup>
+            </Marker>
+          </MapContainer>
         </div>
         <div className="w-full md:w-96 bg-white shadow-lg rounded-lg p-4">
           <div className="relative flex items-center border rounded-md px-3 py-2 mb-4">
@@ -28,11 +58,13 @@ export default function StoreLocator() {
               type="text"
               className="flex-1 outline-none px-2 text-sm"
               placeholder="Enter Location..."
-              defaultValue="WV24+9WF, Vishwakarma Chowk, Sant Pura, Ludhiana"
+              defaultValue="Ambala Cantt"
             />
           </div>
           <div className="mb-4">
-            <label className="text-sm font-medium text-gray-600">Search Radius: {radius} km</label>
+            <label className="text-sm font-medium text-gray-600">
+              Search Radius: {radius} km
+            </label>
             <input
               type="range"
               min="1"
@@ -42,19 +74,20 @@ export default function StoreLocator() {
               className="w-full mt-1"
             />
           </div>
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-lg font-semibold">
-                <MapPin className="w-5 h-5 text-yellow-500" /> KIPPS Market
-              </div>
-              <p className="text-sm text-gray-600 mt-1">
-                SCO 35, Ground floor, Left hand side portion
-                <br /> Kipps market, Sarabha Nagar, Ludhiana, Punjab - 141001
-              </p>
-            </CardContent>
-          </Card>
+          <div className="p-4 border rounded-lg">
+            <div className="flex items-center gap-2 text-lg font-semibold">
+              <MapPin className="w-5 h-5 text-yellow-500" /> KIPPS Market
+            </div>
+            <p className="text-sm text-gray-600 mt-1">
+              SCO 35, Ground floor, Left hand side portion
+              <br /> Kipps market, Kardhan Road, Ambala Cantt, Haryana - 133001
+            </p>
+          </div>
         </div>
       </div>
     </div>
+      <OrderSection />
+      <Footer />
+      </>
   );
 }

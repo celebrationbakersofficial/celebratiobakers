@@ -11,13 +11,13 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
           : "bg-transparent"
       } transition-all duration-300`}
     >
-      <div className="logo">celeberationbakers</div>
+      <div className="logo"><Link to="/">celeberationbakers</Link></div>
 
       {/* Navbar Links - Visible on desktop, hidden on mobile */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <li>ABOUT US</li>
-        <li>PRODUCTS</li>
-        <li>SPECIALITY CAKES</li>
+        <li><Link to="#">ABOUT US</Link></li>
+        <li><Link to="#">PRODUCTS</Link></li>
+        <li><Link to="#">SPECIALITY CAKES</Link></li>
         <li><Link to="/finds-us">FIND US</Link></li>
         <li><Link to="/contact-us">CONTACT US</Link></li>
       </ul>

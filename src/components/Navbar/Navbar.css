@@ -21,7 +21,17 @@
     cursor: pointer;
     transition: 0.3s;
 }
-
+.nav-links li {
+    color: black;  /* Sets the text color to black */
+    text-decoration: none; /* Removes underline */
+    font-weight: bold; /* Optional: makes text bold */
+  }
+  
+  .nav-links li a {
+    color: black; /* Ensures that <Link> components also appear black */
+    text-decoration: none;
+  }
+  
 .nav-links li:hover {
     color: #ffcc00;
 }
