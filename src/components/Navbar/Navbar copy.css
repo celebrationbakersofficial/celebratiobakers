@@ -243,9 +243,29 @@
     background-color: #d19300;
     /* Darker shade on hover */
 }
+/* Hamburger menu for mobile */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25px;
+    width: 30px;
+    align-items: center;
+}
+
+.hamburger .line {
+    height: 4px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 5px;
+}
 
 /* Media Query for Mobile Responsiveness */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
 
     .navbar {
         padding: 15px;
@@ -253,7 +273,15 @@
         align-items: flex-start;
     }
 
-
+    /* Toggle entire nav container visibility on hamburger click */
+    .nav-container {
+        display: none;
+        /* Hidden by default */
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
 
     .nav-container.open {
         display: flex;
@@ -314,8 +342,7 @@
 /* Promo Banner Styling */
 /* Promo Banner Styling */
 .promo-banner {
-    /* background-color: rgba(255, 255, 255, 0.9); */
-    background-color: #fde4e1;
+    background-color: rgba(255, 255, 255, 0.9);
     color: white;
     text-align: center;
     padding: 10px 0;
@@ -377,13 +404,30 @@
     align-items: center;
 }
 
+/* Hamburger icon */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.hamburger .bar {
+    height: 5px;
+    background-color: #ed2323;
+    border-radius: 5px;
+}
 
 /* For mobile screens */
 @media (max-width: 768px) {
 .navbar{
     display: none;
 }
-
+.hamburger{
+    display: block;
+}
 
     /* Hide navbar links by default on mobile */
     .nav-links {
@@ -395,6 +439,11 @@
         background-color: #fff;
         width: 100%;
         padding: 20px 0;
+    }
+
+    /* Show hamburger icon on mobile */
+    .hamburger {
+        display: flex;
     }
 
     /* Show navbar links when menu is open */
@@ -499,6 +548,23 @@
     background-color: #d19300;
 }
 
+/* Hamburger menu for mobile */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25px;
+    width: 30px;
+    align-items: center;
+}
+
+.hamburger .bar {
+    height: 4px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 5px;
+}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -508,6 +574,10 @@
         align-items: flex-start;
     }
 
+    /* Show hamburger icon on mobile */
+    .hamburger {
+        display: flex;
+    }
 
     /* Hide navbar links on mobile by default */
     .nav-links {
@@ -527,9 +597,7 @@
     .nav-links.open {
         display: flex;
     }
-    .logo {
-        display: none;
-    }
+
     /* Hide right-side buttons (search, order) on mobile */
     .nav-right {
         display: none;
@@ -553,114 +621,3 @@
 .navbar .logo {
     color: #a9802a;
 }
-
-
-/* Hamburger Icon */
-.hamburger {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-.hamburger .bar {
-    width: 25px;
-    height: 3px;
-    background-color: black;
-    border-radius: 5px;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 480px) {
-    /* Hide the nav-links on mobile */
-    .navbar .nav-links {
-        display: none;
-    }
-
-    .navbar .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-        align-items: flex-start;
-        background-color: white;
-        padding: 20px 0;
-        position: fixed; /* Change from absolute to fixed */
-        top: 60px; /* Adjust this value if necessary */
-        left: 0;
-        margin-top: 18px;
-    }
-    /* Show the hamburger icon on mobile */
-    .hamburger {
-        display: flex;
-    }
-
-    .navbar .nav-right {
-        display: none; /* Hide search and order button on mobile */
-    }
-
-    /* When menu is open, show links */
-    .nav-links.open {
-        display: flex;
-    }
-    .nav-links.open {
-        padding-left: 10px;
-    }
-}
-
-
-
-
-/* Navbar.css */
-
-/* Style for the search bar */
-.search-bar {
-    padding: 8px 12px; /* Adjust padding for better text visibility */
-    font-size: 14px; /* Make sure font size is readable */
-    color: #333; /* Set text color to a dark shade for contrast */
-    background-color: #f0f0f0; /* Set background color of the input */
-    border: 1px solid #ccc; /* Add a light border for visibility */
-    border-radius: 10px; /* Rounded corners for the input field */
-  }
-  
-  .search-bar:focus {
-    outline: none; /* Remove the outline on focus for better styling */
-    border-color: #6c63ff; /* Change the border color on focus for a visual cue */
-  }
-  .navbar .search-bar {
-    border-radius: 19px;
-}/* Navbar.css */
-
-/* Container for the search input and icon */
-.search-container {
-    position: relative;
-  }
-  
-  /* Style for the search bar */
-  .search-bar {
-    padding: 8px 12px;
-    font-size: 14px;
-    color: #333;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding-right: 30px; /* Space for the icon */
-  }
-  
-  /* Search icon */
-  .search-icon {
-    position: absolute;
-    right: 42px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-    font-size: 16px;
-}
-  
-  .search-bar:focus {
-    outline: none;
-    border-color: #6c63ff;
-  }
-  

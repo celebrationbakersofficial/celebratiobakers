@@ -611,9 +611,10 @@ const App = () => {
     };
   }, []);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle menu state when the hamburger icon is clicked
+  const toggleMenu = (state) => {
+    setMenuOpen(state); // Toggle menu state when the hamburger icon is clicked
   };
+
 
   return (
     <Router>
@@ -626,6 +627,9 @@ const App = () => {
           <strong>SIGNUP10</strong>
         </p>
       </div>
+      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
+
+      
 <Header />
       <SpecialHampers />
       <Products />

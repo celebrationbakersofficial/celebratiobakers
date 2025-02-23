@@ -74,13 +74,13 @@ function Header() {
       </Swiper>
 
       {/* Navbar */}
-      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
+      {/* <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} /> */}
 
-        <div className="hamburger" onClick={toggleMenu}>
+        {/* <div className="hamburger" onClick={toggleMenu}>
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
-        </div>
+        </div> */}
       {/* Hero Section */}
       <header className="hero">
         {/* <div className="hero-text ml-4">
