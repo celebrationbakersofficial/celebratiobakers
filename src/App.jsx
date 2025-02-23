@@ -559,12 +559,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./css/styles.css"; // Your custom styles
-import AuthenticRecipes from "./components/AuthenticRecipes";
-import Products from "./components/Products";
+import AuthenticRecipes from "./components/AuthenticRecipes/AuthenticRecipes";
+import Products from "./components/Products/Products";
 import Footer from "./components/Footer";
 import slider1 from "./images/andy-li-RndRFJ1v1kk-unsplash.jpg";
 import slider2 from "./images/mae-mu-m9pzwmxm2rk-unsplash.jpg";
 import slider3 from "./images/umesh-soni-LDnmyOaA-ew-unsplash.jpg";
+import Navbar from "./components/Navbar/Navbar";
+import SpecialHampers from "./components/specialhampers/SpecialHampers";
 
 const slides = [
   {
@@ -606,14 +608,9 @@ const App = () => {
   };
 
   return (
-    <div className="container">
+    <div >
       {/* Background Image Slider */}
-      <div className="promo-banner">
-        <p>
-          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
-          <strong>SIGNUP10</strong>
-        </p>
-      </div>
+
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         spaceBetween={0}
@@ -638,37 +635,8 @@ const App = () => {
       </Swiper>
 
       {/* Navbar */}
-      <nav
-        className={`navbar ${
-          isSticky
-            ? "sticky top-0 bg-white shadow-lg z-10 transition-all duration-300"
-            : "bg-transparent"
-        } transition-all duration-300`}
-      >
-        <div className="logo">celeberationbakers</div>
+      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
 
-        {/* Hamburger Icon */}
-        {/* <div className="hamburger" onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div> */}
-
-        {/* Navbar Links - Visible on desktop, hidden on mobile */}
-        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <li>ABOUT US</li>
-          <li>PRODUCTS</li>
-          <li>SPECIALITY CAKES</li>
-          <li>FIND US</li>
-          <li>CONTACT US</li>
-        </ul>
-
-        {/* Right-side buttons */}
-        <div className="nav-right">
-          <input type="text" placeholder="Search" className="search-bar" />
-          <button className="order-button">ORDER ONLINE</button>
-        </div>
-      </nav>
         <div className="hamburger" onClick={toggleMenu}>
           <span className="bar"></span>
           <span className="bar"></span>
@@ -685,6 +653,7 @@ const App = () => {
 
       <AuthenticRecipes />
       <Products />
+      <SpecialHampers />
       <Footer />
     </div>
   );
