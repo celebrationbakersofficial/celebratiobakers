@@ -5,7 +5,7 @@ import { MapPin, Search } from "lucide-react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer";
 import OrderSection from "../ordersection/OrderSection";
-
+import "./StoreLocator.css"
 export default function StoreLocator() {
   const [radius, setRadius] = useState(5);
   const [location, setLocation] = useState({ lat: 30.3782, lng: 76.7767 }); // Default to Ambala Cantt
@@ -24,24 +24,40 @@ export default function StoreLocator() {
       );
     }
   }, []);
+  const [isSticky, setIsSticky] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // State to track if menu is open
+
+  // Handle scroll event to toggle sticky class
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const toggleMenu = (state) => {
+    setMenuOpen(state); // Toggle menu state when the hamburger icon is clicked
+  };
 
   return (
     <>
-                        <div className="promo-banner">
-        <p>
-          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
-          <strong>SIGNUP10</strong>
-        </p>
-      </div>
-      <Navbar isSticky={true} menuOpen={false} toggleMenu={() => {}} />
-      <div className="bg-[#fdf1e6] min-h-screen flex flex-col items-center p-8 flex-grow">
+      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
+      <div className="bg-[#fdf1e6] flex flex-col items-center p-24 flex-grow sm:flex-row md:flex-col">
       <h2 className="text-lg text-gray-700 text-center mb-4">
         We are present in over 200+ locations across 30+ cities. Find a Theobroma
         Bakery Shop Near You.
       </h2>
       <div className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
       <div class="flex-1 h-[500px] border rounded-lg overflow-hidden flex-shrink-0">
-      <MapContainer center={[location.lat, location.lng]} zoom={13} className="h-full w-full">
+      <MapContainer center={[location.lat, location.lng]} zoom={13} className="leaflet-container h-full w-full">
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

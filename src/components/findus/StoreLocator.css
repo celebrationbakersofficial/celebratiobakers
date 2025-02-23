@@ -1,0 +1,21 @@
+  /* For screens with a max-width of 480px (mobile screens) */
+  @media screen and (max-width: 480px) {
+    .leaflet-container {
+      height: 30vh; /* Adjust the height as needed for smaller screens */
+      /* Adjust the width if needed, or leave it as is */
+    }
+  }
+  
+  /* Optional: Add other breakpoints */
+  @media screen and (max-width: 768px) {
+    .leaflet-container {
+      height: 30vh; /* Adjust the height for tablet screens */
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .leaflet-container {
+      height: 35vh; /* Adjust the height for larger tablet or small laptop screens */
+    }
+  }
+  
