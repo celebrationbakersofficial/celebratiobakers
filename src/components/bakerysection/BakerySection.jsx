@@ -45,6 +45,7 @@ const products = [
 const BakerySection = () => {
   return (
     <div className="bg-gray-100 py-10 px-4">
+              <h2 className="section-title">Our best sellers</h2>
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product, index) => (
           <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">

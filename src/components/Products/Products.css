@@ -24,8 +24,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 1 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  /* width: 23vw; */
 }
 
 .product-card:hover {
@@ -66,7 +67,7 @@
 .product-title {
   position: absolute;
   bottom: 20px;
-  left: 50%;
+  left: 42%;
   transform: translateX(-50%);
   color: white;
   font-size: 1.5rem;

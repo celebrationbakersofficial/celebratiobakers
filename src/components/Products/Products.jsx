@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './Products.css';
 import Product1 from "../../images/Products/alex-lvrs-aX_ljOOyWJY-unsplash.jpg";
 import Product2 from "../../images/Products/american-heritage-chocolate-ghtwiDUu5ro-unsplash.jpg";
@@ -15,32 +15,28 @@ const Products = () => {
     { id: 5, title: 'CUPCAKES', image: Product5 },
   ];
 
+  const memoizedProducts = useMemo(() => {
+    return products.map((product) => (
+      <div className="product-card" key={product.id}>
+        <div className="image-container">
+          <img 
+            src={product.image} 
+            alt={product.title} 
+            className="product-image"
+          />
+          <div className="image-overlay"></div>
+        </div>
+        <h3 className="product-title">{product.title}</h3>
+      </div>
+    ));
+  }, [products]);
+
   return (
     <section className="products-section">
       <h2 className="section-title">Our Products</h2>
-      
       <div className="products-grid">
-        {products.map((product) => (
-          <div className="product-card" key={product.id}>
-            <div className="image-container">
-              <img 
-                src={product.image} 
-                alt={product.title} 
-                className="product-image"
-              />
-              <div className="image-overlay"></div>
-            </div>
-            <h3 className="product-title">{product.title}</h3>
-          </div>
-        ))}
-        
+        {memoizedProducts}
       </div>
-        {/* <div className="view-more-card">
-          <div className="view-more-content">
-            <span className="view-more-text">VIEW</span>
-            <span className="view-more-text">MORE</span>
-          </div>
-        </div> */}
     </section>
   );
 };

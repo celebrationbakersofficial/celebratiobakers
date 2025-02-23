@@ -83,10 +83,9 @@
     gap: 31px;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    flex-direction: column;
 }
 
-/* Media Query for Mobile (Max width 768px) */
 @media (max-width: 768px) {
     .authentic-recipes {
         padding: 15px;
@@ -94,24 +93,29 @@
 
     .image-container {
         height: 200px; /* Adjust height for mobile */
-        max-width: 100%;  /* Make image container fully responsive */
+        max-width: 100%;
     }
 
     .know-more-btn {
-        font-size: 1em;  /* Smaller button text */
+        font-size: 1em;
         padding: 8px 16px;
     }
 
     .content {
-        flex-direction: column;  /* Stack the content vertically */
-        align-items: flex-start;  /* Align content to start */
+        flex-direction: column;  /* Stack items vertically */
+        gap: 16px; /* Reduce gap between items */
+        align-items: center;  /* Center content */
+    }
+
+    .left, .right {
+        width: 100%;  /* Ensure sections take full width */
     }
 }
 
 /* Media Query for Smaller Screens (Max width 480px) */
 @media (max-width: 480px) {
     .authentic-recipes {
-        padding: 10px; /* Even smaller padding */
+        padding: 1px; /* Even smaller padding */
     }
 
     .image-container {
@@ -119,14 +123,19 @@
     }
 
     .know-more-btn {
-        font-size: 0.9em; /* Smaller font for very small screens */
+        font-size: 0.9em;
         padding: 7px 14px;
     }
 
     .content {
-        gap: 16px; /* Reduce the gap between content elements */
-        align-items: center; /* Align elements in the center */
+        display: flex;
+        gap: 31px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
     }
+    
 }
 
 /* Ensure full responsiveness for large desktop (Min width 1200px) */
@@ -152,4 +161,5 @@
 
 .headings{
     color: #a9802a;
+
 }
