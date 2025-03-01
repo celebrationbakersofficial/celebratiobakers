@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer';
 const cakes = [
     {
       name: "After Nine Cake",
@@ -35,7 +37,33 @@ function ProductPage() {
     const cake = cakes.find(c => c.link.endsWith(productName));
   
     if (!cake) return <h2 className="text-center text-3xl font-bold py-12">Product Not Found</h2>;
+    const similarCakes = cakes.filter(c => c.name !== cake.name);
+      const [isSticky, setIsSticky] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false); // State to track if menu is open
+    
+      // Handle scroll event to toggle sticky class
+      const handleScroll = () => {
+        if (window.scrollY > 50) {
+          setIsSticky(true);
+        } else {
+          setIsSticky(false);
+        }
+      };
+    
+      useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
+      }, []);
+    
+      const toggleMenu = (state) => {
+        setMenuOpen(state); // Toggle menu state when the hamburger icon is clicked
+      };
+
   return (
+    <>
+    <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
     <div className="max-w-4xl mx-auto py-12">
       <nav className="text-sm mb-4">
         <Link to="/" className="text-gray-500">Home</Link> &gt;
@@ -60,7 +88,22 @@ function ProductPage() {
           </div>
         </div>
       </div>
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold text-center mb-6">Similar Products</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {similarCakes.map((similarCake, index) => (
+            <div key={index} className="text-center">
+              <Link to={similarCake.link}>
+                <img src={similarCake.image} alt={similarCake.name} className="w-full h-auto object-cover" />
+                <h4 className="mt-2 font-semibold">{similarCake.name}</h4>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
+    <Footer />
+    </>
   )
 }
 
