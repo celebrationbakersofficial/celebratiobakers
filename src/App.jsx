@@ -578,6 +578,7 @@ import Header from "./components/Header/Header";
 import ScrollToTopButton from "./components/scrolltotop/ScrollToTopButton";
 import Specialitycakes from "./components/specialitycakes/Specialitycakes"
 import ProductPage from "./components/specialitycakes/ProductPage";
+import AboutUs from "./components/About Us/AboutUs";
 const slides = [
   {
     image: slider1,
@@ -648,6 +649,7 @@ const App = () => {
     <Route path="/contact-us" element={<StoreLocator />} />
     <Route path="/speciality-cakes" element={<Specialitycakes />} />
     <Route path="/products/:productName" element={<ProductPage />} />
+    <Route path="Aboutus" element={<AboutUs />} />
     </Routes>
     </Router>
   );

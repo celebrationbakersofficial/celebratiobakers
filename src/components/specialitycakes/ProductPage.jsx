@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 const cakes = [
     {
       name: "After Nine Cake",
@@ -36,10 +36,30 @@ function ProductPage() {
   
     if (!cake) return <h2 className="text-center text-3xl font-bold py-12">Product Not Found</h2>;
   return (
-    <div className="max-w-4xl mx-auto py-12 text-center">
-      <img src={cake.image} alt={cake.name} className="w-full max-w-md mx-auto" />
-      <h2 className="text-3xl font-bold mt-6">{cake.name}</h2>
-      <p className="mt-4 text-lg">{cake.description}</p>
+    <div className="max-w-4xl mx-auto py-12">
+      <nav className="text-sm mb-4">
+        <Link to="/" className="text-gray-500">Home</Link> &gt;
+        <Link to="/speciality-cakes" className="text-gray-500"> Speciality Cakes</Link> &gt;
+        <span className="text-gray-900"> {cake.name}</span>
+      </nav>
+      <div className="flex flex-col md:flex-row items-center">
+        <img src={cake.image} alt={cake.name} className="w-full max-w-md mx-auto" />
+        <div className="md:ml-8 text-center md:text-left">
+          <h2 className="text-3xl font-bold mt-6">{cake.name}</h2>
+          <p className="text-xl font-semibold text-gray-700 mt-2">{cake.price}</p>
+          <p className="mt-4 text-lg">{cake.description}</p>
+          <div className="mt-4">
+            <label className="block text-gray-700 font-semibold">Choose Size</label>
+            <select className="border p-2 mt-2 w-full max-w-xs">
+              <option>1 kg</option>
+            </select>
+          </div>
+          <div className="mt-6 flex flex-col md:flex-row gap-4">
+            <button className="bg-[#b2ddd3] px-6 py-2 text-black font-semibold rounded-md">CALL NOW</button>
+            <button className="border border-gray-500 px-6 py-2 text-black font-semibold rounded-md">EMAIL US</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
