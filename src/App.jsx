@@ -576,7 +576,8 @@ import ContactForm from "./components/contactus/ContactForm";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import ScrollToTopButton from "./components/scrolltotop/ScrollToTopButton";
-
+import Specialitycakes from "./components/specialitycakes/Specialitycakes"
+import ProductPage from "./components/specialitycakes/ProductPage";
 const slides = [
   {
     image: slider1,
@@ -645,6 +646,8 @@ const App = () => {
      />
     <Route path="/finds-us" element={<ContactForm />} />
     <Route path="/contact-us" element={<StoreLocator />} />
+    <Route path="/speciality-cakes" element={<Specialitycakes />} />
+    <Route path="/products/:productName" element={<ProductPage />} />
     </Routes>
     </Router>
   );
