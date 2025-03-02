@@ -762,6 +762,7 @@ import Beverages from "./brooke-lark-pGM4sjt_BdQ-unsplash.jpg";
 import Sandwiches from "./blake-wisz-0mZIT-EcH5k-unsplash.jpg";
 import Cookies from "./angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
 import Cakes from "./ales-krivec-QnNqGoCnBg0-unsplash.jpg";
+import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 
 const allProducts = [
   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },
@@ -772,6 +773,7 @@ const allProducts = [
   { name: "Walnut Brownie", category: "Brownies", image: Sandwiches, price: "₹125" },
   { name: "Double Chocolate Brownie", category: "Brownies", image: Cookies, price: "₹130" },
   { name: "Nutella Brownie", category: "Brownies", image: Cakes, price: "₹140" },
+  { name: "Delicious Cake", category: "Cakes", image: Cakes1, price: "₹150" },
 ];
 
 const categories = [
