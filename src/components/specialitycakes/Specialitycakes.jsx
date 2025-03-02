@@ -67,6 +67,12 @@ export default function Specialitycakes() {
       
   return (
     <>
+                <div className="promo-banner">
+        <p>
+          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
+          <strong>SIGNUP10</strong>
+        </p>
+      </div>
     <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
     <div className="bg-[#EFF3F1] font-sans">
       {/* Header Section */}

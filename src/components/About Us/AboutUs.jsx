@@ -91,6 +91,12 @@ export default function AboutUs() {
       };
   return (
     <>
+                <div className="promo-banner">
+        <p>
+          <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
+          <strong>SIGNUP10</strong>
+        </p>
+      </div>
     <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
     <div 
       className="bg-cover bg-bottom pb-[500px]" 
