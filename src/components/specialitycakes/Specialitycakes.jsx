@@ -6,6 +6,7 @@ import Product2 from "./american-heritage-chocolate-ghtwiDUu5ro-unsplash.jpg";
 import Product3 from "./honey-yanibel-minaya-cruz-fPWxYxfBVYM-unsplash.jpg";
 import Product4 from "./jacob-thomas-6jHpcBPw7i8-unsplash.jpg";
 import OrderSection from "../ordersection/OrderSection";
+import { Link } from "react-router-dom";
 
 // const cakes = [
 //   { name: "After Nine Cake", img: Product2 },
@@ -94,27 +95,27 @@ export default function Specialitycakes() {
       <div className="bg-[#E4EDEC] py-4">
       <div className="max-w-6xl mx-auto bg-white p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {cakes.map((cake, index) => (
+        {cakes.map((cake, index) => (
             <div key={index} className="text-center">
-              <a href={cake.link}>
+              <Link to={cake.link}>
                 <img
                   src={cake.image}
                   alt={cake.name}
                   className="w-full h-auto object-cover"
                 />
                 <h3 className="mt-4 text-lg font-semibold">{cake.name}</h3>
-              </a>
+              </Link>
             </div>
           ))}
         </div>
       </div>
         <div className="text-center mt-8">
-          <a
-            href="#"
-            className="bg-[#b2ddd3] px-6 py-2 text-black font-semibold rounded-md"
-          >
+        <Link
+          to="/all-cakes"
+          className="bg-[#b2ddd3] px-6 py-2 text-black font-semibold rounded-md"
+        >
             View ALL
-          </a>
+          </Link>
         </div>
     </div>
       

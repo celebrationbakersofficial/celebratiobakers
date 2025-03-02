@@ -41,6 +41,7 @@ import TeaTimeDelightss1 from "./sebastian-kuss-r7Zq9cErU2w-unsplash.jpg";
 import TeaTimeDelightss2 from "./mike-meeks-zk-fclJdGas-unsplash.jpg"; // Add more images here
 import TeaTimeDelightss3 from "./elisheva-g-nyekPQwZbgw-unsplash.jpg"; // Add more images here
 import "./TeaTimeDelights.css";
+import { Link } from "react-router-dom";
 
 const TeaTimeDelights = () => {
   const [currentImage, setCurrentImage] = useState(TeaTimeDelightss1);
@@ -80,9 +81,11 @@ const TeaTimeDelights = () => {
           Pick the perfect companion for your tea (or coffee!) from a range
           of tea cakes & more.
         </p>
+        <Link to="/Aboutus" className="w-full h-auto object-cover">
         <button className="bg-[#B3C8CF] px-4 py-2 text-white rounded-lg hover:bg-[#9AB2B9]">
           KNOW MORE
         </button>
+        </Link>
       </div>
     </div>
   );

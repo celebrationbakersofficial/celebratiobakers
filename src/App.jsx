@@ -579,6 +579,7 @@ import ScrollToTopButton from "./components/scrolltotop/ScrollToTopButton";
 import Specialitycakes from "./components/specialitycakes/Specialitycakes"
 import ProductPage from "./components/specialitycakes/ProductPage";
 import AboutUs from "./components/About Us/AboutUs";
+import AllCakesPage from "./components/specialitycakes/AllCakesPage";
 const slides = [
   {
     image: slider1,
@@ -649,7 +650,8 @@ const App = () => {
     <Route path="/contact-us" element={<StoreLocator />} />
     <Route path="/speciality-cakes" element={<Specialitycakes />} />
     <Route path="/products/:productName" element={<ProductPage />} />
-    <Route path="Aboutus" element={<AboutUs />} />
+    <Route path="/Aboutus" element={<AboutUs />} />
+    <Route path="/all-cakes" element={<AllCakesPage />} />
     </Routes>
     </Router>
   );

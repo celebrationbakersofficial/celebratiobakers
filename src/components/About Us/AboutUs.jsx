@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import Footer from "../Footer";
 import OurPromise from "./OurPromise";
 import OurTeam from "./OurTeam";
+import Product1 from "./images/angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
+import Product2 from "./images/angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
+import Product3 from "./images/nadya-spetnitskaya-tOYiQxF9-Ys-unsplash.jpg";
+import Product5 from "./images/david-holifield-kPxsqUGneXQ-unsplash (1).jpg";
+import Product6 from "./images/brooke-lark-pGM4sjt_BdQ-unsplash.jpg";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import OrderSection from "../ordersection/OrderSection";
 
-// const cakes = [
-//   { name: "After Nine Cake", img: Product2 },
-//   { name: "Almond Nougatine Cake", img: Product2 },
-//   { name: "Cappuccino Cake", img: Product3 },
-//   { name: "Carrot Cake", img: Product3 }
-// ];
+const images = [
+  Product2,
+  Product3,
+  Product1,
+  Product5,
+  Product6,
+];
   const cakes = [
     {
       name: "After Nine Cake",
@@ -59,33 +69,103 @@ export default function AboutUs() {
       const toggleMenu = (state) => {
         setMenuOpen(state); // Toggle menu state when the hamburger icon is clicked
       };
+      const [currentIndex, setCurrentIndex] = useState(0);
 
-      
+      useEffect(() => {
+        const interval = setInterval(() => {
+          nextSlide();
+        }, 3000);
+        return () => clearInterval(interval);
+      }, [currentIndex]);
+    
+      const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      };
+    
+      const prevSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+      };
+    
+      const goToSlide = (index) => {
+        setCurrentIndex(index);
+      };
   return (
     <>
     <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-    <div
-      className="text-center bg-cover bg-no-repeat bg-bottom py-8 h-[420px]"
-      style={{
-        backgroundImage:
-          "url(https://cdn.shopify.com/s/files/1/0521/3929/4884/files/specialty-cakes-banner.jpg)",
-        backgroundColor: "#fde4e1",
-        backgroundSize: "contain",
-      }}
+    <div 
+      className="bg-cover bg-bottom pb-[500px]" 
+      style={{ backgroundImage: "url(//theobroma.in/cdn/shop/files/aboutpage-header.jpg?v=1615444228)" }}
     >
-      <div className="max-w-4xl mx-auto">
-        <h1 className="uppercase text-4xl font-bold font-[Overlock] mb-4">
-          SPECIALITY CAKES
-        </h1>
-        <p className="text-lg max-w-2xl mx-auto">
-          Our made-to-order range of speciality cakes is here to make any
-          celebration great! From Theobroma classic cakes to gourmet cakes to
-          customized theme cakes, we have something for every special occasion.
-        </p>
+      <div className="container mx-auto px-4">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold" style={{ fontFamily: 'Overlock' }}>
+            About Us
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div className="py-10 px-4 md:px-0">
+        <div className="container mx-auto text-center">
+          <p className="content-info1 w-full md:w-auto">
+            Theobroma means 'Food of the Gods' in Greek, befitting our exclusive and indulgent range of offerings that include brownies, cakes, desserts, chocolates, breads, and savouries.
+          </p>
+          <p className="content-info1 w-full md:w-auto mt-4">
+            From our humble beginnings in 2004, when the first Theobroma pastry store opened its doors at the iconic Cusrow Baug at Colaba Causeway (Mumbai), we've grown to become a Pan-India chain of patisseries with stores in over 30 cities.
+          </p>
+          <p className="content-info1 w-full md:w-auto mt-4">
+            Our mission is to spread happiness by serving smiles on a plate, and this journey continues as we open Theobroma patisseries across the country.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto p-4 bg-[#fceeec] flex justify-center items-center min-h-screen">
+      <div className="relative border-4 border-white bg-white px-4 pt-4 pb-4 rounded-lg shadow-lg w-full max-w-4xl overflow-hidden">
+      {/* Outer Wrapper to Keep Image Layout Intact */}
+        <div className="flex w-full h-[600px] overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)`, width: `${images.length * 100}%` }}
+          >
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Slide ${index}`}
+                className="w-full h-[600px] object-contain flex-shrink-0"
+                style={{ width: "100%" }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600"
+          onClick={prevSlide}
+        >
+          <FaArrowLeft />
+        </button>
+        <button
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600"
+          onClick={nextSlide}
+        >
+          <FaArrowRight />
+        </button>
+
+        {/* Dots Navigation */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-blue-500 border border-white" : "bg-black"}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
      <OurPromise />
      <OurTeam />
+     <OrderSection />
     <Footer />
 </>
   );
