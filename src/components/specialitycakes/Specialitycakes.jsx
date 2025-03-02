@@ -110,7 +110,7 @@ export default function Specialitycakes() {
       </div>
         <div className="text-center mt-8">
           <a
-            href="/collections/theobroma-classics"
+            href="#"
             className="bg-[#b2ddd3] px-6 py-2 text-black font-semibold rounded-md"
           >
             View ALL
