@@ -229,7 +229,7 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
         <li><Link to="/Aboutus">ABOUT US</Link></li>
-        <li><Link to="#">PRODUCTS</Link></li>
+        <li><Link to="/products">PRODUCTS</Link></li>
         <li><Link to="/speciality-cakes">SPECIALITY CAKES</Link></li>
         <li><Link to="/finds-us">FIND US</Link></li>
         <li><Link to="/contact-us">CONTACT US</Link></li>

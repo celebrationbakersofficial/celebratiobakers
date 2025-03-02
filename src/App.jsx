@@ -580,6 +580,8 @@ import Specialitycakes from "./components/specialitycakes/Specialitycakes"
 import ProductPage from "./components/specialitycakes/ProductPage";
 import AboutUs from "./components/About Us/AboutUs";
 import AllCakesPage from "./components/specialitycakes/AllCakesPage";
+import NewProducts from "./components/Allproducts/NewProducts"
+import ProductList from "./components/Allproducts/ProductList";
 const slides = [
   {
     image: slider1,
@@ -631,9 +633,7 @@ const App = () => {
           <strong>SIGNUP10</strong>
         </p>
       </div>
-      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-
-      
+      <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />      
 <Header />
       <SpecialHampers />
       <Products />
@@ -652,6 +652,8 @@ const App = () => {
     <Route path="/products/:productName" element={<ProductPage />} />
     <Route path="/Aboutus" element={<AboutUs />} />
     <Route path="/all-cakes" element={<AllCakesPage />} />
+    <Route path="/products" element={<NewProducts />} />
+    <Route path="/collections/:category" element={<ProductList />} />
     </Routes>
     </Router>
   );
