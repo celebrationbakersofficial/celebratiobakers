@@ -184,7 +184,9 @@ function ProductPage() {
   };
 
   const handleEmailUs = () => {
-    window.location.href = "mailto:Shivpratapsinghbundela@gmail.com?subject=Inquiry about " + cake.name + "&body=I would like to inquire more about the " + cake.name;
+    const subject = `Inquiry about ${cake.name}`;
+    const body = `I would like to inquire more about the ${cake.name}. Selected size: ${selectedSize}`;
+    window.location.href = `mailto:Shivpratapsinghbundela@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
