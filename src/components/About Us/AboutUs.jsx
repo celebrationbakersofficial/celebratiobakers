@@ -12,6 +12,7 @@ import Product5 from "./images/david-holifield-kPxsqUGneXQ-unsplash (1).jpg";
 import Product6 from "./images/brooke-lark-pGM4sjt_BdQ-unsplash.jpg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import OrderSection from "../ordersection/OrderSection";
+import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 
 const images = [
   Product2,
@@ -91,12 +92,12 @@ export default function AboutUs() {
       };
   return (
     <>
-                <div className="promo-banner">
+                {/* <div className="promo-banner">
         <p>
           <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
           <strong>SIGNUP10</strong>
         </p>
-      </div>
+      </div> */}
     <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
     <div 
       className="bg-cover bg-bottom pb-[500px]" 
@@ -173,6 +174,7 @@ export default function AboutUs() {
      <OurTeam />
      <OrderSection />
     <Footer />
+    <ScrollToTopButton />
 </>
   );
 }

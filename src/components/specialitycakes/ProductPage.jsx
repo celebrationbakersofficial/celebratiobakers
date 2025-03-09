@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer';
+import ScrollToTopButton from '../scrolltotop/ScrollToTopButton';
 const cakes = [
     {
       name: "After Nine Cake",
@@ -103,6 +104,7 @@ function ProductPage() {
       </div>
     </div>
     <Footer />
+    <ScrollToTopButton />
     </>
   )
 }

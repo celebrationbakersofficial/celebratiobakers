@@ -764,17 +764,121 @@ import Cookies from "./angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
 import Cakes from "./ales-krivec-QnNqGoCnBg0-unsplash.jpg";
 import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 
+// const allProducts = [
+//   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },
+//   { name: "Cookie Brownie", category: "Brownies", image: Breads, price: "₹110" },
+//   { name: "Millionaire Brownie", category: "Brownies", image: Croissants, price: "₹120" },
+//   { name: "Classic Brownie", category: "Brownies", image: Pastries, price: "₹100", bestseller: true },
+//   { name: "Fudge Brownie", category: "Brownies", image: Beverages, price: "₹115" },
+//   { name: "Walnut Brownie", category: "Brownies", image: Sandwiches, price: "₹125" },
+//   { name: "Double Chocolate Brownie", category: "Brownies", image: Cookies, price: "₹130" },
+//   { name: "Nutella Brownie", category: "Brownies", image: Cakes, price: "₹140" },
+//   { name: "Delicious Cake", category: "Cakes", image: Cakes1, price: "₹150" },
+// ];
+
 const allProducts = [
+  // Brownies
   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },
-  { name: "Cookie Brownie", category: "Brownies", image: Breads, price: "₹110" },
-  { name: "Millionaire Brownie", category: "Brownies", image: Croissants, price: "₹120" },
-  { name: "Classic Brownie", category: "Brownies", image: Pastries, price: "₹100", bestseller: true },
+  { name: "Cookie Brownie", category: "Brownies", image: Cakes, price: "₹110" },
+  { name: "Millionaire Brownie", category: "Brownies", image: Pastries, price: "₹120" },
+  { name: "Classic Brownie", category: "Brownies", image: Sandwiches, price: "₹100", bestseller: true },
   { name: "Fudge Brownie", category: "Brownies", image: Beverages, price: "₹115" },
-  { name: "Walnut Brownie", category: "Brownies", image: Sandwiches, price: "₹125" },
+  { name: "Walnut Brownie", category: "Brownies", image: Breads, price: "₹125" },
   { name: "Double Chocolate Brownie", category: "Brownies", image: Cookies, price: "₹130" },
-  { name: "Nutella Brownie", category: "Brownies", image: Cakes, price: "₹140" },
+  { name: "Nutella Brownie", category: "Brownies", image: Cakes1, price: "₹140" },
+
+  // Biscuits, Cookies & Crackers
+  { name: "Chocolate Chip Cookies", category: "Biscuits, Cookies & Crackers", image: Cakes, price: "₹50" },
+  { name: "Oatmeal Raisin Cookies", category: "Biscuits, Cookies & Crackers", image: Pastries, price: "₹60" },
+  { name: "Butter Crackers", category: "Biscuits, Cookies & Crackers", image: Brownies, price: "₹40" },
+  { name: "Almond Cookies", category: "Biscuits, Cookies & Crackers", image: Breads, price: "₹70" },
+  { name: "Ginger Biscuits", category: "Biscuits, Cookies & Crackers", image: Beverages, price: "₹55" },
+
+  // Breads
+  { name: "Garlic Bread", category: "Breads", image: Cookies, price: "₹90" },
+  { name: "Multigrain Bread", category: "Breads", image: Croissants, price: "₹80" },
+  { name: "Classic White Bread", category: "Breads", image: Sandwiches, price: "₹70" },
+  { name: "French Baguette", category: "Breads", image: Cakes1, price: "₹100" },
+  { name: "Sourdough Bread", category: "Breads", image: Pastries, price: "₹110" },
+
+  // Cakes
   { name: "Delicious Cake", category: "Cakes", image: Cakes1, price: "₹150" },
+  { name: "Chocolate Truffle Cake", category: "Cakes", image: Cakes, price: "₹200" },
+  { name: "Strawberry Shortcake", category: "Cakes", image: Croissants, price: "₹180" },
+  { name: "Carrot Cake", category: "Cakes", image: Beverages, price: "₹160" },
+  { name: "Lemon Cake", category: "Cakes", image: Brownies, price: "₹170" },
+
+  // Combos
+  { name: "Brownie & Coffee Combo", category: "Combos", image: Cakes1, price: "₹180" },
+  { name: "Cake & Cookie Combo", category: "Combos", image: Sandwiches, price: "₹210" },
+  { name: "Pastry & Sandwich Combo", category: "Combos", image: Cookies, price: "₹250" },
+  { name: "Cakes & Beverages Combo", category: "Combos", image: Cakes, price: "₹280" },
+  { name: "Cookies & Milk Combo", category: "Combos", image: Beverages, price: "₹150" },
+
+  // Croissants & Danishes
+  { name: "Butter Croissant", category: "Croissants & Danishes", image: Breads, price: "₹90" },
+  { name: "Almond Croissant", category: "Croissants & Danishes", image: Cakes1, price: "₹110" },
+  { name: "Chocolate Croissant", category: "Croissants & Danishes", image: Pastries, price: "₹120" },
+  { name: "Cinnamon Danish", category: "Croissants & Danishes", image: Sandwiches, price: "₹130" },
+  { name: "Apple Danish", category: "Croissants & Danishes", image: Beverages, price: "₹140" },
+
+  // Desserts & Cupcakes
+  { name: "Chocolate Cupcake", category: "Desserts & Cupcakes", image: Cookies, price: "₹80" },
+  { name: "Vanilla Cupcake", category: "Desserts & Cupcakes", image: Brownies, price: "₹75" },
+  { name: "Red Velvet Cupcake", category: "Desserts & Cupcakes", image: Cakes, price: "₹90" },
+  { name: "Lemon Meringue Cupcake", category: "Desserts & Cupcakes", image: Breads, price: "₹100" },
+  { name: "Carrot Cupcake", category: "Desserts & Cupcakes", image: Croissants, price: "₹95" },
+
+  // Pastries
+  { name: "Classic Chocolate Pastry", category: "Pastries", image: Cakes1, price: "₹100" },
+  { name: "Strawberry Pastry", category: "Pastries", image: Sandwiches, price: "₹110" },
+  { name: "Black Forest Pastry", category: "Pastries", image: Croissants, price: "₹120" },
+  { name: "Vanilla Pastry", category: "Pastries", image: Cakes, price: "₹90" },
+  { name: "Butterscotch Pastry", category: "Pastries", image: Beverages, price: "₹130" },
+
+  // Sandwiches & Savouries
+  { name: "Veg Sandwich", category: "Sandwiches & Savouries", image: Cakes, price: "₹80" },
+  { name: "Chicken Sandwich", category: "Sandwiches & Savouries", image: Cakes1, price: "₹120" },
+  { name: "Cheese Sandwich", category: "Sandwiches & Savouries", image: Pastries, price: "₹100" },
+  { name: "Grilled Veg Sandwich", category: "Sandwiches & Savouries", image: Brownies, price: "₹90" },
+  { name: "Club Sandwich", category: "Sandwiches & Savouries", image: Beverages, price: "₹150" },
+
+  // Tea Cakes
+  { name: "Lemon Tea Cake", category: "Tea Cakes", image: Breads, price: "₹95" },
+  { name: "Cinnamon Tea Cake", category: "Tea Cakes", image: Cakes, price: "₹105" },
+  { name: "Chocolate Tea Cake", category: "Tea Cakes", image: Cookies, price: "₹110" },
+  { name: "Orange Tea Cake", category: "Tea Cakes", image: Croissants, price: "₹100" },
+  { name: "Carrot Tea Cake", category: "Tea Cakes", image: Pastries, price: "₹120" },
+
+  // Beverages
+  { name: "Iced Coffee", category: "Beverages", image: Brownies, price: "₹80" },
+  { name: "Hot Chocolate", category: "Beverages", image: Sandwiches, price: "₹90" },
+  { name: "Lemonade", category: "Beverages", image: Cakes1, price: "₹60" },
+  { name: "Green Tea", category: "Beverages", image: Cookies, price: "₹50" },
+  { name: "Milkshake", category: "Beverages", image: Beverages, price: "₹120" },
+
+  // Gifting
+  { name: "Brownie Gift Box", category: "Gifting", image: Brownies, price: "₹350" },
+  { name: "Cake Gift Box", category: "Gifting", image: Cakes1, price: "₹400" },
+  { name: "Cookies Gift Box", category: "Gifting", image: Pastries, price: "₹300" },
+  { name: "Pastry Gift Box", category: "Gifting", image: Breads, price: "₹250" },
+  { name: "Gourmet Gift Hamper", category: "Gifting", image: Beverages, price: "₹500" },
+
+  // Collectibles
+  { name: "Vintage Tea Set", category: "Collectibles", image: Cookies, price: "₹1000" },
+  { name: "Collector's Plate", category: "Collectibles", image: Cakes, price: "₹1200" },
+  { name: "Handcrafted Mug", category: "Collectibles", image: Cakes1, price: "₹800" },
+  { name: "Classic Tin Canister", category: "Collectibles", image: Brownies, price: "₹600" },
+  { name: "Antique Candle Holder", category: "Collectibles", image: Breads, price: "₹700" },
+
+  // Strawberry Specials
+  { name: "Strawberry Tart", category: "Strawberry Specials", image: Cakes, price: "₹130" },
+  { name: "Strawberry Cheesecake", category: "Strawberry Specials", image: Brownies, price: "₹150" },
+  { name: "Strawberry Milkshake", category: "Strawberry Specials", image: Beverages, price: "₹120" },
+  { name: "Strawberry Cupcake", category: "Strawberry Specials", image: Pastries, price: "₹100" },
+  { name: "Strawberry Jam", category: "Strawberry Specials", image: Croissants, price: "₹90" }
 ];
+
 
 const categories = [
   "Brownies",
@@ -791,7 +895,6 @@ const categories = [
   "Gifting",
   "Collectibles",
   "Strawberry Specials",
-  "Ramadan Specials",
 ];
 
 const TheAllProducts = () => {

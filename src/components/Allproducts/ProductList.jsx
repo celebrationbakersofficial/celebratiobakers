@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ScrollToTopButton from '../scrolltotop/ScrollToTopButton';
 
 const products = {
   brownies: [
@@ -77,6 +78,7 @@ function ProductList() {
           ))}
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }

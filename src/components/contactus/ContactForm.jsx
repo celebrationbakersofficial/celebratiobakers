@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer";
 import Navbar from "../Navbar/Navbar";
 import OrderSection from "../ordersection/OrderSection";
+import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 
 const ContactForm = () => {
           const [isSticky, setIsSticky] = useState(false);
@@ -29,12 +30,12 @@ const ContactForm = () => {
           };
   return (
   <>
-            <div className="promo-banner">
+            {/* <div className="promo-banner">
         <p>
           <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
           <strong>SIGNUP10</strong>
         </p>
-      </div>
+      </div> */}
       <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
     <div className="bg-green-50 min-h-screen flex justify-center items-center p-10">
       <div className="bg-green-100 p-10 rounded-xl shadow-md w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -79,6 +80,7 @@ const ContactForm = () => {
       </div>
     </div>
     <OrderSection />
+    <ScrollToTopButton />
     <Footer />
     </>
   );

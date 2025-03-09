@@ -219,20 +219,34 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [toggleMenu]);
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
+    <div>
+    <div className="promo-banner">
+    <p>
+      <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
+      <strong>SIGNUP10</strong>
+    </p>
+  </div>
     <nav
       className={`navbar ${menuOpen ? "open" : ""} ${isSticky ? "sticky top-0 bg-white shadow-lg z-10 transition-all duration-300" : "bg-transparent"} transition-all duration-300`}
     >
-      <div className="logo"><Link to="/">celeberationbakers</Link></div>
+      <div className="logo"><Link to="/" onClick={scrollToTop}>celeberationbakers</Link></div>
 
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <li><Link to="/Aboutus">ABOUT US</Link></li>
-        <li><Link to="/products">PRODUCTS</Link></li>
-        <li><Link to="/speciality-cakes">SPECIALITY CAKES</Link></li>
-        <li><Link to="/finds-us">FIND US</Link></li>
-        <li><Link to="/contact-us">CONTACT US</Link></li>
+        <li><Link to="/Aboutus" onClick={scrollToTop}>ABOUT US</Link></li>
+        <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
+        <li><Link to="/speciality-cakes" onClick={scrollToTop}>SPECIALITY CAKES</Link></li>
+        <li><Link to="/finds-us" onClick={scrollToTop}>FIND US</Link></li>
+        <li><Link to="/contact-us" onClick={scrollToTop}>CONTACT US</Link></li>
       </ul>
 
       {/* Right-side buttons */}
@@ -251,6 +265,7 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
         <span className="bar"></span>
       </div>
     </nav>
+    </div>
   );
 };
 

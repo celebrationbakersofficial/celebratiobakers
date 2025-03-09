@@ -3,6 +3,7 @@ import TheProducts from './TheProducts'
 import TheAllProducts from './TheAllProducts'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer'
+import ScrollToTopButton from '../scrolltotop/ScrollToTopButton'
 
 function NewProducts() {
     const [isSticky, setIsSticky] = useState(false);
@@ -30,16 +31,17 @@ function NewProducts() {
   
   return (
     <div>
-                  <div className="promo-banner">
+                  {/* <div className="promo-banner">
         <p>
           <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
           <strong>SIGNUP10</strong>
         </p>
-      </div>
+      </div> */}
       <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
       <TheProducts />
       <TheAllProducts />
       <Footer />
+      <ScrollToTopButton />
     </div>
   )
 }

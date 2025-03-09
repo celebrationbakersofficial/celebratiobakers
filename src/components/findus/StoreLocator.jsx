@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer";
 import OrderSection from "../ordersection/OrderSection";
 import "./StoreLocator.css"
+import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 export default function StoreLocator() {
   const [radius, setRadius] = useState(5);
   const [location, setLocation] = useState({ lat: 30.3782, lng: 76.7767 }); // Default to Ambala Cantt
@@ -104,6 +105,7 @@ export default function StoreLocator() {
     </div>
       <OrderSection />
       <Footer />
+      <ScrollToTopButton />
       </>
   );
 }
