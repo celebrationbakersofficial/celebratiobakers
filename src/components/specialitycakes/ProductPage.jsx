@@ -152,6 +152,7 @@ const cakes = [
 
 function ProductPage() {
   const { productName } = useParams();
+  const [selectedSize, setSelectedSize] = useState('1 kg');
   const cake = cakes.find(c => c.link.endsWith(productName));
 
   if (!cake) return <h2 className="text-center text-3xl font-bold py-12">Product Not Found</h2>;
@@ -189,6 +190,10 @@ function ProductPage() {
     window.location.href = `mailto:Shivpratapsinghbundela@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+  
   return (
     <>
       <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
@@ -203,17 +208,21 @@ function ProductPage() {
           <div className="md:ml-8 text-center md:text-left">
             <h2 className="text-3xl font-bold mt-6">{cake.name}</h2>
             <p className="text-xl font-semibold text-gray-700 mt-2">{cake.price}</p>
-            <p className="mt-4 text-lg">{cake.description}</p>
             <div className="mt-4">
-              <label className="block text-gray-700 font-semibold">Choose Size</label>
-              <select className="border p-2 mt-2 w-full max-w-xs">
-                <option>1 kg</option>
-                <option>2 kg</option>
-                <option>3 kg</option>
-                <option>5 kg</option>
-                <option>11 kg</option>
-              </select>
-            </div>
+  <label className="block text-gray-700 font-semibold">Choose Size</label>
+  <select
+    value={selectedSize}
+    onChange={handleSizeChange}
+    className="border p-2 mt-2 w-full max-w-xs"
+  >
+    <option>1 kg</option>
+    <option>2 kg</option>
+    <option>3 kg</option>
+    <option>5 kg</option>
+    <option>11 kg</option>
+  </select>
+</div>
+
             <div className="mt-6 flex flex-col md:flex-row gap-4">
               <button onClick={handleCallNow} className="bg-[#b2ddd3] px-6 py-2 text-black font-semibold rounded-md cursor-pointer">CALL NOW</button>
               <button onClick={handleEmailUs} className="border border-gray-500 px-6 py-2 text-black font-semibold rounded-md cursor-pointer">EMAIL US</button>
