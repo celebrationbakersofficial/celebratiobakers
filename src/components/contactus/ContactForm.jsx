@@ -1034,24 +1034,27 @@ const ContactForm = () => {
       </div>
 
       {/* Modal for Success/Error */}
-      {modalVisible && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-xl font-semibold text-center text-gray-800 mb-4">
-              {modalMessage.includes("successfully") ? "Success!" : "Error"}
-            </h3>
-            <p className="text-gray-700 mb-4">{modalMessage}</p>
-            <div className="flex justify-center">
-              <button
-                onClick={() => setModalVisible(false)}
-                className="bg-yellow-700 text-white py-2 px-6 rounded-md hover:bg-yellow-800"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+{/* Modal for Success/Error */}
+
+{/* Modal for Success/Error */}
+{modalVisible && (
+  <div className="fixed inset-0 bg-white bg-opacity-40 flex items-center justify-center z-50">
+    <div className="bg-white p-8 rounded-2xl shadow-2xl w-96 md:w-[500px] lg:w-[600px] max-w-full">
+      <h3 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+        {modalMessage.includes("successfully") ? "Success!" : "Error"}
+      </h3>
+      <p className="text-gray-700 mb-6 text-lg">{modalMessage}</p>
+      <div className="flex justify-center">
+        <button
+          onClick={() => setModalVisible(false)}
+          className="bg-yellow-700 text-white py-3 px-8 rounded-md hover:bg-yellow-800 transition duration-300"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       <OrderSection />
       <ScrollToTopButton />
