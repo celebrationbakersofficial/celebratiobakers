@@ -242,6 +242,9 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
 
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+        <li>
+      <div className="logo"><Link to="/" onClick={scrollToTop}>celeberationbakers</Link></div>
+        </li>
         <li><Link to="/Aboutus" onClick={scrollToTop}>ABOUT US</Link></li>
         <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
         <li><Link to="/speciality-cakes" onClick={scrollToTop}>SPECIALITY CAKES</Link></li>
