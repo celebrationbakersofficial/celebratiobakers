@@ -257,7 +257,9 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
           <input type="text" placeholder="Search" className="search-bar" />
           <FaSearch className="search-icon" /> {/* Search icon inside the input */}
         </div>
-        <button className="order-button">ORDER ONLINE</button>
+        <button className="order-button">
+        <Link to="/ProductPageDashboard">ORDER ONLINE</Link>
+        </button>
       </div>
 
       {/* Hamburger Icon */}
