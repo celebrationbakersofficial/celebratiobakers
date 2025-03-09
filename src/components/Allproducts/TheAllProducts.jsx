@@ -764,18 +764,6 @@ import Cookies from "./angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
 import Cakes from "./ales-krivec-QnNqGoCnBg0-unsplash.jpg";
 import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 
-// const allProducts = [
-//   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },
-//   { name: "Cookie Brownie", category: "Brownies", image: Breads, price: "₹110" },
-//   { name: "Millionaire Brownie", category: "Brownies", image: Croissants, price: "₹120" },
-//   { name: "Classic Brownie", category: "Brownies", image: Pastries, price: "₹100", bestseller: true },
-//   { name: "Fudge Brownie", category: "Brownies", image: Beverages, price: "₹115" },
-//   { name: "Walnut Brownie", category: "Brownies", image: Sandwiches, price: "₹125" },
-//   { name: "Double Chocolate Brownie", category: "Brownies", image: Cookies, price: "₹130" },
-//   { name: "Nutella Brownie", category: "Brownies", image: Cakes, price: "₹140" },
-//   { name: "Delicious Cake", category: "Cakes", image: Cakes1, price: "₹150" },
-// ];
-
 const allProducts = [
   // Brownies
   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },

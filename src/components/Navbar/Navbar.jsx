@@ -239,12 +239,16 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
       className={`navbar ${menuOpen ? "open" : ""} ${isSticky ? "sticky top-0 bg-white shadow-lg z-10 transition-all duration-300" : "bg-transparent"} transition-all duration-300`}
     >
       <div className="logo"><Link to="/" onClick={scrollToTop}>celeberationbakers</Link></div>
-
+        {/* Conditionally render logo only when menu is open */}
+        {menuOpen && (
+          <div className="logo">
+            <Link to="/" onClick={scrollToTop}>celeberationbakers</Link>
+          </div>
+        )}
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <li>
-      <div className="logo"><Link to="/" onClick={scrollToTop}>celeberationbakers</Link></div>
-        </li>
+
+
         <li><Link to="/Aboutus" onClick={scrollToTop}>ABOUT US</Link></li>
         <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
         <li><Link to="/speciality-cakes" onClick={scrollToTop}>SPECIALITY CAKES</Link></li>
