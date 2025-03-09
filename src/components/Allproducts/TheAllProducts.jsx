@@ -764,6 +764,7 @@ import Cookies from "./angelo-pantazis-2-U0A2tNYhM-unsplash.jpg";
 import Cakes from "./ales-krivec-QnNqGoCnBg0-unsplash.jpg";
 import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 
+
 const allProducts = [
   // Brownies
   { name: "Choco Chip Brownie", category: "Brownies", image: Brownies, price: "₹110", bestseller: true },

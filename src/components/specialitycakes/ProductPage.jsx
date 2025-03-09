@@ -204,8 +204,9 @@ function ProductPage() {
           <span className="text-gray-900"> {cake.name}</span>
         </nav>
         <div className="flex flex-col md:flex-row items-center">
-          <img src={cake.image} alt={cake.name} className="w-full max-w-md mx-auto" />
-          <div className="md:ml-8 text-center md:text-left">
+        <img src={cake.image} alt={cake.name} className="w-full max-w-xs md:max-w-md mx-auto h-auto"
+        />
+        <div className="md:ml-8 text-center md:text-left">
             <h2 className="text-3xl font-bold mt-6">{cake.name}</h2>
             <p className="text-xl font-semibold text-gray-700 mt-2">{cake.price}</p>
             <div className="mt-4">
@@ -235,7 +236,8 @@ function ProductPage() {
             {similarCakes.map((similarCake, index) => (
               <div key={index} className="text-center">
                 <Link to={similarCake.link}>
-                  <img src={similarCake.image} alt={similarCake.name} className="w-full h-auto object-cover" />
+                  <img src={similarCake.image} alt={similarCake.name} className="w-full max-w-xs md:max-w-md mx-auto h-auto " 
+                  />
                   <h4 className="mt-2 font-semibold">{similarCake.name}</h4>
                 </Link>
               </div>

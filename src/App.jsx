@@ -583,6 +583,7 @@ import AllCakesPage from "./components/specialitycakes/AllCakesPage";
 import NewProducts from "./components/Allproducts/NewProducts"
 import ProductList from "./components/Allproducts/ProductList";
 import AddToCartUI from "./modals/AddToCartUI";
+import ProductPageDashboard from "./components/Allproducts/ProductPageDashboard";
 const slides = [
   {
     image: slider1,
@@ -656,6 +657,7 @@ const App = () => {
     <Route path="/products" element={<NewProducts />} />
     <Route path="/collections/:category" element={<ProductList />} />
     <Route path="/add" element={<AddToCartUI />} />
+    <Route path="/ProductPageDashboard" element={<ProductPageDashboard />} />
     </Routes>
     </Router>
   );
