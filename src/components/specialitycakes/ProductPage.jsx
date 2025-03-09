@@ -180,11 +180,11 @@ function ProductPage() {
   };
 
   const handleCallNow = () => {
-    window.location.href = "tel:+1234567890"; // Replace with actual phone number
+    window.location.href = "tel:+916306442533"; // Replace with actual phone number
   };
 
   const handleEmailUs = () => {
-    window.location.href = "mailto:info@example.com?subject=Inquiry about " + cake.name + "&body=I would like to inquire more about the " + cake.name; // Replace with actual email address
+    window.location.href = "mailto:Shivpratapsinghbundela@gmail.com?subject=Inquiry about " + cake.name + "&body=I would like to inquire more about the " + cake.name;
   };
 
   return (
