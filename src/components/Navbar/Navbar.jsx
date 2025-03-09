@@ -244,11 +244,11 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
 
 
-        <li><Link to="/Aboutus" onClick={scrollToTop}>ABOUT US</Link></li>
         <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
         <li><Link to="/speciality-cakes" onClick={scrollToTop}>SPECIALITY CAKES</Link></li>
         <li><Link to="/finds-us" onClick={scrollToTop}>FIND US</Link></li>
         <li><Link to="/contact-us" onClick={scrollToTop}>CONTACT US</Link></li>
+        <li><Link to="/Aboutus" onClick={scrollToTop}>ABOUT US</Link></li>
       </ul>
 
       {/* Right-side buttons */}
