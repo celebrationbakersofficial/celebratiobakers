@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog, DialogContent } from "../components/ui/dialog";
-import { Button } from "../components/ui/button";
+import { Button } from "../components/ui/Button";
 import { X } from "lucide-react";
 
 export default function AddToCartModal({ isOpen, onClose, product, addToCart }) {

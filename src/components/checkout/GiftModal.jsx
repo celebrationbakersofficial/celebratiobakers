@@ -214,7 +214,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Button } from "../ui/button";
+import { Button } from "../ui/Button";
 import { Home, X } from "lucide-react";
 
 export default function GiftModal({ isOpen, onClose, onSave }) {
