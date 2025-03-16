@@ -683,6 +683,9 @@ import DeliverySlotModal from "./DeliverySlotModal";
 import GiftModal from "./GiftModal";
 import { Gift, PackageCheck, Pencil, Plus, Trash, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import Toastify from 'toastify-js'; // Import Toastify
+import 'toastify-js/src/toastify.css'; // Import Toastify CSS
+import logos from "./bakery logo-1.png"
 
 export default function CheckoutPage() {
   const [deliverySlot, setDeliverySlot] = useState(null);
@@ -713,10 +716,496 @@ export default function CheckoutPage() {
     recipientMobile: "",
     message: "",
   });
-  const location = useLocation();
-  const { cart, subtotal, gst, total } = location.state || {}; // Safely destructure state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+  useEffect(() => {
+    // Retrieve name and email from localStorage if they exist
+    const storedName = localStorage.getItem('name');
+    const storedEmail = localStorage.getItem('email');
+  
+    if (storedName && storedEmail) {
+      setName(storedName);   // Set the name if it exists in localStorage
+      setEmail(storedEmail); // Set the email if it exists in localStorage
+      setModalOpen(false);   // If both are stored, close the modal
+    }
+  }, []);
+  
+  const handleSubmit = () => {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setError("Please provide a valid email address.");
+      return;
+    }
+
+    // Proceed with payment logic
+    handleProceedWithPayment(email);
+  };
+
+  const handleProceedWithPayment = async(email) => {
+    setEmail(email);
+    handleCloseModal();  // Close the modal after collecting the email
+
+    try {
+        const response = await fetch('http://localhost:3000/create-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentData),
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          // Continue with Razorpay payment process
+          const options = {
+            key: data.key_id,
+            amount: paymentData.amount * 100, // Amount in paise
+            currency: "INR",
+            order_id: data.order_id,
+            handler: function (response) {
+              // Verify payment after successful completion
+              fetch('/verify-payment', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  payment_id: response.razorpay_payment_id,
+                  order_id: response.razorpay_order_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
+              }).then((verifyResponse) => {
+                return verifyResponse.json();
+              }).then((verifyData) => {
+                if (verifyData.message === "Payment verified successfully") {
+                  // Successfully verified payment
+                  setPaymentSuccess(true);
+                } else {
+                  setError("Payment verification failed");
+                }
+              }).catch((error) => {
+                setError("Error verifying payment");
+              });
+            },
+          };
+          const razorpayInstance = new window.Razorpay(options);
+          razorpayInstance.open();
+        } else {
+          setError(data.message || "Error creating payment order");
+        }
+      } catch (error) {
+        setError("Error creating payment order");
+      }
+  };
+
+  const location = useLocation();
+  const { cart, subtotal, gst, total } = location.state || {};
+//   const handlePayment = () => {
+//     const options = {
+//       key: "rzp_test_HyQ8dXoaQtM9D7", // Replace this with your Razorpay key
+//       amount: totalAmount * 100, // Razorpay works with paise, so multiply by 100
+//       currency: "INR",
+//       name: "celebrationbakers",
+//       description: "Payment for order", // Optional description
+//       image: "https://www.fnp.com/images/pr/m/v300/black-forest-cake-half-kg.jpg", // Optional logo URL
+//       handler: function (response) {
+//         // Show success message using Toastify
+//         Toastify({
+//           text: `Payment Successful! Payment ID: ${response.razorpay_payment_id}`,
+//           duration: 3000,
+//           gravity: 'top', // Keep gravity as 'top' for top positioning
+//           position: 'center', // Change position to 'center' for top-center alignment
+//           backgroundColor: 'linear-gradient(to right, #4caf50, #81c784)', // Green for success
+//         }).showToast();
+//       },
+//       prefill: {
+//         name: "John Doe", // Optional: Fill user details here
+//         email: "john@example.com", // Optional: User's email
+//       },
+//       notes: {
+//         address: "Address of the customer", // Optional: Any additional note
+//       },
+//       theme: {
+//         color: "#3399cc", // Optional: Set color theme
+//       },
+//     };
+
+//     const razorpayInstance = new window.Razorpay(options);
+//     razorpayInstance.open();
+//   };
   // Make sure the values are valid numbers
+  
+//   const handlePayment = () => {
+//     // Ensure email is provided before proceeding
+//     if (!email || !/\S+@\S+\.\S+/.test(email)) {
+//       setError("Please enter a valid email address.");
+//       setModalOpen(true);
+//       return; // Don't proceed if email is invalid
+//     }
+  
+//     const options = {
+//       key: "rzp_test_HyQ8dXoaQtM9D7", // Replace this with your Razorpay key
+//       amount: totalAmount * 100, // Razorpay works with paise, so multiply by 100
+//       currency: "INR",
+//       name: "celebrationbakers", // Can be dynamic as well, depending on the context
+//       description: "Payment for order", // Optional description
+//       image: "https://www.fnp.com/images/pr/m/v300/black-forest-cake-half-kg.jpg", // Optional logo URL
+//       handler: function (response) {
+//         // Show success message using Toastify
+//         Toastify({
+//           text: `Payment Successful! Payment ID: ${response.razorpay_payment_id}`,
+//           duration: 3000,
+//           gravity: 'top', // Keep gravity as 'top' for top positioning
+//           position: 'center', // Change position to 'center' for top-center alignment
+//           backgroundColor: 'linear-gradient(to right, #4caf50, #81c784)', // Green for success
+//         }).showToast();
+//       },
+//       prefill: {
+//         email: email || "john@example.com", // Use the dynamic email from the modal
+//       },
+//       notes: {
+//         address: "Address of the customer", // Optional: Any additional note
+//       },
+//       theme: {
+//         color: "#3399cc", // Optional: Set color theme
+//       },
+//     };
+  
+//     // Create a Razorpay instance with the options and open it
+//     const razorpayInstance = new window.Razorpay(options);
+//     razorpayInstance.open();
+//   };
+
+// const handlePayment = async () => {
+//     // Ensure email is provided before proceeding
+//     if (!email || !/\S+@\S+\.\S+/.test(email)) {
+//       setError("Please enter a valid email address.");
+//       setModalOpen(true);
+//       return; // Don't proceed if email is invalid
+//     }
+
+//     // Gather all details for the payment
+//     const paymentData = {
+//       amount: totalAmount * 100, // Razorpay works with paise, so multiply by 100
+//       email: email,
+//       address: newAddress,
+//       giftDetails: giftDetails,
+//     };
+
+//     try {
+//       const response = await fetch('http://localhost:3000/create-order', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(paymentData),
+//       });
+
+//       const data = await response.json();
+//       if (response.ok) {
+//         // Continue with Razorpay payment process
+//         const options = {
+//           key: data.key_id,
+//           amount: paymentData.amount * 100, // Amount in paise
+//           currency: "INR",
+//           order_id: data.order_id,
+//           handler: function (response) {
+//             // Verify payment after successful completion
+//             fetch('/verify-payment', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: JSON.stringify({
+//                 payment_id: response.razorpay_payment_id,
+//                 order_id: response.razorpay_order_id,
+//                 razorpay_signature: response.razorpay_signature,
+//               }),
+//             }).then((verifyResponse) => {
+//               return verifyResponse.json();
+//             }).then((verifyData) => {
+//               if (verifyData.message === "Payment verified successfully") {
+//                 // Successfully verified payment
+//                 setPaymentSuccess(true);
+//               } else {
+//                 setError("Payment verification failed");
+//               }
+//             }).catch((error) => {
+//               setError("Error verifying payment");
+//             });
+//           },
+//         };
+//         const razorpayInstance = new window.Razorpay(options);
+//         razorpayInstance.open();
+//       } else {
+//         setError(data.message || "Error creating payment order");
+//       }
+//     } catch (error) {
+//       setError("Error creating payment order");
+//     }
+//   };
+
+// const handlePayment = async () => {
+//     // Ensure email is provided before proceeding
+//     if (!email || !/\S+@\S+\.\S+/.test(email)) {
+//       setError("Please enter a valid email address.");
+//       setModalOpen(true);
+//       return; // Don't proceed if email is invalid
+//     }
+  
+//     // Convert totalAmount to paise by multiplying by 100
+//     const amountInPaise = totalAmount * 100; // Razorpay works with paise, so multiply by 100
+  
+//     // Gather all details for the payment
+//     const paymentData = {
+//       amount: amountInPaise, // amount in paise
+//       email: email,
+//       address: newAddress,
+//       giftDetails: giftDetails,
+//     };
+  
+//     try {
+//       const response = await fetch('http://localhost:3000/create-order', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(paymentData),
+//       });
+  
+//       const data = await response.json();
+//       if (response.ok) {
+//         // Continue with Razorpay payment process
+//         const options = {
+//           key: data.key_id, // Razorpay Key ID
+//           amount: amountInPaise, // Amount in paise
+//           currency: "INR",
+//           order_id: data.order_id,
+//           name: "Mechlab",  // Update this with the username you want
+//           description: "Payment for order", // Optional description
+//           image: "https://your-logo-url.com/logo.png", // Update with your image/logo URL
+//           handler: function (response) {
+//             // Verify payment after successful completion
+//             fetch('/verify-payment', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: JSON.stringify({
+//                 payment_id: response.razorpay_payment_id,
+//                 order_id: response.razorpay_order_id,
+//                 razorpay_signature: response.razorpay_signature,
+//               }),
+//             }).then((verifyResponse) => {
+//               return verifyResponse.json();
+//             }).then((verifyData) => {
+//               if (verifyData.message === "Payment verified successfully") {
+//                 // Successfully verified payment
+//                 setPaymentSuccess(true);
+//               } else {
+//                 setError("Payment verification failed");
+//               }
+//             }).catch((error) => {
+//               setError("Error verifying payment");
+//             });
+//           },
+//           prefill: {
+//             name: "John Doe", // Optional: Fill user details here
+//             email: email, // Optional: User's email
+//           },
+//           notes: {
+//             address: "Address of the customer", // Optional: Any additional note
+//           },
+//           theme: {
+//             color: "#3399cc", // Optional: Set color theme
+//           },
+//         };
+  
+//         const razorpayInstance = new window.Razorpay(options);
+//         razorpayInstance.open();
+//       } else {
+//         setError(data.message || "Error creating payment order");
+//       }
+//     } catch (error) {
+//       setError("Error creating payment order");
+//     }
+//   };
+
+// const handlePayment = async () => {
+//     // Ensure email is provided before proceeding
+//     if (!email || !/\S+@\S+\.\S+/.test(email)) {
+//       setError("Please enter a valid email address.");
+//       setModalOpen(true);
+//       return; // Don't proceed if email is invalid
+//     }
+  
+//     // Convert totalAmount to paise by multiplying by 100
+//     const amountInPaise = totalAmount * 100; // Razorpay works with paise, so multiply by 100
+  
+//     // Gather all details for the payment
+//     const paymentData = {
+//       amount: amountInPaise, // amount in paise
+//       email: email,
+//       address: newAddress,
+//       giftDetails: giftDetails,
+//     };
+  
+//     try {
+//       const response = await fetch('http://localhost:3000/create-order', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(paymentData),
+//       });
+  
+//       const data = await response.json();
+//       if (response.ok) {
+//         // Continue with Razorpay payment process
+//         const options = {
+//           key: data.key_id, // Razorpay Key ID
+//           amount: amountInPaise, // Amount in paise
+//           currency: "INR",
+//           order_id: data.order_id,
+//           name: "Mechlab",  // Update this with the username you want
+//           description: "Payment for order", // Optional description
+//           image: "https://your-logo-url.com/logo.png", // Update with your image/logo URL
+//           handler: function (response) {
+//             // Verify payment after successful completion
+//             fetch('/verify-payment', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: JSON.stringify({
+//                 payment_id: response.razorpay_payment_id,
+//                 order_id: response.razorpay_order_id,
+//                 razorpay_signature: response.razorpay_signature,
+//               }),
+//             }).then((verifyResponse) => {
+//               return verifyResponse.json();
+//             }).then((verifyData) => {
+//               if (verifyData.message === "Payment verified successfully") {
+//                 // Successfully verified payment
+//                 setPaymentSuccess(true);
+//               } else {
+//                 setError("Payment verification failed");
+//               }
+//             }).catch((error) => {
+//               setError("Error verifying payment");
+//             });
+//           },
+//           prefill: {
+//             name: "John Doe", // Optional: Fill user details here
+//             email: email, // Optional: User's email
+//           },
+//           notes: {
+//             address: "Address of the customer", // Optional: Any additional note
+//           },
+//           theme: {
+//             color: "#3399cc", // Optional: Set color theme
+//           },
+//         };
+  
+//         const razorpayInstance = new window.Razorpay(options);
+//         razorpayInstance.open();
+//       } else {
+//         setError(data.message || "Error creating payment order");
+//       }
+//     } catch (error) {
+//       setError("Error creating payment order");
+//     }
+//   };
+  
+const handlePayment = async () => {
+    // Ensure name and email are provided before proceeding
+    if (!name || !email || !/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid name and email address.");
+      setModalOpen(true);
+      return; // Don't proceed if name or email is invalid
+    }
+    const amountInPaise = totalAmount; // totalAmount should be in INR
+
+    // Gather all details for the payment
+    const paymentData = {
+      amount: amountInPaise, // Razorpay works with paise, so multiply by 100
+      email: email,
+      name: name,
+      address: newAddress,
+      giftDetails: giftDetails,
+    };
+  
+    try {
+      const response = await fetch('http://localhost:3000/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentData),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        // Continue with Razorpay payment process
+        const options = {
+          key: data.key_id,
+          amount: paymentData.amount, // Amount in paise
+          currency: "INR",
+          order_id: data.order_id,
+          image: logos, // Local image path for your logo
+          name: paymentData.name, // User's name
+          description: "Payment for order", // Optional description
+          prefill: {
+            name: paymentData.name, // User's name
+            email: paymentData.email, // User's email
+          },
+          handler: function (response) {
+            // Verify payment after successful completion
+            fetch('/verify-payment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                payment_id: response.razorpay_payment_id,
+                order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            }).then((verifyResponse) => {
+              return verifyResponse.json();
+            }).then((verifyData) => {
+              if (verifyData.message === "Payment verified successfully") {
+                // Successfully verified payment
+                setPaymentSuccess(true);
+              } else {
+                setError("Payment verification failed");
+              }
+            }).catch((error) => {
+              setError("Error verifying payment");
+            });
+          },
+        };
+        const razorpayInstance = new window.Razorpay(options);
+        razorpayInstance.open();
+      } else {
+        setError(data.message || "Error creating payment order");
+      }
+    } catch (error) {
+      setError("Error creating payment order");
+    }
+  };
+  
+  
   const subtotalAmount = parseFloat(subtotal) || 0;
   const gstAmount = parseFloat(gst) || 0;
   const totalAmount = parseFloat(total) || 0;
@@ -1004,17 +1493,19 @@ export default function CheckoutPage() {
       </div>
 
       <div className="mt-4">
-        <button className="w-full py-2 bg-green-500 text-white rounded-lg text-lg font-semibold">
+        <button className="w-full py-2 bg-green-500 text-white rounded-lg text-lg font-semibold"
+        onClick={handlePayment}
+        >
           Proceed to Payment
         </button>
       </div>
     </div>
-                    <Button
+                    {/* <Button
             className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg"
             onClick={() => setIsDeliveryModalOpen(true)}
           >
             Select Delivery Slot
-          </Button>
+          </Button> */}
         </div>
       </div>
 
@@ -1221,6 +1712,45 @@ export default function CheckoutPage() {
   </div>
 </div>
       )}
+{modalOpen && (
+  <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-lg w-115">
+      <h2 className="text-xl font-semibold mb-4">Enter Your Details</h2>
+      
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="border p-2 w-full rounded mb-4"
+        placeholder="Enter your name"
+      />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="border p-2 w-full rounded mb-4"
+        placeholder="Enter your email address"
+      />
+      
+      {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
+
+      <div className="flex justify-end">
+        <button
+          onClick={handleCloseModal}
+          className="text-gray-500 px-4 py-2 mr-4"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSubmit}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Proceed to Payment
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </>
   );
 }
