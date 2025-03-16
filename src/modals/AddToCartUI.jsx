@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '../components/ui/Button';
+import Button from '../components/ui/Button.jsx';
 import { Card, CardContent } from '../components/ui/Card';
 import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
