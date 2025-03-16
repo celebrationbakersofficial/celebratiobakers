@@ -18,9 +18,9 @@ export default function AddToCartUI() {
   return (
     <div className="relative">
       {/* Order Online Button */}
-      <Button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white p-2 rounded">
+      <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white p-2 rounded">
         Order Online
-      </Button>
+      </button>
 
       {/* Add to Cart Modal */}
       {isModalOpen && (
@@ -39,9 +39,9 @@ export default function AddToCartUI() {
             </button>
             <h2 className="text-lg font-semibold mb-4">Add to Cart</h2>
             <p>Product details...</p>
-            <Button onClick={() => addItemToCart({ name: 'Sample Product', price: '$10' })} className="mt-4 bg-green-500 text-white p-2 rounded">
+            <button onClick={() => addItemToCart({ name: 'Sample Product', price: '$10' })} className="mt-4 bg-green-500 text-white p-2 rounded">
               Add to Cart
-            </Button>
+            </button>
           </motion.div>
         </div>
       )}
