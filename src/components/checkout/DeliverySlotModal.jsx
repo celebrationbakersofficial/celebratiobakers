@@ -596,12 +596,12 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
         </div>
 
         {/* Update Slot Button */}
-        <Button
+        <button
           className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md"
           onClick={handleUpdateSlot}  // Call the updated function to set the slot
         >
           Update Slot
-        </Button>
+        </button>
       </DialogContent>
     </Dialog>
   );

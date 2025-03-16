@@ -1,4 +1,5 @@
-function Button({ children, onClick, className }) {
+// Button.jsx
+const Button = ({ children, onClick, className }) => {
   return (
     <button 
       onClick={onClick} 
@@ -7,6 +8,6 @@ function Button({ children, onClick, className }) {
       {children}
     </button>
   );
-}
+};
 
 export default Button;
