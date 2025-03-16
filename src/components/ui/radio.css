@@ -1,0 +1,15 @@
+/* src/components/ui/Radio.css */
+.radio {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .radio input {
+    margin-right: 8px;
+  }
+  
+  .radio label {
+    font-size: 14px;
+  }
+  

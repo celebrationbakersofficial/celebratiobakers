@@ -584,6 +584,7 @@ import NewProducts from "./components/Allproducts/NewProducts"
 import ProductList from "./components/Allproducts/ProductList";
 import AddToCartUI from "./modals/AddToCartUI";
 import ProductPageDashboard from "./components/Allproducts/ProductPageDashboard";
+import CheckoutPage from "./components/checkout/CheckoutPage";
 const slides = [
   {
     image: slider1,
@@ -658,6 +659,7 @@ const App = () => {
     <Route path="/collections/:category" element={<ProductList />} />
     <Route path="/add" element={<AddToCartUI />} />
     <Route path="/ProductPageDashboard" element={<ProductPageDashboard />} />
+    <Route path="/CheckoutPage" element={<CheckoutPage />} />
     </Routes>
     </Router>
   );
