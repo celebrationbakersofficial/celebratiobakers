@@ -681,7 +681,7 @@ import Footer from "../Footer";
 import Navbar from "../Navbar/Navbar";
 import DeliverySlotModal from "./DeliverySlotModal";
 import GiftModal from "./GiftModal";
-import { Gift, PackageCheck, Pencil, Plus, Trash, X } from "lucide-react";
+import { Gift, PackageCheck, X } from "lucide-react";
 
 export default function CheckoutPage() {
   const [deliverySlot, setDeliverySlot] = useState(null);
@@ -696,64 +696,55 @@ export default function CheckoutPage() {
   const [isDeliveryConfirmModalOpen, setIsDeliveryConfirmModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [newAddress, setNewAddress] = useState({
-    house: "",
-    landmark: "",
-    phone: "",
-    email: "",
-    locality: "",
-  });
-  const [selectedAddress, setSelectedAddress] = useState(null);
-  const [addressType, setAddressType] = useState("Home"); // For storing which tab the address is from (Home, Office, etc.)
-  const [isEditing, setIsEditing] = useState(false); // Track if we are editing an address
+  const [newAddress, setNewAddress] = useState(""); // New address input state
+  const [addressType, setAddressType] = useState(""); // For storing which tab the address is from (Home, Office, etc.)
+  const [editingAddressType, setEditingAddressType] = useState(null); // For editing existing address
 
+  // Handle saving or editing an address
   const handleSaveAddress = () => {
-    if (addressType && newAddress.house && newAddress.landmark && newAddress.phone && newAddress.email && newAddress.locality) {
-      console.log("Saving address...");
-      
-      if (isEditing) {
-        // Update the existing address
-        setAddress((prevState) => ({
-          ...prevState,
-          [addressType]: newAddress,
-        }));
-        console.log("Updated Address: ", { ...address, [addressType]: newAddress });
+    console.log("Address Type:", addressType); // Log the selected address type
+    console.log("New Address:", newAddress); // Log the entered new address
+
+    if (addressType && newAddress) {
+      console.log("Saving address..."); // Log when saving the address
+
+      const updatedAddress = { ...address };
+
+      // If we're editing an existing address, update it
+      if (editingAddressType) {
+        updatedAddress[editingAddressType] = newAddress;
+        setEditingAddressType(null); // Reset editing mode
       } else {
-        // Add new address
-        setAddress({
-          ...address,
-          [addressType]: newAddress,
-        });
-        console.log("Added New Address: ", { ...address, [addressType]: newAddress });
+        // Otherwise, add a new address
+        updatedAddress[addressType] = newAddress;
       }
-  
-      // Close the modal and reset form
-      setIsAddressModalOpen(false);
-      setIsEditing(false); // Reset editing flag
-      setNewAddress({ house: "", landmark: "", phone: "", email: "", locality: "" });
-      setAddressType("Home"); // Reset address type selection
+
+      console.log("Updated Address:", updatedAddress); // Log the updated address object
+      setAddress(updatedAddress); // Save the new or edited address
+      setIsAddressModalOpen(false); // Close the address modal
+      setNewAddress(""); // Reset input field
+      setAddressType("Home"); // Reset address type selection to "Home"
+      console.log("Address modal closed and input fields reset.");
     } else {
-      console.log("Error: Address details are missing.");
+      console.log("Error: Address Type or New Address is missing.");
     }
   };
-  
-  const handleEditAddress = (type) => {
-    const addr = address[type];
-    if (addr) {
-      setNewAddress(addr);
-      setAddressType(type); // Set the address type to the one being edited
-      setIsEditing(true); // Enable editing mode
-      setIsAddressModalOpen(true); // Open the modal for editing
-    }
-  };
-  
+
+  // Handle address removal
   const handleRemoveAddress = (type) => {
-    setAddress((prevState) => {
-      const newState = { ...prevState };
-      delete newState[type]; // Remove the address from the state
-      return newState;
-    });
+    const updatedAddress = { ...address };
+    delete updatedAddress[type]; // Remove the address from the object
+    setAddress(updatedAddress); // Update state with the removed address
   };
+
+  // Open the modal to edit an address
+  const handleEditAddress = (type) => {
+    setAddressType(type); // Set the address type to the one being edited
+    setNewAddress(address[type]); // Set the address input to the current address
+    setEditingAddressType(type); // Indicate we're editing an existing address
+    setIsAddressModalOpen(true); // Open the modal to edit
+  };
+
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -808,67 +799,47 @@ export default function CheckoutPage() {
 
           {/* Delivery or Pickup Details */}
           {!isPickup ? (
-  <div className="mt-4 border p-4 rounded-md">
-    <h3 className="font-medium text-md">Delivery Address</h3>
-    
-    <div className="flex gap-4 mt-3">
-      {/* Add New Address Button */}
-      <button
-        className="border-2 border-dashed border-gray-400 p-6 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100"
-        onClick={() => setIsAddressModalOpen(true)}
-      >
-        <Plus className="w-6 h-6 text-gray-500" />
-        <span className="mt-1 text-sm font-medium">Add New Address</span>
-      </button>
-
-      {/* Address Cards */}
+            <div className="mt-4 border p-4 rounded-md">
+  <h3 className="font-medium text-md">Delivery Address</h3>
+  <Card className="mt-2 bg-gray-50">
+    <CardContent className="p-4 flex flex-col gap-2">
       {Object.keys(address).length > 0 ? (
+        // Display stored addresses with types
         Object.entries(address).map(([type, addr]) => (
-<Card
-  key={type}
-  className={`p-4 rounded-lg shadow-sm border cursor-pointer w-60 flex flex-col justify-between ${
-    selectedAddress === type ? "bg-green-100 border-green-400" : "hover:bg-gray-50"
-  }`}
-  onClick={() => setSelectedAddress(type)}
->
-  <CardContent className="flex flex-col gap-2">
-    {/* Header Row - Address Type & Action Buttons */}
-    <div className="flex justify-between items-center">
-      {/* Address Type Label */}
-      <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">
-        {type}
-      </span>
-
-      {/* Action Buttons (Edit & Delete) */}
-      <div className="flex gap-2">
-        <button
-          className="text-blue-500 hover:text-blue-700"
-          onClick={(e) => { e.stopPropagation(); handleEditAddress(type); }}
-        >
-          <Pencil className="w-4 h-4" />
-        </button>
-        <button
-          className="text-red-500 hover:text-red-700"
-          onClick={(e) => { e.stopPropagation(); handleRemoveAddress(type); }}
-        >
-          <Trash className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-
-    {/* Address Details */}
-    <p className="text-sm font-medium">{addr.house}, {addr.landmark}, {addr.locality}</p>
-    <p className="text-xs text-gray-600">Phone: {addr.phone}</p>
-    <p className="text-xs text-gray-600">Email: {addr.email}</p>
-  </CardContent>
-</Card>
+          <div key={type} className="flex items-center space-x-2">
+            <span className="font-semibold">{type}: </span>
+            <span>{addr}</span>
+            <button
+              className="text-blue-500 hover:text-blue-700 ml-4"
+              onClick={() => handleEditAddress(type)} // Edit address
+            >
+              Edit
+            </button>
+            <button
+              className="text-red-500 hover:text-red-700 ml-2"
+              onClick={() => handleRemoveAddress(type)} // Remove address
+            >
+              Remove
+            </button>
+          </div>
         ))
       ) : (
-        <p className="text-gray-500">No addresses added yet.</p>
+        <div>No addresses added yet.</div>
       )}
-    </div>
-  </div>
-) : (
+
+      {/* Always show "Add New Address" button */}
+      <Button
+        variant="outline"
+        className="mt-4"
+        onClick={() => setIsAddressModalOpen(true)}
+      >
+        + Add New Address
+      </Button>
+    </CardContent>
+  </Card>
+</div>
+
+          ) : (
             <div className="mt-4 border p-4 rounded-md flex justify-between items-center">
               <span className="text-gray-700">Pick up your order from:</span>
               <a 
@@ -1081,76 +1052,47 @@ export default function CheckoutPage() {
       {/* Address Modal */}
       {isAddressModalOpen && (
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center">
-  <div className="bg-white p-6 rounded-lg shadow-md w-[500px] relative">
-    <button
-      className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-      onClick={() => setIsAddressModalOpen(false)}
-    >
-      <X className="w-6 h-6" />
-    </button>
-    <h2 className="text-lg font-semibold mb-4">{isEditing ? 'Edit Address' : 'Enter Complete Address'}</h2>
+          <div className="bg-white p-6 rounded-lg shadow-md w-[500px] relative">
+            <button
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              onClick={() => setIsAddressModalOpen(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h2 className="text-lg font-semibold mb-4">
+              {editingAddressType ? "Edit Address" : "Enter Complete Address"}
+            </h2>
 
-    {/* Address type selection */}
-    <div className="flex gap-2 mb-4">
-      {["Home", "Office", "Hotel", "Other"].map((type) => (
-        <button
-          key={type}
-          className={`border px-3 py-1 rounded-md ${addressType === type ? 'bg-blue-100' : 'bg-gray-100'} hover:bg-gray-200`}
-          onClick={() => {
-            setAddressType(type); // Set the selected address type
-          }}
-        >
-          {type}
-        </button>
-      ))}
-    </div>
+            {/* Address type selection */}
+            <div className="flex gap-2 mb-4">
+              {["Home", "Office", "Hotel", "Other"].map((type) => (
+                <button
+                  key={type}
+                  className={`border px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 ${
+                    addressType === type ? "bg-blue-600 text-white" : ""
+                  }`}
+                  onClick={() => setAddressType(type)} // Set the selected address type
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
 
-    {/* Address fields */}
-    <input
-      type="text"
-      className="w-full border p-2 rounded-md mb-3"
-      placeholder="House / Flat / Block no."
-      value={newAddress.house}
-      onChange={(e) => setNewAddress({ ...newAddress, house: e.target.value })}
-    />
-    <input
-      type="text"
-      className="w-full border p-2 rounded-md mb-3"
-      placeholder="Landmark"
-      value={newAddress.landmark}
-      onChange={(e) => setNewAddress({ ...newAddress, landmark: e.target.value })}
-    />
-    <input
-      type="text"
-      className="w-full border p-2 rounded-md mb-3"
-      placeholder="Phone Number"
-      value={newAddress.phone}
-      onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-    />
-    <input
-      type="email"
-      className="w-full border p-2 rounded-md mb-3"
-      placeholder="Email"
-      value={newAddress.email}
-      onChange={(e) => setNewAddress({ ...newAddress, email: e.target.value })}
-    />
-    <input
-      type="text"
-      className="w-full border p-2 rounded-md mb-4"
-      placeholder="Locality"
-      value={newAddress.locality}
-      onChange={(e) => setNewAddress({ ...newAddress, locality: e.target.value })}
-    />
-
-    {/* Save Address Button */}
-    <Button
-      className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
-      onClick={handleSaveAddress} // Save address when clicked
-    >
-      {isEditing ? 'Update Address' : 'Save Address'}
-    </Button>
-  </div>
-</div>
+            <input
+              type="text"
+              className="w-full border p-2 rounded-md mb-3"
+              placeholder="House / Flat / Block no."
+              value={newAddress}
+              onChange={(e) => setNewAddress(e.target.value)} // Track address input
+            />
+            <Button
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
+              onClick={handleSaveAddress} // Save address when clicked
+            >
+              Save Address
+            </Button>
+          </div>
+        </div>
       )}
     </>
   );
