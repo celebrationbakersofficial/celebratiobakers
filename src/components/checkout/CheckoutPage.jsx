@@ -1142,10 +1142,10 @@ const handlePayment = async () => {
       amount: amountInPaise, // Razorpay works with paise, so multiply by 100
       email: email,
       name: name,
-      address: newAddress,
+      address: address,
       giftDetails: giftDetails,
     };
-  
+  console.log(paymentData)
     try {
       const response = await fetch('http://localhost:3000/create-order', {
         method: 'POST',
@@ -1156,6 +1156,8 @@ const handlePayment = async () => {
       });
   
       const data = await response.json();
+      // Show success message using Toastify
+
       if (response.ok) {
         // Continue with Razorpay payment process
         const options = {
@@ -1183,6 +1185,14 @@ const handlePayment = async () => {
                 razorpay_signature: response.razorpay_signature,
               }),
             }).then((verifyResponse) => {
+                                                                // Show success message using Toastify
+                                                                Toastify({
+                                                                    text: `Payment Successful! Payment ID: ${response.razorpay_payment_id} your order will be delievered within your slot `,
+                                                                    duration: 3000,
+                                                                    gravity: 'top', // Position of the toast
+                                                                    position: 'center', // Center alignment
+                                                                    backgroundColor: 'linear-gradient(to right, #4caf50, #81c784)', // Green for success
+                                                                  }).showToast();
               return verifyResponse.json();
             }).then((verifyData) => {
               if (verifyData.message === "Payment verified successfully") {

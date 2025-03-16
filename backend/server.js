@@ -32,11 +32,14 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
   status: String,
   created_at: { type: Date, default: Date.now },
   address: {
-    house: String,
-    landmark: String,
-    phone: String,
-    email: String,
-    locality: String,
+    type: Map,
+    of: {
+      house: String,
+      landmark: String,
+      phone: String,
+      email: String,
+      locality: String,
+    },
   },
   giftDetails: {
     recipientName: String,
