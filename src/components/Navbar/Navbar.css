@@ -593,6 +593,7 @@
         top: 60px; /* Adjust this value if necessary */
         left: 0;
         margin-top: 18px;
+        z-index: 1000; /* Ensure it's above other content */
     }
     /* Show the hamburger icon on mobile */
     .hamburger {
@@ -666,4 +667,45 @@
     outline: none;
     border-color: #6c63ff;
   }
+  
+  /* Navbar.css */
+
+/* Hide Home link on desktop (large screens) */
+.mobile-home {
+    display: none;
+  }
+  
+  /* Show Home link only on mobile */
+  @media screen and (max-width: 768px) {
+    .mobile-home {
+      display: block; /* Shows the "Home" link only on mobile */
+    }
+  }
+  
+  /* Basic styles for the nav-links */
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* For mobile devices */
+  @media screen and (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 60px; /* Adjust based on navbar height */
+      left: 0;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .nav-links.open {
+      display: flex;
+    }
+  }
+  
   

@@ -904,80 +904,155 @@ const TheAllProducts = () => {
     : allProducts;
 
   return (
-    <div className="container mx-auto py-12">
-      {/* Breadcrumb Navigation */}
-      <nav className="text-gray-600 mb-4">
-        <Link to="/" className="text-gray-600 hover:text-brown no-underline">Home</Link> &gt; 
-        <Link to="/products" className="text-gray-600 hover:text-brown no-underline">Products</Link>
-        {selectedCategory && ` > ${selectedCategory}`}
-      </nav>
+    // <div className="container mx-auto py-12">
+    //   {/* Breadcrumb Navigation */}
+    //   <nav className="text-gray-600 mb-4">
+    //     <Link to="/" className="text-gray-600 hover:text-brown no-underline">Home</Link> &gt; 
+    //     <Link to="/products" className="text-gray-600 hover:text-brown no-underline">Products</Link>
+    //     {selectedCategory && ` > ${selectedCategory}`}
+    //   </nav>
 
-      <div className="flex gap-8">
-        {/* Sidebar (Hidden initially) */}
-        {showFilters && (
-          <div className="w-1/4 border-r pr-6">
-            <h2 className="font-bold text-lg mb-4">FILTERS</h2>
-            <label className="flex items-center space-x-2 mb-2">
-              <input type="checkbox" className="accent-brown" />
-              <span>Egg</span>
-            </label>
-            <label className="flex items-center space-x-2 mb-4">
-              <input type="checkbox" className="accent-brown" />
-              <span>Eggless</span>
-            </label>
+    //   <div className="flex gap-8">
+    //     {/* Sidebar (Hidden initially) */}
+    //     {showFilters && (
+    //       <div className="w-1/4 border-r pr-6">
+    //         <h2 className="font-bold text-lg mb-4">FILTERS</h2>
+    //         <label className="flex items-center space-x-2 mb-2">
+    //           <input type="checkbox" className="accent-brown" />
+    //           <span>Egg</span>
+    //         </label>
+    //         <label className="flex items-center space-x-2 mb-4">
+    //           <input type="checkbox" className="accent-brown" />
+    //           <span>Eggless</span>
+    //         </label>
 
-            <h2 className="font-bold text-lg mb-4">PRODUCTS</h2>
-            <ul className="space-y-2 text-gray-700">
-              {categories.map((category, index) => (
-                <li
-                  key={index}
-                  className="cursor-pointer hover:text-brown"
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  &gt; {category}
-                </li>
-              ))}
-            </ul>
+    //         <h2 className="font-bold text-lg mb-4">PRODUCTS</h2>
+    //         <ul className="space-y-2 text-gray-700">
+    //           {categories.map((category, index) => (
+    //             <li
+    //               key={index}
+    //               className="cursor-pointer hover:text-brown"
+    //               onClick={() => setSelectedCategory(category)}
+    //             >
+    //               &gt; {category}
+    //             </li>
+    //           ))}
+    //         </ul>
+    //       </div>
+    //     )}
+
+    //     {/* Product Grid */}
+    //     <div className={showFilters ? "w-3/4" : "w-full"}>
+    //       <h1 className="text-4xl font-bold mb-6">{selectedCategory || "All Products"}</h1>
+
+    //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    //         {filteredProducts.map((product, index) => (
+    //           <div
+    //             key={index}
+    //             className="text-center relative cursor-pointer group"
+    //             onClick={() => {
+    //               setSelectedCategory(product.category);
+    //               setShowFilters(true);
+    //             }}
+    //           >
+    //             {product.bestseller && (
+    //               <span className="absolute top-2 left-2 bg-yellow-400 text-white px-2 py-1 text-xs rounded">
+    //                 Bestseller
+    //               </span>
+    //             )}
+    //             <div className="transition-transform transform group-hover:scale-105 group-hover:shadow-lg">
+    //               <img
+    //                 src={product.image}
+    //                 alt={product.name}
+    //                 className="w-full h-64 object-cover rounded-lg transition-all duration-300 ease-in-out"
+    //               />
+    //             </div>
+    //             <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
+    //             <p className="text-gray-600">{product.price}</p>
+    //             <button className="mt-2 px-4 py-2 border border-gray-400 rounded-full text-sm hover:bg-gray-200">
+    //             <Link to="/ProductPageDashboard">ORDER ONLINE</Link>
+    //             </button>
+    //           </div>
+    //         ))}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+<div className="container mx-auto py-12">
+  {/* Breadcrumb Navigation */}
+  <nav className="text-gray-600 mb-4 pl-4 md:pl-0"> {/* Added pl-4 for mobile and removed padding on medium screens */}
+    <Link to="/" className="text-gray-600 hover:text-brown no-underline">Home</Link> &gt;
+    <Link to="/products" className="text-gray-600 hover:text-brown no-underline">Products</Link>
+    {selectedCategory && ` > ${selectedCategory}`}
+  </nav>
+
+  <div className="flex gap-8">
+    {/* Sidebar (Hidden initially) */}
+    {showFilters && (
+      <div className="w-1/4 border-r pr-6">
+        <h2 className="font-bold text-lg mb-4">FILTERS</h2>
+        <label className="flex items-center space-x-2 mb-2">
+          <input type="checkbox" className="accent-brown" />
+          <span>Egg</span>
+        </label>
+        <label className="flex items-center space-x-2 mb-4">
+          <input type="checkbox" className="accent-brown" />
+          <span>Eggless</span>
+        </label>
+
+        <h2 className="font-bold text-lg mb-4">PRODUCTS</h2>
+        <ul className="space-y-2 text-gray-700">
+          {categories.map((category, index) => (
+            <li
+              key={index}
+              className="cursor-pointer hover:text-brown"
+              onClick={() => setSelectedCategory(category)}
+            >
+              &gt; {category}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {/* Product Grid */}
+    <div className={showFilters ? "w-3/4" : "w-full"}>
+      <h1 className="text-4xl font-bold mb-6 pl-4 md:pl-0">{selectedCategory || "All Products"}</h1> {/* Added pl-4 for mobile and removed padding on medium screens */}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {filteredProducts.map((product, index) => (
+          <div
+            key={index}
+            className="text-center relative cursor-pointer group"
+            onClick={() => {
+              setSelectedCategory(product.category);
+              setShowFilters(true);
+            }}
+          >
+            {product.bestseller && (
+              <span className="absolute top-2 left-2 bg-yellow-400 text-white px-2 py-1 text-xs rounded">
+                Bestseller
+              </span>
+            )}
+            <div className="transition-transform transform group-hover:scale-105 group-hover:shadow-lg">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-64 object-cover rounded-lg transition-all duration-300 ease-in-out"
+              />
+            </div>
+            <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
+            <p className="text-gray-600">{product.price}</p>
+            <button className="mt-2 px-4 py-2 border border-gray-400 rounded-full text-sm hover:bg-gray-200">
+              <Link to="/ProductPageDashboard">ORDER ONLINE</Link>
+            </button>
           </div>
-        )}
-
-        {/* Product Grid */}
-        <div className={showFilters ? "w-3/4" : "w-full"}>
-          <h1 className="text-4xl font-bold mb-6">{selectedCategory || "All Products"}</h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product, index) => (
-              <div
-                key={index}
-                className="text-center relative cursor-pointer group"
-                onClick={() => {
-                  setSelectedCategory(product.category);
-                  setShowFilters(true);
-                }}
-              >
-                {product.bestseller && (
-                  <span className="absolute top-2 left-2 bg-yellow-400 text-white px-2 py-1 text-xs rounded">
-                    Bestseller
-                  </span>
-                )}
-                <div className="transition-transform transform group-hover:scale-105 group-hover:shadow-lg">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover rounded-lg transition-all duration-300 ease-in-out"
-                  />
-                </div>
-                <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
-                <p className="text-gray-600">{product.price}</p>
-                <button className="mt-2 px-4 py-2 border border-gray-400 rounded-full text-sm hover:bg-gray-200">
-                <Link to="/ProductPageDashboard">ORDER ONLINE</Link>
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

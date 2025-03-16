@@ -242,9 +242,8 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
         {/* Conditionally render logo only when menu is open */}
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-
-
-        <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
+        <li className="mobile-home"><Link to="/" onClick={scrollToTop}>Home</Link></li>
+      <li><Link to="/products" onClick={scrollToTop}>PRODUCTS</Link></li>
         <li><Link to="/speciality-cakes" onClick={scrollToTop}>SPECIALITY CAKES</Link></li>
         <li><Link to="/finds-us" onClick={scrollToTop}>FIND US</Link></li>
         <li><Link to="/contact-us" onClick={scrollToTop}>CONTACT US</Link></li>

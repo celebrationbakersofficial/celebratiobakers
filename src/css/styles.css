@@ -42,4 +42,25 @@
   .scroll-to-top-btn:focus {
     outline: none;
   }
+  @media (max-width: 480px) {
+
+  .hero {
+    height: 96vh;
+    z-index: -1 !important;
+}
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      height: 96vh;
+      z-index: -1 !important;
+    }
+  }
   
+  @media (max-width: 767px) {
+    .hero {
+      height: 90vh;
+      z-index: -1 !important;
+    }
+  }
+
