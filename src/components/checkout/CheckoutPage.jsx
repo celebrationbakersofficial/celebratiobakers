@@ -730,14 +730,13 @@ export default function CheckoutPage() {
     setModalOpen(false);
   };
   useEffect(() => {
-    // Retrieve name and email from localStorage if they exist
-    const storedName = localStorage.getItem('name');
-    const storedEmail = localStorage.getItem('email');
-  
+    const storedName = localStorage.getItem("name");
+    const storedEmail = localStorage.getItem("email");
+
     if (storedName && storedEmail) {
-      setName(storedName);   // Set the name if it exists in localStorage
-      setEmail(storedEmail); // Set the email if it exists in localStorage
-      setModalOpen(false);   // If both are stored, close the modal
+      setName(storedName);
+      setEmail(storedEmail);
+      setModalOpen(false); // Close the modal if name and email are found in localStorage
     }
   }, []);
   
@@ -746,7 +745,9 @@ export default function CheckoutPage() {
       setError("Please provide a valid email address.");
       return;
     }
-
+    // Store name and email in localStorage
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
     // Proceed with payment logic
     handleProceedWithPayment(email);
   };
