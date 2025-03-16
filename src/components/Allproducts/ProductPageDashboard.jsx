@@ -473,6 +473,7 @@ import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 import Footer from "../Footer";
 import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 import Navbar from "../Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   "Featured Items", "Combos @15% OFF", "Women's Day Specials",
@@ -590,7 +591,21 @@ export default function ProductPageDashboard() {
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Featured Items");
+  const navigate = useNavigate();  // Initialize useNavigate
 
+  const handleCheckout = () => {
+    const subtotal = cart.reduce((total, item) => 
+      total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0
+    );
+    const gst = subtotal * 0.18; // 18% GST
+    const total = subtotal + gst; // Add GST to subtotal to get total
+  
+    // Pass the data to the CheckoutPage using navigate
+    navigate("/CheckoutPage", { 
+      state: { cart, subtotal: Number(subtotal), gst: Number(gst), total: Number(total) } 
+    });
+  };
+  
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setIsSticky(true);
@@ -643,6 +658,14 @@ export default function ProductPageDashboard() {
   };
 
   const filteredProducts = products.filter((product) => product.category === selectedCategory);
+  // Calculate subtotal, GST, and total with GST
+  const subtotal = cart.reduce(
+    (total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity,
+    0
+  ).toFixed(2);
+
+  const gst = (subtotal * 0.18).toFixed(2);
+  const totalWithGST = (parseFloat(subtotal) + parseFloat(gst)).toFixed(2);
 
   return (
     <div>
@@ -705,48 +728,29 @@ export default function ProductPageDashboard() {
             ))
           )}
 
-          {/* Show Subtotal, GST, and Total only if there's at least one item */}
-          {cart.length > 0 && (
+{cart.length > 0 && (
             <>
-              {/* Calculate Subtotal */}
               <div className="flex justify-between text-lg font-semibold py-2">
                 <p>Subtotal</p>
-                <p>
-                  ₹ {cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0).toFixed(2)}
-                </p>
+                <p>₹ {subtotal}</p>
               </div>
-
-              {/* Calculate GST (18%) */}
               <div className="flex justify-between text-lg font-semibold py-2">
                 <p>GST (18%)</p>
-                <p>
-                  ₹ {(
-                    cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) * 0.18
-                  ).toFixed(2)}
-                </p>
+                <p>₹ {gst}</p>
               </div>
-
-              {/* Calculate Total after GST */}
               <div className="flex justify-between text-lg font-semibold py-2">
                 <p>Total (with GST)</p>
-                <p>
-                  ₹ {(
-                    cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
-                    1.18 // Adding GST (18%)
-                  ).toFixed(2)}
-                </p>
+                <p>₹ {totalWithGST}</p>
               </div>
             </>
           )}
 
-          {/* Checkout button */}
           {cart.length > 0 && (
-            <button className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg text-lg font-semibold">
-              Checkout ₹ 
-              {(
-                cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
-                1.18 // Total with GST included
-              ).toFixed(2)}
+            <button
+              className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg text-lg font-semibold"
+              onClick={handleCheckout}  // Redirect to checkout page
+            >
+              Checkout ₹ {totalWithGST}
             </button>
           )}
         </aside>

@@ -682,6 +682,7 @@ import Navbar from "../Navbar/Navbar";
 import DeliverySlotModal from "./DeliverySlotModal";
 import GiftModal from "./GiftModal";
 import { Gift, PackageCheck, Pencil, Plus, Trash, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 export default function CheckoutPage() {
   const [deliverySlot, setDeliverySlot] = useState(null);
@@ -706,7 +707,32 @@ export default function CheckoutPage() {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [addressType, setAddressType] = useState("Home"); // For storing which tab the address is from (Home, Office, etc.)
   const [isEditing, setIsEditing] = useState(false); // Track if we are editing an address
+  const [giftDetails, setGiftDetails] = useState({
+    recipientName: "",
+    senderName: "",
+    recipientMobile: "",
+    message: "",
+  });
+  const location = useLocation();
+  const { cart, subtotal, gst, total } = location.state || {}; // Safely destructure state
 
+  // Make sure the values are valid numbers
+  const subtotalAmount = parseFloat(subtotal) || 0;
+  const gstAmount = parseFloat(gst) || 0;
+  const totalAmount = parseFloat(total) || 0;
+
+  console.log("Subtotal:", subtotalAmount, "GST:", gstAmount, "Total:", totalAmount); // Debugging
+
+  const handleSaveGiftDetails = (details) => {
+    setGiftDetails(details);  // Store the gift details in the parent state
+    setIsGiftModalOpen(false);  // Close the gift modal
+  };
+
+  // Handle setting the delivery slot
+  const handleDeliverySlotSelection = (slot) => {
+    setDeliverySlot(slot);
+    setIsDeliveryModalOpen(false); // close modal after selection
+  };
   const handleSaveAddress = () => {
     if (addressType && newAddress.house && newAddress.landmark && newAddress.phone && newAddress.email && newAddress.locality) {
       console.log("Saving address...");
@@ -884,15 +910,15 @@ export default function CheckoutPage() {
 
           {/* Delivery Slot */}
           {!isPickup && (
-            <div className="mt-4">
-              <h3 className="font-medium text-md">Delivery Slot</h3>
-              <div 
-                className="mt-2 w-full border p-2 rounded cursor-pointer text-gray-600"
-                onClick={() => setIsDeliveryModalOpen(true)}
-              >
-                {deliverySlot ? deliverySlot : "Select a Delivery Slot"}
-              </div>
-            </div>
+        <div className="mt-4">
+        <h3 className="font-medium text-md">Delivery Slot</h3>
+        <div 
+          className="mt-2 w-full border p-2 rounded cursor-pointer text-gray-600"
+          onClick={() => setIsDeliveryModalOpen(true)}
+        >
+          {deliverySlot ? deliverySlot : "Select a Delivery Slot"}
+        </div>
+      </div>
           )}
 
           {/* Gift Option */}
@@ -907,11 +933,11 @@ export default function CheckoutPage() {
             <span className="text-red-600 font-medium">Want to send this as a gift?</span>
           </div> */}
           
-    <div className="relative p-4 mt-4 rounded-lg bg-gray-100 shadow-md">
-      <div className="flex justify-between items-center p-4 bg-white rounded-md">
-        <div className="flex items-center space-x-2">
-          <div className="relative w-6 h-6">
-            <motion.div
+          <div className="relative p-4 mt-4 rounded-lg bg-gray-100 shadow-md">
+  <div className="flex justify-between items-center p-4 bg-white rounded-md">
+    <div className="flex items-center space-x-2">
+      <div className="relative w-6 h-6">
+      <motion.div
               initial={{ y: 0 }}
               animate={{ y: isOpen ? -5 : 0 }}
               transition={{ duration: 0.5 }}
@@ -919,45 +945,70 @@ export default function CheckoutPage() {
             >
               <Gift className="text-red-500" size={24} />
             </motion.div>
-          </div>
-          <span className="text-gray-700 font-medium">Want to send this as a gift?</span>
-        </div>
-        <Button variant="link" className="text-gray-700" onClick={() => setIsGiftModalOpen(true)}>
-          Add Details
-        </Button>
       </div>
-      <div className="absolute left-0 right-0 bottom-0 h-6 bg-red-300 flex items-center justify-center">
-        <div className="w-full h-1 bg-red-500"></div>
-        <div className="absolute -bottom-2 right-29">
-          <span className="text-3xl">🎀</span>
+      <span className="text-gray-700 font-medium">
+  {giftDetails.recipientName ? (
+    <div>
+      <h3 className="text-lg font-semibold text-red-600">Gifted To:</h3>
+      <p className="text-gray-700"><strong>Recipient:</strong> {giftDetails.recipientName}</p>
+      <p className="text-gray-700"><strong>Mobile:</strong> {giftDetails.recipientMobile}</p>
+    </div>
+  ) : (
+    "Want to send this as a gift?"
+  )}
+</span>
+    </div>
+    <Button variant="link" className="text-gray-700" onClick={() => setIsGiftModalOpen(true)}>
+      {giftDetails.recipientName ? "Change" : "Add Details"}
+    </Button>
+  </div>
+
+  {/* Gift Ribbon Design */}
+        <div className="absolute left-0 right-0 bottom-0 h-6 bg-red-300 flex items-center justify-center">
+          <div className="w-full h-1 bg-red-500"></div>
+          <div className="absolute -bottom-2 right-29">
+            <span className="text-3xl">🎀</span>
+          </div>
         </div>
+
+  {/* Display the Gift Details */}
+
+</div>
+<div className="p-6 bg-gray-100">
+      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+
+      <div className="mt-6 bg-gray-50 p-4 rounded-lg border">
+        <h3 className="font-medium text-md">Bill Details</h3>
+        <div className="mt-2 space-y-2">
+          <div className="flex justify-between text-sm">
+            <span>Subtotal</span>
+            <span>₹{subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span>Delivery Charges</span>
+            <span>₹21.19</span> {/* Adjust based on your logic */}
+          </div>
+          <div className="flex justify-between text-sm">
+            <span>Packaging Charges</span>
+            <span>₹16.95</span> {/* Adjust based on your logic */}
+          </div>
+          <div className="flex justify-between text-sm">
+            <span>GST</span>
+            <span>₹{gst.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between font-semibold text-md">
+            <span>Grand Total</span>
+            <span>₹{total.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <button className="w-full py-2 bg-green-500 text-white rounded-lg text-lg font-semibold">
+          Proceed to Payment
+        </button>
       </div>
     </div>
-                    <div className="mt-6 bg-gray-50 p-4 rounded-lg border">
-            <h3 className="font-medium text-md">Bill Details</h3>
-            <div className="mt-2 space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Subtotal</span>
-                <span>₹120.00</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>Delivery Charges</span>
-                <span>₹21.19</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>Packaging Charges</span>
-                <span>₹16.95</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>GST</span>
-                <span>₹28.46</span>
-              </div>
-              <div className="flex justify-between font-semibold text-md">
-                <span>Grand Total</span>
-                <span>₹186.60</span>
-              </div>
-            </div>
-          </div>
                     <Button
             className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg"
             onClick={() => setIsDeliveryModalOpen(true)}
@@ -970,7 +1021,7 @@ export default function CheckoutPage() {
       <Footer />
 
       {/* Delivery Slot Modal */}
-      {isDeliveryModalOpen && (
+      {/* {isDeliveryModalOpen && (
         <DeliverySlotModal
           onClose={() => setIsDeliveryModalOpen(false)}
           onSelectSlot={(slot) => {
@@ -978,11 +1029,29 @@ export default function CheckoutPage() {
             setIsDeliveryModalOpen(false);
           }}
         />
+      )} */}
+            {isDeliveryModalOpen && (
+        <DeliverySlotModal
+          isOpen={isDeliveryModalOpen}
+          onClose={() => setIsDeliveryModalOpen(false)}
+          onSelectSlot={(slot) => {
+            setDeliverySlot(slot);  // Update the selected delivery slot
+            setIsDeliveryModalOpen(false);  // Close the modal
+          }}
+        />
       )}
       
       {/* Gift Modal */}
-      {isGiftModalOpen && (
+      {/* {isGiftModalOpen && (
         <GiftModal isOpen={isGiftModalOpen} onClose={() => setIsGiftModalOpen(false)} />
+      )} */}
+
+{isGiftModalOpen && (
+        <GiftModal
+          isOpen={isGiftModalOpen}
+          onClose={() => setIsGiftModalOpen(false)}
+          onSave={handleSaveGiftDetails}  // Pass the save handler to the modal
+        />
       )}
 
       {/* Pickup Confirmation Modal */}
