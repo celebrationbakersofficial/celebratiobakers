@@ -585,7 +585,6 @@ const products = [
   { id: 70, name: "Strawberry Cupcake", category: "Strawberry Specials", image: Pastries, price: "₹100" },
   { id: 71, name: "Strawberry Jam", category: "Strawberry Specials", image: Croissants, price: "₹90" }
 ];
-
 export default function ProductPageDashboard() {
   const [cart, setCart] = useState([]);
   const [isSticky, setIsSticky] = useState(false);
@@ -627,43 +626,30 @@ export default function ProductPageDashboard() {
     });
   };
 
-  // const updateQuantity = (id, delta) => {
-  //   setCart((prev) => {
-  //     return prev
-  //       .map((item) =>
-  //         item.id === id
-  //           ? { ...item, quantity: Math.max(1, item.quantity + delta) } // Prevent negative quantity
-  //           : item
-  //       )
-  //       .filter((item) => item.quantity > 0); // Filter out items with zero or less quantity
-  //   });
-  // };
-
   const updateQuantity = (id, change) => {
-  setCart((prevCart) => {
-    const updatedCart = prevCart.map((item) => {
-      if (item.id === id) {
-        const newQuantity = item.quantity + change;
-        if (newQuantity <= 0) {
-          return null; // Remove item if quantity reaches 0 or below
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((item) => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + change;
+          if (newQuantity <= 0) {
+            return null; // Remove item if quantity reaches 0 or below
+          }
+          return { ...item, quantity: newQuantity };
         }
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    }).filter(item => item !== null); // Filter out null values (items with quantity 0 or below)
-    return updatedCart;
-  });
-};
-
+        return item;
+      }).filter(item => item !== null); // Filter out null values (items with quantity 0 or below)
+      return updatedCart;
+    });
+  };
 
   const filteredProducts = products.filter((product) => product.category === selectedCategory);
 
   return (
     <div>
       <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-      <div className="flex bg-gray-100 min-h-screen p-4">
+      <div className="flex flex-col lg:flex-row bg-gray-100 min-h-screen p-4">
         {/* Sidebar */}
-        <aside className="w-1/5 bg-white p-4 shadow rounded-lg">
+        <aside className="w-full lg:w-1/5 bg-white p-4 shadow rounded-lg lg:mb-0 mb-4">
           <h2 className="text-lg font-semibold mb-2">Categories</h2>
           <ul>
             {categories.map((cat, idx) => (
@@ -681,7 +667,7 @@ export default function ProductPageDashboard() {
         {/* Main Content */}
         <main className="flex-1 px-6">
           <h2 className="text-xl font-bold mb-4">{selectedCategory}</h2>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 shadow rounded-lg">
                 <img src={product.image} alt={product.name} className="w-full h-32 object-cover mb-2" />
@@ -699,74 +685,75 @@ export default function ProductPageDashboard() {
         </main>
 
         {/* Cart */}
-<aside className="w-1/4 bg-white p-4 shadow-lg rounded-lg border border-gray-200">
-  <h2 className="text-lg font-semibold mb-4">Your Cart</h2>
-  
-  {cart.length === 0 ? (
-    <p className="text-gray-500">Cart is empty</p>
-  ) : (
-    cart.map((item, idx) => (
-      <div key={idx} className="flex justify-between items-center border-b py-2">
-        <p>{item.name} [{item.quantity}]</p>
-        <div className="flex items-center">
-          {/* Decrease quantity */}
-          <button onClick={() => updateQuantity(item.id, -1)} className="px-3 py-1 border rounded-lg">-</button>
-          <span className="px-3">{item.quantity}</span>
-          {/* Increase quantity */}
-          <button onClick={() => updateQuantity(item.id, 1)} className="px-3 py-1 border rounded-lg">+</button>
-        </div>
-      </div>
-    ))
-  )}
+        <aside className="w-full lg:w-1/4 bg-white p-4 shadow-lg rounded-lg border border-gray-200">
+          <h2 className="text-lg font-semibold mb-4">Your Cart</h2>
 
-  {/* Show Subtotal, GST, and Total only if there's at least one item */}
-  {cart.length > 0 && (
-    <>
-      {/* Calculate Subtotal */}
-      <div className="flex justify-between text-lg font-semibold py-2">
-        <p>Subtotal</p>
-        <p>
-          ₹ {cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0).toFixed(2)}
-        </p>
-      </div>
+          {cart.length === 0 ? (
+            <p className="text-gray-500">Cart is empty</p>
+          ) : (
+            cart.map((item, idx) => (
+              <div key={idx} className="flex justify-between items-center border-b py-2">
+                <p>{item.name} [{item.quantity}]</p>
+                <div className="flex items-center">
+                  {/* Decrease quantity */}
+                  <button onClick={() => updateQuantity(item.id, -1)} className="px-3 py-1 border rounded-lg">-</button>
+                  <span className="px-3">{item.quantity}</span>
+                  {/* Increase quantity */}
+                  <button onClick={() => updateQuantity(item.id, 1)} className="px-3 py-1 border rounded-lg">+</button>
+                </div>
+              </div>
+            ))
+          )}
 
-      {/* Calculate GST (18%) */}
-      <div className="flex justify-between text-lg font-semibold py-2">
-        <p>GST (18%)</p>
-        <p>
-          ₹ {(
-            cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) * 0.18
-          ).toFixed(2)}
-        </p>
-      </div>
+          {/* Show Subtotal, GST, and Total only if there's at least one item */}
+          {cart.length > 0 && (
+            <>
+              {/* Calculate Subtotal */}
+              <div className="flex justify-between text-lg font-semibold py-2">
+                <p>Subtotal</p>
+                <p>
+                  ₹ {cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0).toFixed(2)}
+                </p>
+              </div>
 
-      {/* Calculate Total after GST */}
-      <div className="flex justify-between text-lg font-semibold py-2">
-        <p>Total (with GST)</p>
-        <p>
-          ₹ {(
-            cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
-            1.18 // Adding GST (18%)
-          ).toFixed(2)}
-        </p>
-      </div>
-    </>
-  )}
+              {/* Calculate GST (18%) */}
+              <div className="flex justify-between text-lg font-semibold py-2">
+                <p>GST (18%)</p>
+                <p>
+                  ₹ {(
+                    cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) * 0.18
+                  ).toFixed(2)}
+                </p>
+              </div>
 
-  {/* Checkout button */}
-  {cart.length > 0 && (
-    <button className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg text-lg font-semibold">
-      Checkout ₹ 
-      {(
-        cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
-        1.18 // Total with GST included
-      ).toFixed(2)}
-    </button>
-  )}
-</aside>
+              {/* Calculate Total after GST */}
+              <div className="flex justify-between text-lg font-semibold py-2">
+                <p>Total (with GST)</p>
+                <p>
+                  ₹ {(
+                    cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
+                    1.18 // Adding GST (18%)
+                  ).toFixed(2)}
+                </p>
+              </div>
+            </>
+          )}
+
+          {/* Checkout button */}
+          {cart.length > 0 && (
+            <button className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg text-lg font-semibold">
+              Checkout ₹ 
+              {(
+                cart.reduce((total, item) => total + parseFloat(item.price.replace('₹', '').replace(',', '')) * item.quantity, 0) *
+                1.18 // Total with GST included
+              ).toFixed(2)}
+            </button>
+          )}
+        </aside>
       </div>
       <Footer />
       <ScrollToTopButton />
     </div>
   );
 }
+

@@ -980,16 +980,16 @@ const TheAllProducts = () => {
     // </div>
 <div className="container mx-auto py-12">
   {/* Breadcrumb Navigation */}
-  <nav className="text-gray-600 mb-4 pl-4 md:pl-0"> {/* Added pl-4 for mobile and removed padding on medium screens */}
+  <nav className="text-gray-600 mb-4 pl-4 md:pl-0">
     <Link to="/" className="text-gray-600 hover:text-brown no-underline">Home</Link> &gt;
     <Link to="/products" className="text-gray-600 hover:text-brown no-underline">Products</Link>
     {selectedCategory && ` > ${selectedCategory}`}
   </nav>
 
-  <div className="flex gap-8">
+  <div className="flex flex-col md:flex-row gap-8">
     {/* Sidebar (Hidden initially) */}
     {showFilters && (
-      <div className="w-1/4 border-r pr-6">
+      <div className="w-full md:w-1/4 border-r pr-6 md:pl-4 pl-4 md:block">
         <h2 className="font-bold text-lg mb-4">FILTERS</h2>
         <label className="flex items-center space-x-2 mb-2">
           <input type="checkbox" className="accent-brown" />
@@ -1016,8 +1016,8 @@ const TheAllProducts = () => {
     )}
 
     {/* Product Grid */}
-    <div className={showFilters ? "w-3/4" : "w-full"}>
-      <h1 className="text-4xl font-bold mb-6 pl-4 md:pl-0">{selectedCategory || "All Products"}</h1> {/* Added pl-4 for mobile and removed padding on medium screens */}
+    <div className={showFilters ? "w-full md:w-3/4" : "w-full"}>
+      <h1 className="text-4xl font-bold mb-6 pl-4 md:pl-0">{selectedCategory || "All Products"}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
         {filteredProducts.map((product, index) => (
@@ -1052,7 +1052,6 @@ const TheAllProducts = () => {
     </div>
   </div>
 </div>
-
   );
 };
 
