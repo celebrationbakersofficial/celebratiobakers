@@ -1,6 +1,6 @@
 // // import React, { useState } from "react";
 // // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-// // import { Button } from "../ui/button";
+// // import { button } from "../ui/button";
 // // import { Home } from "lucide-react";
 
 // // export default function GiftModal({ isOpen, onClose }) {
@@ -80,11 +80,11 @@
 // //           </div>
 // //         </div>
 
-// //         {/* Buttons */}
+// //         {/* buttons */}
 // //         <div className="mt-4 flex flex-col">
-// //           <Button className="w-full bg-green-200 text-green-800 font-semibold py-2 rounded-md hover:bg-green-300">
+// //           <button className="w-full bg-green-200 text-green-800 font-semibold py-2 rounded-md hover:bg-green-300">
 // //             Save Details
-// //           </Button>
+// //           </button>
 // //           <button className="mt-2 text-red-600 font-medium hover:underline text-sm">Remove</button>
 // //         </div>
 // //       </DialogContent>
@@ -95,7 +95,7 @@
 
 // import React, { useState, useEffect } from "react";
 // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-// import { Button } from "../ui/button";
+// import { button } from "../ui/button";
 // import { Home, X } from "lucide-react";
 
 // export default function GiftModal({ isOpen, onClose }) {
@@ -197,11 +197,11 @@
 //           </div>
 //         </div>
 
-//         {/* Buttons */}
+//         {/* buttons */}
 //         <div className="mt-4 flex flex-col">
-//           <Button className="w-full bg-green-200 text-green-800 font-semibold py-2 rounded-md hover:bg-green-300">
+//           <button className="w-full bg-green-200 text-green-800 font-semibold py-2 rounded-md hover:bg-green-300">
 //             Save Details
-//           </Button>
+//           </button>
 //           <button className="mt-2 text-red-600 font-medium hover:underline text-sm" onClick={onClose}>
 //             Remove
 //           </button>
@@ -214,7 +214,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Button } from "../ui/Button";
+import { button } from "../ui/button";
 import { Home, X } from "lucide-react";
 
 export default function GiftModal({ isOpen, onClose, onSave }) {
@@ -327,14 +327,14 @@ export default function GiftModal({ isOpen, onClose, onSave }) {
           </div>
         </div>
 
-        {/* Buttons */}
+        {/* buttons */}
         <div className="mt-4 flex flex-col">
-          <Button
+          <button
             className="w-full bg-green-200 text-green-800 font-semibold py-2 rounded-md hover:bg-green-300"
             onClick={handleSave}  // Save the gift details
           >
             Save Details
-          </Button>
+          </button>
           <button className="mt-2 text-red-600 font-medium hover:underline text-sm" onClick={onClose}>
             Remove
           </button>
