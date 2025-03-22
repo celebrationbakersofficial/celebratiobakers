@@ -672,7 +672,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../ui/Button";
 import { Card, CardContent } from "../ui/Card";
 import { motion } from "framer-motion";
 import { Checkbox } from "../ui/checkbox";
@@ -757,7 +757,7 @@ export default function CheckoutPage() {
     handleCloseModal();  // Close the modal after collecting the email
 
     try {
-        const response = await fetch('http://localhost:3000/create-order', {
+        const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1145,6 +1145,7 @@ const handlePayment = async () => {
       address: address,
       giftDetails: giftDetails,
     };
+
   console.log(paymentData)
     try {
       const response = await fetch('http://localhost:3000/create-order', {
