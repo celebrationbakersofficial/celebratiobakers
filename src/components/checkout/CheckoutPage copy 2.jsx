@@ -1,5 +1,5 @@
 // // // import React, { useEffect, useState } from "react";
-// // // import { Button } from "@/components/ui/button";
+// // // import { button } from "@/components/ui/button";
 // // // import { Card, CardContent } from "@/components/ui/card";
 // // // import { Input } from "@/components/ui/input";
 // // // import { Checkbox } from "@/components/ui/checkbox";
@@ -25,8 +25,8 @@
 
 // // //           {/* Delivery Option */}
 // // //           <div className="mt-4 flex justify-between bg-gray-100 p-3 rounded-md">
-// // //             <Button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</Button>
-// // //             <Button className="text-gray-600 px-4 py-2 rounded">Pickup</Button>
+// // //             <button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</button>
+// // //             <button className="text-gray-600 px-4 py-2 rounded">Pickup</button>
 // // //           </div>
 
 // // //           {/* Address Section */}
@@ -37,9 +37,9 @@
 // // //                 {address ? (
 // // //                   <span>{address}</span>
 // // //                 ) : (
-// // //                   <Button variant="outline" onClick={() => setAddress("Home, Example Street")}>
+// // //                   <button variant="outline" onClick={() => setAddress("Home, Example Street")}>
 // // //                     + Add New Address
-// // //                   </Button>
+// // //                   </button>
 // // //                 )}
 // // //               </CardContent>
 // // //             </Card>
@@ -88,10 +88,10 @@
 // // //             </div>
 // // //           </div>
 
-// // //           {/* Place Order Button */}
-// // //           <Button className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg">
+// // //           {/* Place Order button */}
+// // //           <button className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg">
 // // //             Select Delivery Slot
-// // //           </Button>
+// // //           </button>
 // // //         </div>
 // // //       </div>
 // // //       <Footer />
@@ -101,7 +101,7 @@
 
 
 // // // import React, { useEffect, useState } from "react";
-// // // import { Button } from "../ui/button";
+// // // import { button } from "../ui/button";
 // // // import { Card, CardContent } from "../ui/Card";
 // // // import { Checkbox } from "../ui/checkbox";
 // // // import { Select, SelectItem } from "../ui/select";
@@ -147,8 +147,8 @@
 
 // // //           {/* Delivery Option */}
 // // //           <div className="mt-4 flex justify-between bg-gray-100 p-3 rounded-md">
-// // //             <Button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</Button>
-// // //             <Button className="text-gray-600 px-4 py-2 rounded">Pickup</Button>
+// // //             <button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</button>
+// // //             <button className="text-gray-600 px-4 py-2 rounded">Pickup</button>
 // // //           </div>
 
 // // //           {/* Address Section */}
@@ -159,9 +159,9 @@
 // // //                 {address ? (
 // // //                   <span>{address}</span>
 // // //                 ) : (
-// // //                   <Button variant="outline" onClick={() => setAddress("Home, Example Street")}>
+// // //                   <button variant="outline" onClick={() => setAddress("Home, Example Street")}>
 // // //                     + Add New Address
-// // //                   </Button>
+// // //                   </button>
 // // //                 )}
 // // //               </CardContent>
 // // //             </Card>
@@ -210,10 +210,10 @@
 // // //             </div>
 // // //           </div>
 
-// // //           {/* Place Order Button */}
-// // //           <Button className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg">
+// // //           {/* Place Order button */}
+// // //           <button className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg">
 // // //             Select Delivery Slot
-// // //           </Button>
+// // //           </button>
 // // //         </div>
 // // //       </div>
 // // //       <Footer />
@@ -223,7 +223,7 @@
 
 
 // // // import React, { useEffect, useState } from "react";
-// // // import { Button } from "../ui/button";
+// // // import { button } from "../ui/button";
 // // // import { Card, CardContent } from "../ui/Card";
 // // // import { Checkbox } from "../ui/checkbox";
 // // // import { Select, SelectItem } from "../ui/select";
@@ -275,8 +275,8 @@
 
 // // //           {/* Delivery Option */}
 // // //           <div className="mt-4 flex justify-between bg-gray-100 p-3 rounded-md">
-// // //             <Button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</Button>
-// // //             <Button className="text-gray-600 px-4 py-2 rounded">Pickup</Button>
+// // //             <button className="bg-black text-white px-4 py-2 rounded">Delivery (60 Mins)</button>
+// // //             <button className="text-gray-600 px-4 py-2 rounded">Pickup</button>
 // // //           </div>
 
 // // //           {/* Address Section */}
@@ -287,9 +287,9 @@
 // // //                 {address ? (
 // // //                   <span>{address}</span>
 // // //                 ) : (
-// // //                   <Button variant="outline" onClick={() => setAddress("Home, Example Street")}>
+// // //                   <button variant="outline" onClick={() => setAddress("Home, Example Street")}>
 // // //                     + Add New Address
-// // //                   </Button>
+// // //                   </button>
 // // //                 )}
 // // //               </CardContent>
 // // //             </Card>
@@ -345,13 +345,13 @@
 // // //             </div>
 // // //           </div>
 
-// // //           {/* Place Order Button */}
-// // //           <Button
+// // //           {/* Place Order button */}
+// // //           <button
 // // //             className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg"
 // // //             onClick={() => setIsDeliveryModalOpen(true)}
 // // //           >
 // // //             Select Delivery Slot
-// // //           </Button>
+// // //           </button>
 // // //         </div>
 // // //       </div>
 
@@ -380,7 +380,7 @@
 
 
 // // import React, { useEffect, useState } from "react";
-// // import { Button } from "../ui/button";
+// // import { button } from "../ui/button";
 // // import { Card, CardContent } from "../ui/Card";
 // // import { Checkbox } from "../ui/checkbox";
 // // import { Select, SelectItem } from "../ui/select";
@@ -424,18 +424,18 @@
 
 // //           {/* Delivery & Pickup Toggle */}
 // //           <div className="mt-4 flex justify-between bg-gray-100 p-3 rounded-md">
-// //             <Button 
+// //             <button 
 // //               className={`${!isPickup ? "bg-black text-white" : "text-gray-600"} px-4 py-2 rounded`} 
 // //               onClick={() => setIsPickup(false)}
 // //             >
 // //               Delivery (60 Mins)
-// //             </Button>
-// //             <Button 
+// //             </button>
+// //             <button 
 // //               className={`${isPickup ? "bg-black text-white" : "text-gray-600"} px-4 py-2 rounded`} 
 // //               onClick={() => setIsPickup(true)}
 // //             >
 // //               Pickup
-// //             </Button>
+// //             </button>
 // //           </div>
 
 // //           {/* Delivery or Pickup Details */}
@@ -447,7 +447,7 @@
 // //                   {address ? (
 // //                     <span>{address}</span>
 // //                   ) : (
-// //                     <Button variant="outline" onClick={() => setAddress("Home, Example Street")}>+ Add New Address</Button>
+// //                     <button variant="outline" onClick={() => setAddress("Home, Example Street")}>+ Add New Address</button>
 // //                   )}
 // //                 </CardContent>
 // //               </Card>
@@ -516,7 +516,7 @@
 
 
 // import React, { useEffect, useState } from "react";
-// import { Button } from "../ui/button";
+// import { button } from "../ui/button";
 // import { Card, CardContent } from "../ui/Card";
 // import { Checkbox } from "../ui/checkbox";
 // import { Select, SelectItem } from "../ui/select";
@@ -561,18 +561,18 @@
 
 //           {/* Delivery & Pickup Toggle */}
 //           <div className="mt-4 flex justify-between bg-gray-100 p-3 rounded-md">
-//             <Button 
+//             <button 
 //               className={`${!isPickup ? "bg-black text-white" : "text-gray-600"} px-4 py-2 rounded`} 
 //               onClick={() => setIsPickup(false)}
 //             >
 //               Delivery (60 Mins)
-//             </Button>
-//             <Button 
+//             </button>
+//             <button 
 //               className={`${isPickup ? "bg-black text-white" : "text-gray-600"} px-4 py-2 rounded`} 
 //               onClick={() => setIsPickupConfirmModalOpen(true)}
 //             >
 //               Pickup
-//             </Button>
+//             </button>
 //           </div>
 
 //           {/* Delivery or Pickup Details */}
@@ -584,9 +584,9 @@
 //                   {address ? (
 //                     <span>{address}</span>
 //                   ) : (
-//                     <Button variant="outline" onClick={() => setAddress("Home, Example Street")}>
+//                     <button variant="outline" onClick={() => setAddress("Home, Example Street")}>
 //                       + Add New Address
-//                     </Button>
+//                     </button>
 //                   )}
 //                 </CardContent>
 //               </Card>
@@ -657,11 +657,11 @@
 //             <h2 className="text-lg font-semibold">Pickup Order</h2>
 //             <p className="text-gray-600 mt-2">You have to collect the order from Kipps Market Ludhiana</p>
 //             <div className="mt-4 flex justify-end space-x-2">
-//               <Button variant="outline" onClick={() => setIsPickupConfirmModalOpen(false)}>Cancel</Button>
-//               <Button className="bg-green-600 text-white" onClick={() => {
+//               <button variant="outline" onClick={() => setIsPickupConfirmModalOpen(false)}>Cancel</button>
+//               <button className="bg-green-600 text-white" onClick={() => {
 //                 setIsPickup(true);
 //                 setIsPickupConfirmModalOpen(false);
-//               }}>Confirm Pickup</Button>
+//               }}>Confirm Pickup</button>
 //             </div>
 //           </div>
 //         </div>
@@ -672,7 +672,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { button } from "../ui/button";
 import { Card, CardContent } from "../ui/Card";
 import { motion } from "framer-motion";
 import { Checkbox } from "../ui/checkbox";
@@ -828,13 +828,13 @@ export default function CheckoutPage() {
       )}
 
       {/* Always show "Add New Address" button */}
-      <Button
+      <button
         variant="outline"
         className="mt-4"
         onClick={() => setIsAddressModalOpen(true)}
       >
         + Add New Address
-      </Button>
+      </button>
     </CardContent>
   </Card>
 </div>
@@ -893,9 +893,9 @@ export default function CheckoutPage() {
           </div>
           <span className="text-gray-700 font-medium">Want to send this as a gift?</span>
         </div>
-        <Button variant="link" className="text-gray-700" onClick={() => setIsGiftModalOpen(true)}>
+        <button variant="link" className="text-gray-700" onClick={() => setIsGiftModalOpen(true)}>
           Add Details
-        </Button>
+        </button>
       </div>
       <div className="absolute left-0 right-0 bottom-0 h-6 bg-red-300 flex items-center justify-center">
         <div className="w-full h-1 bg-red-500"></div>
@@ -929,12 +929,12 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
-                    <Button
+                    <button
             className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg"
             onClick={() => setIsDeliveryModalOpen(true)}
           >
             Select Delivery Slot
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -960,7 +960,7 @@ export default function CheckoutPage() {
       {isPickupConfirmModalOpen && (
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center">
   <div className="bg-white p-6 rounded-lg shadow-md w-123 text-center relative transform -translate-y-30">
-    {/* Close Button */}
+    {/* Close button */}
     <button 
       className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" 
       onClick={() => setIsPickupConfirmModalOpen(false)}
@@ -982,11 +982,11 @@ export default function CheckoutPage() {
 
     {/* Buttons */}
     <div className="mt-4 flex justify-center space-x-4">
-      <Button variant="outline" onClick={() => setIsPickupConfirmModalOpen(false)} className="px-4 py-2 border border-gray-400 rounded-lg text-gray-700">Cancel</Button>
-      <Button className="px-4 py-2 bg-green-300 text-gray-800 rounded-lg" onClick={() => {
+      <button variant="outline" onClick={() => setIsPickupConfirmModalOpen(false)} className="px-4 py-2 border border-gray-400 rounded-lg text-gray-700">Cancel</button>
+      <button className="px-4 py-2 bg-green-300 text-gray-800 rounded-lg" onClick={() => {
         setIsPickup(true);
         setIsPickupConfirmModalOpen(false);
-      }}>Confirm Pickup</Button>
+      }}>Confirm Pickup</button>
     </div>
   </div>
 </div>
@@ -1010,11 +1010,11 @@ export default function CheckoutPage() {
         You have to collect the order from Kipps Market Ludhiana
       </p>
       <div className="mt-4 flex justify-center space-x-2">
-      <Button variant="outline" onClick={() => setIsDeliveryConfirmModalOpen(false)} className="px-4 py-2 border border-gray-400 rounded-lg text-gray-700">Cancel</Button>
-              <Button className="px-4 py-2 bg-green-300 text-gray-800 rounded-lg" onClick={() => {
+      <button variant="outline" onClick={() => setIsDeliveryConfirmModalOpen(false)} className="px-4 py-2 border border-gray-400 rounded-lg text-gray-700">Cancel</button>
+              <button className="px-4 py-2 bg-green-300 text-gray-800 rounded-lg" onClick={() => {
                 setIsPickup(false);
                 setIsDeliveryConfirmModalOpen(false);
-              }}>Confirm Delivery</Button>
+              }}>Confirm Delivery</button>
       </div>
     </div>
   </div>
@@ -1037,7 +1037,7 @@ export default function CheckoutPage() {
               value={newAddress}
               onChange={(e) => setNewAddress(e.target.value)}
             />
-            <Button
+            <button
               className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
               onClick={() => {
                 setAddress(newAddress);
@@ -1045,7 +1045,7 @@ export default function CheckoutPage() {
               }}
             >
               Save Address
-            </Button>
+            </button>
           </div>
         </div>
       )} */}
@@ -1085,12 +1085,12 @@ export default function CheckoutPage() {
               value={newAddress}
               onChange={(e) => setNewAddress(e.target.value)} // Track address input
             />
-            <Button
+            <button
               className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
               onClick={handleSaveAddress} // Save address when clicked
             >
               Save Address
-            </Button>
+            </button>
           </div>
         </div>
       )}

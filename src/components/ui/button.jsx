@@ -1,4 +1,4 @@
-function Button({ children, onClick, className }) {
+function button({ children, onClick, className }) {
     return (
       <button 
         onClick={onClick} 
@@ -9,4 +9,4 @@ function Button({ children, onClick, className }) {
     );
   }
   
-  export { Button };  
+  export { button };  

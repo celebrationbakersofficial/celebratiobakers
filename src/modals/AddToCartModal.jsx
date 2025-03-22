@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog, DialogContent } from "../components/ui/dialog";
-import { Button } from "../components/ui/Button";
+import { button } from "../components/ui/button";
 import { X } from "lucide-react";
 
 export default function AddToCartModal({ isOpen, onClose, product, addToCart }) {
@@ -13,7 +13,7 @@ export default function AddToCartModal({ isOpen, onClose, product, addToCart }) 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-lg w-full p-6 rounded-2xl shadow-xl bg-white relative">
-        {/* Close Button */}
+        {/* Close button */}
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
           <X size={24} />
         </button>
@@ -28,13 +28,13 @@ export default function AddToCartModal({ isOpen, onClose, product, addToCart }) 
         {/* Quantity & Actions */}
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex items-center justify-center space-x-4">
-            <Button variant="outline" onClick={() => handleQuantityChange(-1)}>-</Button>
+            <button variant="outline" onClick={() => handleQuantityChange(-1)}>-</button>
             <span className="text-lg font-medium">{quantity}</span>
-            <Button variant="outline" onClick={() => handleQuantityChange(1)}>+</Button>
+            <button variant="outline" onClick={() => handleQuantityChange(1)}>+</button>
           </div>
-          <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg" onClick={() => addToCart(product, quantity)}>
+          <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg" onClick={() => addToCart(product, quantity)}>
             Add to Cart
-          </Button>
+          </button>
         </div>
       </DialogContent>
     </Dialog>

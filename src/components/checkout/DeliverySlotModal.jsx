@@ -1,5 +1,5 @@
 // // // import React, { useState } from "react";
-// // // import { Button } from "../ui/button";
+// // // import { button } from "../ui/button";
 // // // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 // // // import { CalendarClock, Bike, X } from "lucide-react";
 
@@ -125,10 +125,10 @@
 // // //           )}
 // // //         </div>
 
-// // //         {/* Update Slot Button */}
-// // //         <Button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
+// // //         {/* Update Slot button */}
+// // //         <button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
 // // //           Update Slot
-// // //         </Button>
+// // //         </button>
 // // //       </DialogContent>
 // // //     </Dialog>
 // // //   );
@@ -136,7 +136,7 @@
 
 
 // // import React, { useState, useEffect } from "react";
-// // import { Button } from "../ui/button";
+// // import { button } from "../ui/button";
 // // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 // // import { CalendarClock, Bike, X } from "lucide-react";
 
@@ -275,10 +275,10 @@
 // //           )}
 // //         </div>
 
-// //         {/* Update Slot Button */}
-// //         <Button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
+// //         {/* Update Slot button */}
+// //         <button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
 // //           Update Slot
-// //         </Button>
+// //         </button>
 // //       </DialogContent>
 // //     </Dialog>
 // //   );
@@ -287,7 +287,7 @@
 
 
 // import React, { useState, useEffect } from "react";
-// import { Button } from "../ui/button";
+// import { button } from "../ui/button";
 // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 // import { CalendarClock, Bike, X } from "lucide-react";
 
@@ -431,10 +431,10 @@
 //           )}
 //         </div>
 
-//         {/* Update Slot Button */}
-//         <Button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
+//         {/* Update Slot button */}
+//         <button className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md" onClick={onClose}>
 //           Update Slot
-//         </Button>
+//         </button>
 //       </DialogContent>
 //     </Dialog>
 //   );
@@ -442,7 +442,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { Button } from "../ui/Button";
+import { button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { CalendarClock, Bike, X } from "lucide-react";
 
@@ -595,7 +595,7 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
           )}
         </div>
 
-        {/* Update Slot Button */}
+        {/* Update Slot button */}
         <button
           className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md"
           onClick={handleUpdateSlot}  // Call the updated function to set the slot

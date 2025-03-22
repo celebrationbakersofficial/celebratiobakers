@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function AddressModal({ isOpen, onClose, onSave }) {
@@ -20,10 +20,10 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
         <h2 className="text-lg font-semibold mb-4">Enter Complete Address</h2>
         
         <div className="flex gap-2 mb-4">
-          <Button variant="outline">Home</Button>
-          <Button variant="outline">Office</Button>
-          <Button variant="outline">Hotel</Button>
-          <Button variant="outline">Other</Button>
+          <button variant="outline">Home</button>
+          <button variant="outline">Office</button>
+          <button variant="outline">Hotel</button>
+          <button variant="outline">Other</button>
         </div>
         
         <input
@@ -55,7 +55,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <Button
+        <button
           className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
           onClick={() => {
             onSave({ address, landmark, phone, email });
@@ -63,7 +63,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
           }}
         >
           Save Address
-        </Button>
+        </button>
       </div>
     </div>
   );

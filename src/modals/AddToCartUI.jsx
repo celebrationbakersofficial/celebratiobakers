@@ -16,7 +16,7 @@ export default function AddToCartUI() {
 
   return (
     <div className="relative">
-      {/* Order Online Button */}
+      {/* Order Online button */}
       <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white p-2 rounded">
         Order Online
       </button>
