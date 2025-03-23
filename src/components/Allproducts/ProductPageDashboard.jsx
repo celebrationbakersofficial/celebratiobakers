@@ -643,6 +643,7 @@ import CakeImage52 from "./Chocolate cake.jpg";
 // dynamic
 const categories = [
   "Cakes"
+  ,"pastry"
 ];
 const products = [
   // Cakes (Reversed order)
@@ -655,19 +656,19 @@ const products = [
   { id: 7, name: "Choco cupcake", category: "Cakes", price: "₹30", image: CakeImage7 },
   { id: 8, name: "Brownie with Icecream", category: "Cakes", price: "₹150", image: CakeImage8 },
   { id: 9, name: "Hot chocolate brownie", category: "Cakes", price: "₹120", image: CakeImage9 },
-  { id: 10, name: "Truffle pastry", category: "Cakes", price: "₹80", image: CakeImage10 },
-  { id: 11, name: "Mango pastry", category: "Cakes", price: "₹60", image: CakeImage11 },
-  { id: 12, name: "Kitkat pastry", category: "Cakes", price: "₹80", image: CakeImage12 },
-  { id: 13, name: "Oreo pastry", category: "Cakes", price: "₹80", image: CakeImage13 },
-  { id: 14, name: "Blackcurrant pastry", category: "Cakes", price: "₹100", image: CakeImage14 },
-  { id: 15, name: "Blueberry pastry", category: "Cakes", price: "₹90", image: CakeImage15 },
-  { id: 16, name: "Redvelvet pastry", category: "Cakes", price: "₹100", image: CakeImage16 },
-  { id: 17, name: "Whiteforest pastry", category: "Cakes", price: "₹60", image: CakeImage17 },
-  { id: 18, name: "Butterscotch pastry", category: "Cakes", price: "₹60", image: CakeImage18 },
-  { id: 19, name: "Strawberry pastry", category: "Cakes", price: "₹40", image: CakeImage19 },
-  { id: 20, name: "Pineapple pastry", category: "Cakes", price: "₹40", image: CakeImage20 },
-  { id: 21, name: "Blackforeat pastry", category: "Cakes", price: "₹50", image: CakeImage21 },
-  { id: 22, name: "Chocolate pastry (1 piece)", category: "Cakes", price: "₹60", image: CakeImage22 },
+  { id: 10, name: "Truffle pastry", category: "pastry", price: "₹80", image: CakeImage10 },
+  { id: 11, name: "Mango pastry", category: "pastry", price: "₹60", image: CakeImage11 },
+  { id: 12, name: "Kitkat pastry", category: "pastry", price: "₹80", image: CakeImage12 },
+  { id: 13, name: "Oreo pastry", category: "pastry", price: "₹80", image: CakeImage13 },
+  { id: 14, name: "Blackcurrant pastry", category: "pastry", price: "₹100", image: CakeImage14 },
+  { id: 15, name: "Blueberry pastry", category: "pastry", price: "₹90", image: CakeImage15 },
+  { id: 16, name: "Redvelvet pastry", category: "pastry", price: "₹100", image: CakeImage16 },
+  { id: 17, name: "Whiteforest pastry", category: "pastry", price: "₹60", image: CakeImage17 },
+  { id: 18, name: "Butterscotch pastry", category: "pastry", price: "₹60", image: CakeImage18 },
+  { id: 19, name: "Strawberry pastry", category: "pastry", price: "₹40", image: CakeImage19 },
+  { id: 20, name: "Pineapple pastry", category: "pastry", price: "₹40", image: CakeImage20 },
+  { id: 21, name: "Blackforeat pastry", category: "pastry", price: "₹50", image: CakeImage21 },
+  { id: 22, name: "Chocolate pastry (1 piece)", category: "pastry", price: "₹60", image: CakeImage22 },
   { id: 23, name: "Coffee cake (1 kg)", category: "Cakes", price: "₹800", image: CakeImage23 },
   { id: 24, name: "Coffee cake (1/2 kg)", category: "Cakes", price: "₹500", image: CakeImage24 },
   { id: 25, name: "Redvelevet cake (1 kg)", category: "Cakes", price: "₹850", image: CakeImage25 },
