@@ -7,6 +7,8 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const cors = require('cors');
 const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -52,13 +54,55 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
     message: String,
   },
 }));
-// Define a new Logo schema and model
+
+// Set up multer to store images in memory as buffers
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+// Logo Schema to store the image
 const logoSchema = new mongoose.Schema({
-  imageUrl: { type: String, required: true },  // URL of the logo image (can be stored in the public folder or external storage)
-  created_at: { type: Date, default: Date.now }
-});
+  image: { type: Buffer, required: true },  // Store image as a Buffer
+  contentType: { type: String, required: true },  // Content type (e.g., image/png)
+}, { timestamps: true });
 
 const Logo = mongoose.model("Logo", logoSchema);
+
+// Function to save the logo to MongoDB (this will run automatically on server start)
+const saveLogoToDB = async () => {
+  try {
+    // Define the path to the image
+    const imagePath = path.join(__dirname, 'public', 'images', 'logos.png');
+    
+    // Check if the file exists
+    if (!fs.existsSync(imagePath)) {
+      console.log('Image file not found!');
+      return;
+    }
+
+    // Read the image as a Buffer
+    const imageBuffer = fs.readFileSync(imagePath);
+    const contentType = 'image/png';  // Set the appropriate content type (e.g., image/png)
+
+    // Check if the logo already exists in the database
+    const existingLogo = await Logo.findOne();
+    if (existingLogo) {
+      console.log('Logo already exists in the database!');
+      return;
+    }
+
+    // Save the logo to MongoDB
+    const newLogo = new Logo({
+      image: imageBuffer,  // Store the image as a Buffer
+      contentType: contentType,  // Store the content type
+    });
+
+    await newLogo.save();
+    console.log('Logo saved to MongoDB successfully!');
+  } catch (err) {
+    console.error('Error saving logo:', err);
+  }
+};
+
+
 // Function to insert logo into the database (without a route)
 async function addLogoToDatabase() {
   try {
@@ -106,9 +150,16 @@ app.post("/create-order", async (req, res) => {
         giftDetails: giftDetails, // Store gift details
       });
       await payment.save();
+    // Retrieve the logo from the database
+    const logo = await Logo.findOne();  // Assuming only one logo in the database
 
-      const logo = await Logo.findOne();
-      const logoUrl = logo ? logo.imageUrl : '';  // Default to an empty string if no logo is found
+    if (!logo) {
+      return res.status(404).send("Logo not found in the database.");
+    }
+
+    // Convert the image buffer to a base64 string
+    const logoBase64 = logo.image.toString('base64');
+    const logoContentType = logo.contentType;
   
       const generateAddressSection = (addressObj, addressType) => {
         const fields = [];
@@ -136,7 +187,7 @@ app.post("/create-order", async (req, res) => {
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
       <div style="text-align: center; padding-bottom: 20px;">
         <!-- Rounded Logo -->
-<img src="https://celebrationbakers.onrender.com${logoUrl}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+<img src="data:${logoContentType};base64,${logoBase64}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
       </div>
       
       <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
@@ -160,7 +211,7 @@ app.post("/create-order", async (req, res) => {
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
       
       <div style="margin-top: 20px; text-align: center;">
-        <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 10%; border-radius: 8px;">
+        <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 10%; border-radius: 35%;">
       </div>
       
       <div style="margin-top: 20px; text-align: center;">
@@ -198,7 +249,7 @@ const customerEmailContent = `
         <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
           <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div style="text-align: center; padding-bottom: 20px;">
-            <img src="https://celebrationbakers.onrender.com${logoUrl}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+            <img src="data:${logoContentType};base64,${logoBase64}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
             </div>
             
             <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
@@ -218,14 +269,6 @@ const customerEmailContent = `
             <h3 style="color: #333;">Gift Details</h3>
             <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
             <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-            
-            <div style="margin-top: 20px; text-align: center;">
-              <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 10%; border-radius: 8px;">
-            </div>
-            
-            <div style="margin-top: 20px; text-align: center;">
-              <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
-            </div>
             
             <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
               <p>&copy; 2025 celeberationbakers. All rights reserved.</p>
