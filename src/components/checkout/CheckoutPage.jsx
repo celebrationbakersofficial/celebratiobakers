@@ -720,6 +720,7 @@ export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState('');
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -731,11 +732,13 @@ export default function CheckoutPage() {
   useEffect(() => {
     const storedName = localStorage.getItem("name");
     const storedEmail = localStorage.getItem("email");
+    const storedMobile = localStorage.getItem("mobile");
 
     if (storedName && storedEmail) {
       setName(storedName);
       setEmail(storedEmail);
-      setModalOpen(false); // Close the modal if name and email are found in localStorage
+      setMobileNumber(storedMobile);
+      setModalOpen(false);
     }
   }, []);
   
@@ -744,9 +747,17 @@ export default function CheckoutPage() {
       setError("Please provide a valid email address.");
       return;
     }
+
+      // Validate name and mobile number
+  if (!name || !mobileNumber) {
+    setError("Please provide a valid name and mobile number.");
+    return;
+  }
+  
     // Store name and email in localStorage
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
+    localStorage.setItem("mobile", mobileNumber);
     // Proceed with payment logic
     handleProceedWithPayment(email);
   };
@@ -1128,24 +1139,30 @@ export default function CheckoutPage() {
 //   };
   
 const handlePayment = async () => {
-    // Ensure name and email are provided before proceeding
-    if (!name || !email || !/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid name and email address.");
-      setModalOpen(true);
-      return; // Don't proceed if name or email is invalid
-    }
+    // // Ensure name and email are provided before proceeding
+    // if (!name || !email || !/\S+@\S+\.\S+/.test(email)) {
+    //   setError("Please enter a valid name and email address.");
+    //   setModalOpen(true);
+    //   return; // Don't proceed if name or email is invalid
+    // }
+        // Ensure name, email, and mobile number are provided before proceeding
+        if (!name || !email || !mobileNumber || !/\S+@\S+\.\S+/.test(email)) {
+          setError("Please enter a valid name, email address, and mobile number.");
+          setModalOpen(true);
+          return; // Don't proceed if name, email, or mobile number is invalid
+        }
     const amountInPaise = totalAmount; // totalAmount should be in INR
-
     // Gather all details for the payment
     const paymentData = {
       amount: amountInPaise, // Razorpay works with paise, so multiply by 100
       email: email,
       name: name,
+      mobile: mobileNumber,
       address: address,
       giftDetails: giftDetails,
     };
 
-  console.log(paymentData)
+  console.log("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]",paymentData)
     try {
       const response = await fetch('http://localhost:3000/create-order', {
         method: 'POST',
@@ -1742,7 +1759,13 @@ const handlePayment = async () => {
         className="border p-2 w-full rounded mb-4"
         placeholder="Enter your email address"
       />
-      
+            <input
+        type="text"
+        value={mobileNumber}
+        onChange={(e) => setMobileNumber(e.target.value)}
+        className="border p-2 w-full rounded mb-4"
+        placeholder="Enter your mobile number"
+      />
       {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
 
       <div className="flex justify-end">
