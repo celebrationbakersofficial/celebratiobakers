@@ -58,14 +58,13 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
 // Set up multer to store images in memory as buffers
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-// Logo Schema to store the image
+// Define the Logo schema with image as Buffer and contentType
 const logoSchema = new mongoose.Schema({
   image: { type: Buffer, required: true },  // Store image as a Buffer
   contentType: { type: String, required: true },  // Content type (e.g., image/png)
 }, { timestamps: true });
 
 const Logo = mongoose.model("Logo", logoSchema);
-
 // Function to save the logo to MongoDB (this will run automatically on server start)
 const saveLogoToDB = async () => {
   try {
@@ -106,8 +105,12 @@ const saveLogoToDB = async () => {
 // Function to insert logo into the database (without a route)
 async function addLogoToDatabase() {
   try {
+    const logoPath = path.join(__dirname, 'public', 'images', 'logos.png'); // Path to the logo file
+    const logoBuffer = fs.readFileSync(logoPath); // Read image file as a buffer
+
     const logo = new Logo({
-      imageUrl: "/images/logo.png", // Path relative to the public folder
+      image: logoBuffer,  // Store image as a Buffer
+      contentType: 'image/png',  // You can modify this based on your image type
     });
 
     await logo.save();
@@ -118,7 +121,7 @@ async function addLogoToDatabase() {
 }
 
 // Call the function once when the app starts to insert the logo
-addLogoToDatabase();
+addLogoToDatabase();  // Make sure this is called when the app starts
 
 app.post("/create-order", async (req, res) => {
   try {
@@ -150,16 +153,16 @@ app.post("/create-order", async (req, res) => {
         giftDetails: giftDetails, // Store gift details
       });
       await payment.save();
-    // Retrieve the logo from the database
-    const logo = await Logo.findOne();  // Assuming only one logo in the database
+      const logo = await Logo.findOne();  // Assuming only one logo in the database
 
-    if (!logo) {
-      return res.status(404).send("Logo not found in the database.");
-    }
-
-    // Convert the image buffer to a base64 string
-    const logoBase64 = logo.image.toString('base64');
-    const logoContentType = logo.contentType;
+      // Check if the logo exists
+      if (!logo) {
+        return res.status(404).send("Logo not found in the database.");
+      }
+  
+      // Convert the image buffer to a base64 string
+      const logoBase64 = logo.image.toString('base64');
+      const logoContentType = logo.contentType;
   
       const generateAddressSection = (addressObj, addressType) => {
         const fields = [];
