@@ -782,7 +782,7 @@ export default function CheckoutPage() {
     handleCloseModal();  // Close the modal after collecting the email
 
     try {
-        const response = await fetch('http://localhost:3000/create-order', {
+        const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
