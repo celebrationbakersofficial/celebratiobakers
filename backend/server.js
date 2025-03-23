@@ -59,19 +59,22 @@ const logoSchema = new mongoose.Schema({
 });
 
 const Logo = mongoose.model("Logo", logoSchema);
-// Insert the logo into the database (one-time setup)
-app.post("/add-logo", async (req, res) => {
+// Function to insert logo into the database (without a route)
+async function addLogoToDatabase() {
   try {
     const logo = new Logo({
-      imageUrl: "/images/logo.png"  // Path relative to the public folder
+      imageUrl: "/images/logo.png", // Path relative to the public folder
     });
 
     await logo.save();
-    res.status(200).json({ message: "Logo saved successfully!" });
+    console.log("Logo saved successfully!");
   } catch (err) {
-    res.status(500).json({ message: "Error saving logo", error: err });
+    console.error("Error saving logo", err);
   }
-});
+}
+
+// Call the function once when the app starts to insert the logo
+addLogoToDatabase();
 
 app.post("/create-order", async (req, res) => {
   try {
