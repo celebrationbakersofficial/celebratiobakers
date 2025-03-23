@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 // MongoDB connection
 const { MONGDB_URI } = process.env;
-mongoose.connect(MONGDB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGDB_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.log(err));
 
