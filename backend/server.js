@@ -102,26 +102,26 @@ const saveLogoToDB = async () => {
 };
 
 
-// Function to insert logo into the database (without a route)
-async function addLogoToDatabase() {
-  try {
-    const logoPath = path.join(__dirname, 'public', 'images', 'logos.png'); // Path to the logo file
-    const logoBuffer = fs.readFileSync(logoPath); // Read image file as a buffer
+// // Function to insert logo into the database (without a route)
+// async function addLogoToDatabase() {
+//   try {
+//     const logoPath = path.join(__dirname, 'public', 'images', 'logos.png'); // Path to the logo file
+//     const logoBuffer = fs.readFileSync(logoPath); // Read image file as a buffer
 
-    const logo = new Logo({
-      image: logoBuffer,  // Store image as a Buffer
-      contentType: 'image/png',  // You can modify this based on your image type
-    });
+//     const logo = new Logo({
+//       image: logoBuffer,  // Store image as a Buffer
+//       contentType: 'image/png',  // You can modify this based on your image type
+//     });
 
-    await logo.save();
-    console.log("Logo saved successfully!");
-  } catch (err) {
-    console.error("Error saving logo", err);
-  }
-}
+//     await logo.save();
+//     console.log("Logo saved successfully!");
+//   } catch (err) {
+//     console.error("Error saving logo", err);
+//   }
+// }
 
-// Call the function once when the app starts to insert the logo
-addLogoToDatabase();  // Make sure this is called when the app starts
+// // Call the function once when the app starts to insert the logo
+// addLogoToDatabase();  // Make sure this is called when the app starts
 
 app.post("/create-order", async (req, res) => {
   try {
