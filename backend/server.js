@@ -157,7 +157,7 @@ app.post("/create-order", async (req, res) => {
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
       
       <div style="margin-top: 20px; text-align: center;">
-        <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 100%; border-radius: 8px;">
+        <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 10%; border-radius: 8px;">
       </div>
       
       <div style="margin-top: 20px; text-align: center;">
