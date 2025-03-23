@@ -56,6 +56,26 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
     message: String,
   },
 }));
+// Define a new Logo schema and model
+const logoSchema = new mongoose.Schema({
+  imageUrl: { type: String, required: true },  // URL of the logo image (can be stored in the public folder or external storage)
+  created_at: { type: Date, default: Date.now }
+});
+
+const Logo = mongoose.model("Logo", logoSchema);
+// Insert the logo into the database (one-time setup)
+app.post("/add-logo", async (req, res) => {
+  try {
+    const logo = new Logo({
+      imageUrl: "/images/logo.png"  // Path relative to the public folder
+    });
+
+    await logo.save();
+    res.status(200).json({ message: "Logo saved successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: "Error saving logo", error: err });
+  }
+});
 
 app.post("/create-order", async (req, res) => {
   try {
@@ -88,6 +108,9 @@ app.post("/create-order", async (req, res) => {
       });
       await payment.save();
 
+      const logo = await Logo.findOne();
+      const logoUrl = logo ? logo.imageUrl : '';  // Default to an empty string if no logo is found
+  
       const generateAddressSection = (addressObj, addressType) => {
         const fields = [];
         
@@ -114,7 +137,7 @@ app.post("/create-order", async (req, res) => {
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
       <div style="text-align: center; padding-bottom: 20px;">
         <!-- Rounded Logo -->
-<img src="http://localhost:3000/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+<img src="https://celebrationbakers.onrender.com${logoUrl}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
       </div>
       
       <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
@@ -176,7 +199,7 @@ const customerEmailContent = `
         <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
           <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div style="text-align: center; padding-bottom: 20px;">
-            <img src="https://celebrationbakers.onrender.com/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+            <img src="https://celebrationbakers.onrender.com${logoUrl}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
             </div>
             
             <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
