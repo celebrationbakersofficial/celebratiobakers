@@ -1167,6 +1167,21 @@ const handlePayment = async () => {
           return; // Don't proceed if name, email, or mobile number is invalid
         }
 
+        // Ensure a delivery slot is selected
+if (!deliverySlot) {
+  // Show error message using Toastify
+  Toastify({
+    text: "Please select a delivery slot before proceeding.",
+    duration: 3000,
+    gravity: 'top', // Position of the toast
+    position: 'center', // Center alignment
+    backgroundColor: 'linear-gradient(to right, #ff0000, #ff6347)', // Red for error
+  }).showToast();
+
+  return; // Don't proceed if no delivery slot is selected
+}
+
+
  // Check if any address (Home, Office, Hotel, Other) is complete
  const isAddressComplete = (addressType) => {
   return addressType && addressType.house && addressType.landmark && addressType.phone && addressType.email && addressType.locality;
@@ -1205,7 +1220,7 @@ if (
 
   console.log("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]",paymentData)
     try {
-      const response = await fetch('http://localhost:3000/create-order', {
+      const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1629,11 +1644,20 @@ if (
       </div>
 
       <div className="mt-4">
-        <button className="w-full py-2 bg-green-500 text-white rounded-lg text-lg font-semibold"
-        onClick={handlePayment}
-        >
-          Proceed to Payment
-        </button>
+      <button
+    className="w-full py-2 bg-green-500 text-white rounded-lg text-lg font-semibold 
+      transition-all duration-300 ease-in-out
+      focus:outline-none transform active:scale-90"
+    onClick={(e) => {
+      // Triggering the animation effect on click
+      const button = e.target;
+      button.classList.add("clicked");
+      setTimeout(() => button.classList.remove("clicked"), 500); // Removing class after animation completes
+      handlePayment();
+    }}
+  >
+    Proceed to Payment
+  </button>
       </div>
     </div>
                     {/* <button

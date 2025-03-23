@@ -239,6 +239,7 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
       className={`navbar ${menuOpen ? "open" : ""} ${isSticky ? "sticky top-0 bg-white shadow-lg z-10 transition-all duration-300" : "bg-transparent"} transition-all duration-300`}
     >
       <div className="logo"><Link to="/" onClick={scrollToTop}>celeberationbakers</Link></div>
+      {/* <img src="https://i.imgur.com/ll4hIXN.png"/> */}
         {/* Conditionally render logo only when menu is open */}
       {/* Navbar Links */}
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
