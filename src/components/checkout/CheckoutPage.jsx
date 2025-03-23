@@ -721,7 +721,22 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [mobileNumber, setMobileNumber] = useState('');
-
+  const handleAddAddress = () => {
+    if (Object.keys(address).length >= 3) {
+      Toastify({
+        text: "Only 3 address types (Home, Office, and Hotel) are allowed.",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff6347, #ff7f50)", // Red for error
+      }).showToast();
+      return;
+    }
+  
+    // Proceed to add the new address
+    setIsAddressModalOpen(true);
+  };
+  
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -1151,6 +1166,32 @@ const handlePayment = async () => {
           setModalOpen(true);
           return; // Don't proceed if name, email, or mobile number is invalid
         }
+
+ // Check if any address (Home, Office, Hotel, Other) is complete
+ const isAddressComplete = (addressType) => {
+  return addressType && addressType.house && addressType.landmark && addressType.phone && addressType.email && addressType.locality;
+};
+
+// Ensure at least one address is complete
+if (
+  !(
+    isAddressComplete(address.Home) ||
+    isAddressComplete(address.Office) ||
+    isAddressComplete(address.Hotel) ||
+    isAddressComplete(address.Other)
+  )
+) {
+  Toastify({
+    text: "Please fill in your complete address before proceeding with payment.",
+    duration: 3000,
+    gravity: 'top', // Position of the toast
+    position: 'center', // Center alignment
+    backgroundColor: 'linear-gradient(to right, #ff0000, #ff6347)', // Red for error
+  }).showToast();
+  return; // Don't proceed if no address is valid
+}
+
+
     const amountInPaise = totalAmount; // totalAmount should be in INR
     // Gather all details for the payment
     const paymentData = {
@@ -1204,8 +1245,8 @@ const handlePayment = async () => {
             }).then((verifyResponse) => {
                                                                 // Show success message using Toastify
                                                                 Toastify({
-                                                                    text: `Payment Successful! Payment ID: ${response.razorpay_payment_id} your order will be delievered within your slot `,
-                                                                    duration: 3000,
+                                                                    text: `Payment Successful! Payment ID: ${response.razorpay_payment_id} your order will be delievered within your slot check your email for more details `,
+                                                                    duration: 6000,
                                                                     gravity: 'top', // Position of the toast
                                                                     position: 'center', // Center alignment
                                                                     backgroundColor: 'linear-gradient(to right, #4caf50, #81c784)', // Green for success
@@ -1250,30 +1291,82 @@ const handlePayment = async () => {
     setDeliverySlot(slot);
     setIsDeliveryModalOpen(false); // close modal after selection
   };
-  const handleSaveAddress = () => {
-    if (addressType && newAddress.house && newAddress.landmark && newAddress.phone && newAddress.email && newAddress.locality) {
-      console.log("Saving address...");
+  // const handleSaveAddress = () => {
+  //   if (addressType && newAddress.house && newAddress.landmark && newAddress.phone && newAddress.email && newAddress.locality) {
+  //     console.log("Saving address...");
       
+  //     if (isEditing) {
+  //       // Update the existing address
+  //       setAddress((prevState) => ({
+  //         ...prevState,
+  //         [addressType]: newAddress,
+  //       }));
+  //       console.log("Updated Address: ", { ...address, [addressType]: newAddress });
+  //     } else {
+  //       // Add new address
+  //       setAddress({
+  //         ...address,
+  //         [addressType]: newAddress,
+  //       });
+  //       console.log("Added New Address: ", { ...address, [addressType]: newAddress });
+  //     }
+  
+  //     // Close the modal and reset form
+  //     setIsAddressModalOpen(false);
+  //     setIsEditing(false); // Reset editing flag
+  //     setNewAddress({ house: "", landmark: "", phone: "", email: "", locality: "" });
+  //     setAddressType("Home"); // Reset address type selection
+  //   } else {
+  //     console.log("Error: Address details are missing.");
+  //   }
+  // };
+  
+  // const handleEditAddress = (type) => {
+  //   const addr = address[type];
+  //   if (addr) {
+  //     setNewAddress(addr);
+  //     setAddressType(type); // Set the address type to the one being edited
+  //     setIsEditing(true); // Enable editing mode
+  //     setIsAddressModalOpen(true); // Open the modal for editing
+  //   }
+  // };
+
+
+  const handleSaveAddress = () => {
+    if (
+      newAddress.house &&
+      newAddress.landmark &&
+      newAddress.phone &&
+      newAddress.email &&
+      newAddress.locality
+    ) {
+      console.log("Saving address...");
+  
       if (isEditing) {
-        // Update the existing address
-        setAddress((prevState) => ({
-          ...prevState,
-          [addressType]: newAddress,
-        }));
-        console.log("Updated Address: ", { ...address, [addressType]: newAddress });
-      } else {
-        // Add new address
-        setAddress({
-          ...address,
-          [addressType]: newAddress,
+        // Update the existing address in the state
+        setAddress((prevState) => {
+          const updatedAddress = { ...prevState };
+          updatedAddress[addressType] = newAddress; // Update the specific address type
+          return updatedAddress;
         });
-        console.log("Added New Address: ", { ...address, [addressType]: newAddress });
+  
+        console.log("Updated Address: ", address); // Ensure you're logging the updated address correctly
+  
+      } else {
+        // Add new address if we're not editing
+        setAddress((prevState) => {
+          const updatedAddress = { ...prevState };
+          updatedAddress[addressType] = newAddress; // Add the new address
+          return updatedAddress;
+        });
+  
+        console.log("Added New Address: ", address);
       }
   
-      // Close the modal and reset form
+      // Close the modal and reset the form
       setIsAddressModalOpen(false);
       setIsEditing(false); // Reset editing flag
-      setNewAddress({ house: "", landmark: "", phone: "", email: "", locality: "" });
+      setNewAddress({ house: "", landmark: "", phone: "", email: "", locality: "" }); // Reset new address fields
       setAddressType("Home"); // Reset address type selection
     } else {
       console.log("Error: Address details are missing.");
@@ -1283,12 +1376,13 @@ const handlePayment = async () => {
   const handleEditAddress = (type) => {
     const addr = address[type];
     if (addr) {
-      setNewAddress(addr);
+      setNewAddress(addr); // Set the current address details in the form
       setAddressType(type); // Set the address type to the one being edited
       setIsEditing(true); // Enable editing mode
       setIsAddressModalOpen(true); // Open the modal for editing
     }
   };
+  
   
   const handleRemoveAddress = (type) => {
     setAddress((prevState) => {
@@ -1351,66 +1445,80 @@ const handlePayment = async () => {
 
           {/* Delivery or Pickup Details */}
           {!isPickup ? (
-  <div className="mt-4 border p-4 rounded-md">
-    <h3 className="font-medium text-md">Delivery Address</h3>
-    
-    <div className="flex gap-4 mt-3">
-      {/* Add New Address button */}
-      <button
-        className="border-2 border-dashed border-gray-400 p-6 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100"
-        onClick={() => setIsAddressModalOpen(true)}
-      >
-        <Plus className="w-6 h-6 text-gray-500" />
-        <span className="mt-1 text-sm font-medium">Add New Address</span>
-      </button>
+<div className="mt-4 border p-4 rounded-md">
+  <h3 className="font-medium text-md">Delivery Address</h3>
 
-      {/* Address Cards */}
+  <div className="flex gap-4 mt-3">
+    {/* Add New Address button */}
+    <button
+      className="border-2 border-dashed border-gray-400 p-6 flex flex-col items-center justify-center rounded-lg hover:bg-gray-100"
+      // onClick={() => setIsAddressModalOpen(true)}
+      onClick={handleAddAddress}  // Use the modified handleAddAddress
+    >
+      <Plus className="w-6 h-6 text-gray-500" />
+      <span className="mt-1 text-sm font-medium">Add New Address</span>
+    </button>
+
+    {/* Address Cards Container */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
       {Object.keys(address).length > 0 ? (
         Object.entries(address).map(([type, addr]) => (
-<Card
-  key={type}
-  className={`p-4 rounded-lg shadow-sm border cursor-pointer w-60 flex flex-col justify-between ${
-    selectedAddress === type ? "bg-green-100 border-green-400" : "hover:bg-gray-50"
-  }`}
-  onClick={() => setSelectedAddress(type)}
->
-  <CardContent className="flex flex-col gap-2">
-    {/* Header Row - Address Type & Action buttons */}
-    <div className="flex justify-between items-center">
-      {/* Address Type Label */}
-      <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">
-        {type}
-      </span>
+          <Card
+            key={type}
+            className={`p-4 rounded-lg shadow-sm border cursor-pointer w-full flex flex-col justify-between ${
+              selectedAddress === type
+                ? "bg-green-100 border-green-400"
+                : "hover:bg-gray-50"
+            }`}
+            onClick={() => setSelectedAddress(type)}
+          >
+            <CardContent className="flex flex-col gap-2">
+              {/* Header Row - Address Type & Action buttons */}
+              <div className="flex justify-between items-center">
+                {/* Address Type Label */}
+                <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">
+                  {type}
+                </span>
 
-      {/* Action buttons (Edit & Delete) */}
-      <div className="flex gap-2">
-        <button
-          className="text-blue-500 hover:text-blue-700"
-          onClick={(e) => { e.stopPropagation(); handleEditAddress(type); }}
-        >
-          <Pencil className="w-4 h-4" />
-        </button>
-        <button
-          className="text-red-500 hover:text-red-700"
-          onClick={(e) => { e.stopPropagation(); handleRemoveAddress(type); }}
-        >
-          <Trash className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
+                {/* Action buttons (Edit & Delete) */}
+                <div className="flex gap-2">
+                  <button
+                    className="text-blue-500 hover:text-blue-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditAddress(type);
+                    }}
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                  <button
+                    className="text-red-500 hover:text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveAddress(type);
+                    }}
+                  >
+                    <Trash className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
 
-    {/* Address Details */}
-    <p className="text-sm font-medium">{addr.house}, {addr.landmark}, {addr.locality}</p>
-    <p className="text-xs text-gray-600">Phone: {addr.phone}</p>
-    <p className="text-xs text-gray-600">Email: {addr.email}</p>
-  </CardContent>
-</Card>
+              {/* Address Details */}
+              <p className="text-sm font-medium">
+                {addr.house}, {addr.landmark}, {addr.locality}
+              </p>
+              <p className="text-xs text-gray-600">Phone: {addr.phone}</p>
+              <p className="text-xs text-gray-600">Email: {addr.email}</p>
+            </CardContent>
+          </Card>
         ))
       ) : (
         <p className="text-gray-500">No addresses added yet.</p>
       )}
     </div>
   </div>
+</div>
+
 ) : (
             <div className="mt-4 border p-4 rounded-md flex justify-between items-center">
               <span className="text-gray-700">Pick up your order from:</span>

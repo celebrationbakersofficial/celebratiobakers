@@ -190,13 +190,912 @@ const getFirstValidAddress = (address) => {
 
 // Route to verify payment signature after successful payment
 
+// app.post("/create-order", async (req, res) => {
+//   try {
+//     const { amount, email, address, giftDetails } = req.body;
+//     console.log("Received address:", address); // Log the address to verify
+
+//     // Get the first valid address
+//     const selectedAddress = getFirstValidAddress(address);
+//     // Razorpay order options
+//     const options = {
+//       amount: amount * 100, // Amount in paise
+//       currency: "INR",
+//       receipt: "receipt#1",
+//       notes: {
+//         key1: "value3",
+//         key2: "value2",
+//       },
+//     };
+
+//     razorpay.orders.create(options, async (err, order) => {
+//       if (err) {
+//         return res.status(500).json({ message: "Error creating order", error: err });
+//       }
+
+//       // Save order details in MongoDB
+//       const payment = new Payment({
+//         order_id: order.id,
+//         amount: amount,
+//         status: "pending",
+//         address: selectedAddress, // Store the selected address
+//         giftDetails: giftDetails, // Store gift details
+//       });
+//       await payment.save();
+
+//       // Prepare email content to send to your email address
+//       const adminEmailContent = `
+//         <h3>New Order Received</h3>
+//         <p><strong>Order ID:</strong> ${order.id}</p>
+//         <p><strong>Amount:</strong> ₹${amount}</p>
+//         <p><strong>Status:</strong> Pending</p>
+//         <h4>Shipping Address</h4>
+//         <p><strong>House:</strong> ${selectedAddress.house || 'Not Provided'}</p>
+//         <p><strong>Landmark:</strong> ${selectedAddress.landmark || 'Not Provided'}</p>
+//         <p><strong>Phone:</strong> ${selectedAddress.phone || 'Not Provided'}</p>
+//         <p><strong>Email:</strong> ${selectedAddress.email || 'Not Provided'}</p>
+//         <p><strong>Locality:</strong> ${selectedAddress.locality || 'Not Provided'}</p>
+//         <h4>Gift Details</h4>
+//         <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
+//         <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
+//         <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
+//         <p><strong>Message:</strong> ${giftDetails.message}</p>
+//       `;
+
+//       // Set up email options for admin
+//       const adminMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: 'aeroedgetechnologies@gmail.com',
+//         subject: 'New Order Notification',
+//         html: adminEmailContent,
+//       };
+
+//       // Send the email to admin with the order details
+//       transporter.sendMail(adminMailOptions, (error, info) => {
+//         if (error) {
+//           // Log the error for debugging
+//           console.error('Error sending admin email:', error);
+//           return res.status(500).json({ message: 'Error sending email to admin', error: error });
+//         }
+//         console.log('Admin email sent:', info.response);
+//       });
+
+//       // Prepare email content to send to the customer
+//       const customerEmailContent = `
+//         <h3>Order Confirmation</h3>
+//         <p><strong>Order ID:</strong> ${order.id}</p>
+//         <p><strong>Amount:</strong> ₹${amount}</p>
+//         <p><strong>Status:</strong> Pending</p>
+//         <h4>Shipping Address</h4>
+//         <p><strong>House:</strong> ${selectedAddress.house || 'Not Provided'}</p>
+//         <p><strong>Landmark:</strong> ${selectedAddress.landmark || 'Not Provided'}</p>
+//         <p><strong>Phone:</strong> ${selectedAddress.phone || 'Not Provided'}</p>
+//         <p><strong>Email:</strong> ${selectedAddress.email || 'Not Provided'}</p>
+//         <p><strong>Locality:</strong> ${selectedAddress.locality || 'Not Provided'}</p>
+//         <h4>Gift Details</h4>
+//         <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
+//         <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
+//         <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
+//         <p><strong>Message:</strong> ${giftDetails.message}</p>
+//         <p><strong>Order Tracking:</strong> Your order is now in processing and will be shipped soon. You will receive tracking updates once it is dispatched.</p>
+//       `;
+
+//       // Set up email options for the customer
+//       const customerMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: email, // Customer email address from the frontend
+//         subject: 'Your Order Confirmation',
+//         html: customerEmailContent,
+//       };
+
+//       // Send the email to the customer with the order details
+//       transporter.sendMail(customerMailOptions, (error, info) => {
+//         if (error) {
+//           // Log the error for debugging
+//           console.error('Error sending customer email:', error);
+//           return res.status(500).json({ message: 'Error sending email to customer', error: error });
+//         }
+//         console.log('Customer email sent:', info.response);
+//       });
+
+//       // Respond with a success message after both emails are sent
+//       res.status(200).json({
+//         message: 'Order created successfully, and emails sent to both customer and admin.',
+//         order_id: order.id,
+//         key_id: process.env.RAZORPAY_KEY_ID,
+//       });
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error creating payment", error: error.message });
+//   }
+// });
+
+// app.post("/create-order", async (req, res) => {
+//   try {
+//     const { amount, email, address, giftDetails } = req.body;
+//     console.log("Received address:", address); // Log the address to verify
+
+//     // Razorpay order options
+//     const options = {
+//       amount: amount * 100, // Amount in paise
+//       currency: "INR",
+//       receipt: "receipt#1",
+//       notes: {
+//         key1: "value3",
+//         key2: "value2",
+//       },
+//     };
+
+//     razorpay.orders.create(options, async (err, order) => {
+//       if (err) {
+//         return res.status(500).json({ message: "Error creating order", error: err });
+//       }
+
+//       // Save order details in MongoDB
+//       const payment = new Payment({
+//         order_id: order.id,
+//         amount: amount,
+//         status: "pending",
+//         address: address, // Store the entire address object
+//         giftDetails: giftDetails, // Store gift details
+//       });
+//       await payment.save();
+
+//       // Prepare email content for the admin
+//       const adminEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>New Order Received</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <!-- Loop through all address types and display each one -->
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return `
+//                   <div>
+//                     <h4>${type} Address</h4>
+//                     <p><strong>House:</strong> ${addr.house || 'Not Provided'}</p>
+//                     <p><strong>Landmark:</strong> ${addr.landmark || 'Not Provided'}</p>
+//                     <p><strong>Phone:</strong> ${addr.phone || 'Not Provided'}</p>
+//                     <p><strong>Email:</strong> ${addr.email || 'Not Provided'}</p>
+//                     <p><strong>Locality:</strong> ${addr.locality || 'Not Provided'}</p>
+//                   </div>
+//                 `;
+//               }).join('')}
+              
+//               <div class="section-title">Gift Details</div>
+//               <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
+//               <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
+//               <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
+//               <p><strong>Message:</strong> ${giftDetails.message}</p>
+
+//               <div class="footer">
+//                 <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
+//               </div>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for admin
+//       const adminMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: 'aeroedgetechnologies@gmail.com',
+//         subject: 'New Order Notification',
+//         html: adminEmailContent,
+//       };
+
+//       // Send the email to admin with the order details
+//       transporter.sendMail(adminMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending admin email:', error);
+//           return res.status(500).json({ message: 'Error sending email to admin', error: error });
+//         }
+//         console.log('Admin email sent:', info.response);
+//       });
+
+//       // Prepare email content to send to the customer
+//       const customerEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//               .button {
+//                 display: inline-block;
+//                 padding: 12px 24px;
+//                 background-color: #007bff;
+//                 color: white;
+//                 text-decoration: none;
+//                 font-weight: bold;
+//                 border-radius: 4px;
+//                 text-align: center;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>Order Confirmation</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <!-- Loop through all address types and display each one -->
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return `
+//                   <div>
+//                     <h4>${type} Address</h4>
+//                     <p><strong>House:</strong> ${addr.house || 'Not Provided'}</p>
+//                     <p><strong>Landmark:</strong> ${addr.landmark || 'Not Provided'}</p>
+//                     <p><strong>Phone:</strong> ${addr.phone || 'Not Provided'}</p>
+//                     <p><strong>Email:</strong> ${addr.email || 'Not Provided'}</p>
+//                     <p><strong>Locality:</strong> ${addr.locality || 'Not Provided'}</p>
+//                   </div>
+//                 `;
+//               }).join('')}
+
+//               <div class="section-title">Gift Details</div>
+//               <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
+//               <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
+//               <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
+//               <p><strong>Message:</strong> ${giftDetails.message}</p>
+
+//               <p><strong>Order Tracking:</strong> Your order is now being processed and will be shipped soon. You will receive tracking updates once it is dispatched.</p>
+
+//               <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+
+//               <div class="footer">
+//                 <p>&copy; 2025 Your Company. All rights reserved.</p>
+//               </div>
+
+//               <p style="text-align: center;">
+//                 <a href="https://example.com" class="button">Visit Website</a>
+//               </p>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for the customer
+//       const customerMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: email, // Customer email address from the frontend
+//         subject: 'Your Order Confirmation',
+//         html: customerEmailContent,
+//       };
+
+//       // Send the email to the customer with the order details
+//       transporter.sendMail(customerMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending customer email:', error);
+//           return res.status(500).json({ message: 'Error sending email to customer', error: error });
+//         }
+//         console.log('Customer email sent:', info.response);
+//       });
+
+//       // Respond with a success message after both emails are sent
+//       res.status(200).json({
+//         message: 'Order created successfully, and emails sent to both customer and admin.',
+//         order_id: order.id,
+//         key_id: process.env.RAZORPAY_KEY_ID,
+//       });
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error creating payment", error: error.message });
+//   }
+// });
+
+// app.post("/create-order", async (req, res) => {
+//   try {
+//     const { amount, email, address, giftDetails } = req.body;
+//     console.log("Received address:", address); // Log the address to verify
+
+//     // Razorpay order options
+//     const options = {
+//       amount: amount * 100, // Amount in paise
+//       currency: "INR",
+//       receipt: "receipt#1",
+//       notes: {
+//         key1: "value3",
+//         key2: "value2",
+//       },
+//     };
+
+//     razorpay.orders.create(options, async (err, order) => {
+//       if (err) {
+//         return res.status(500).json({ message: "Error creating order", error: err });
+//       }
+
+//       // Save order details in MongoDB
+//       const payment = new Payment({
+//         order_id: order.id,
+//         amount: amount,
+//         status: "pending",
+//         address: address, // Store the entire address object
+//         giftDetails: giftDetails, // Store gift details
+//       });
+//       await payment.save();
+
+//       // Function to create an address section in email, excluding empty fields
+//       const generateAddressSection = (addressObj, addressType) => {
+//         const fields = [];
+//         if (addressObj.house) fields.push(`<p><strong>House:</strong> ${addressObj.house}</p>`);
+//         if (addressObj.landmark) fields.push(`<p><strong>Landmark:</strong> ${addressObj.landmark}</p>`);
+//         if (addressObj.phone) fields.push(`<p><strong>Phone:</strong> ${addressObj.phone}</p>`);
+//         if (addressObj.email) fields.push(`<p><strong>Email:</strong> ${addressObj.email}</p>`);
+//         if (addressObj.locality) fields.push(`<p><strong>Locality:</strong> ${addressObj.locality}</p>`);
+
+//         if (fields.length === 0) return ''; // If no field is provided, return an empty string
+
+//         return `
+//           <div>
+//             <h4>${addressType} Address</h4>
+//             ${fields.join('')}
+//           </div>
+//         `;
+//       };
+
+//       // Prepare email content for the admin
+//       const adminEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>New Order Received</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return generateAddressSection(addr, type);
+//               }).join('')}
+
+//               <div class="section-title">Gift Details</div>
+//               ${giftDetails.recipientName ? `<p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>` : ''}
+//               ${giftDetails.senderName ? `<p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>` : ''}
+//               ${giftDetails.recipientMobile ? `<p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>` : ''}
+//               ${giftDetails.message ? `<p><strong>Message:</strong> ${giftDetails.message}</p>` : ''}
+
+//               <div class="footer">
+//                 <p>&copy; 2025 Your Company. All rights reserved.</p>
+//               </div>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for admin
+//       const adminMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: 'aeroedgetechnologies@gmail.com',
+//         subject: 'New Order Notification',
+//         html: adminEmailContent,
+//       };
+
+//       // Send the email to admin with the order details
+//       transporter.sendMail(adminMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending admin email:', error);
+//           return res.status(500).json({ message: 'Error sending email to admin', error: error });
+//         }
+//         console.log('Admin email sent:', info.response);
+//       });
+
+//       // Prepare email content to send to the customer
+//       const customerEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//               .button {
+//                 display: inline-block;
+//                 padding: 12px 24px;
+//                 background-color: #007bff;
+//                 color: white;
+//                 text-decoration: none;
+//                 font-weight: bold;
+//                 border-radius: 4px;
+//                 text-align: center;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>Order Confirmation</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return generateAddressSection(addr, type);
+//               }).join('')}
+
+//               <div class="section-title">Gift Details</div>
+//               ${giftDetails.recipientName ? `<p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>` : ''}
+//               ${giftDetails.senderName ? `<p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>` : ''}
+//               ${giftDetails.recipientMobile ? `<p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>` : ''}
+//               ${giftDetails.message ? `<p><strong>Message:</strong> ${giftDetails.message}</p>` : ''}
+
+//               <p><strong>Order Tracking:</strong> Your order is now being processed and will be shipped soon. You will receive tracking updates once it is dispatched.</p>
+
+//               <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+
+//               <div class="footer">
+//                 <p>&copy; 2025 Your Company. All rights reserved.</p>
+//               </div>
+
+//               <p style="text-align: center;">
+//                 <a href="https://example.com" class="button">Visit Our Website</a>
+//               </p>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for the customer
+//       const customerMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: email, // Customer email address from the frontend
+//         subject: 'Your Order Confirmation',
+//         html: customerEmailContent,
+//       };
+
+//       // Send the email to the customer with the order details
+//       transporter.sendMail(customerMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending customer email:', error);
+//           return res.status(500).json({ message: 'Error sending email to customer', error: error });
+//         }
+//         console.log('Customer email sent:', info.response);
+//       });
+
+//       // Respond with a success message after both emails are sent
+//       res.status(200).json({
+//         message: 'Order created successfully, and emails sent to both customer and admin.',
+//         order_id: order.id,
+//         key_id: process.env.RAZORPAY_KEY_ID,
+//       });
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error creating payment", error: error.message });
+//   }
+// });
+
+// app.post("/create-order", async (req, res) => {
+//   try {
+//     const { amount, email, address, giftDetails } = req.body;
+//     console.log("Received address:", address); // Log the address to verify
+
+//     // Razorpay order options
+//     const options = {
+//       amount: amount * 100, // Amount in paise
+//       currency: "INR",
+//       receipt: "receipt#1",
+//       notes: {
+//         key1: "value3",
+//         key2: "value2",
+//       },
+//     };
+
+//     razorpay.orders.create(options, async (err, order) => {
+//       if (err) {
+//         return res.status(500).json({ message: "Error creating order", error: err });
+//       }
+
+//       // Save order details in MongoDB
+//       const payment = new Payment({
+//         order_id: order.id,
+//         amount: amount,
+//         status: "pending",
+//         address: address, // Store the entire address object
+//         giftDetails: giftDetails, // Store gift details
+//       });
+//       await payment.save();
+
+//       // Function to create an address section in email, excluding empty fields
+//       const generateAddressSection = (addressObj, addressType) => {
+//         const fields = [];
+//         if (addressObj.house) fields.push(`<p><strong>House:</strong> ${addressObj.house}</p>`);
+//         if (addressObj.landmark) fields.push(`<p><strong>Landmark:</strong> ${addressObj.landmark}</p>`);
+//         if (addressObj.phone) fields.push(`<p><strong>Phone:</strong> ${addressObj.phone}</p>`);
+//         if (addressObj.email) fields.push(`<p><strong>Email:</strong> ${addressObj.email}</p>`);
+//         if (addressObj.locality) fields.push(`<p><strong>Locality:</strong> ${addressObj.locality}</p>`);
+
+//         if (fields.length === 0) return ''; // If no field is provided, return an empty string
+
+//         return `
+//           <div>
+//             <h4>${addressType} Address</h4>
+//             ${fields.join('')}
+//           </div>
+//         `;
+//       };
+
+//       // Prepare email content for the admin
+//       const adminEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>New Order Received</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return generateAddressSection(addr, type);
+//               }).join('')}
+
+//               <div class="section-title">Gift Details</div>
+//               ${giftDetails.recipientName ? `<p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>` : ''}
+//               ${giftDetails.senderName ? `<p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>` : ''}
+//               ${giftDetails.recipientMobile ? `<p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>` : ''}
+//               ${giftDetails.message ? `<p><strong>Message:</strong> ${giftDetails.message}</p>` : ''}
+
+//               <div class="footer">
+//                 <p>&copy; 2025 Your Company. All rights reserved.</p>
+//               </div>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for admin
+//       const adminMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: 'aeroedgetechnologies@gmail.com',
+//         subject: 'New Order Notification',
+//         html: adminEmailContent,
+//       };
+
+//       // Send the email to admin with the order details
+//       transporter.sendMail(adminMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending admin email:', error);
+//           return res.status(500).json({ message: 'Error sending email to admin', error: error });
+//         }
+//         console.log('Admin email sent:', info.response);
+//       });
+
+//       // Prepare email content to send to the customer
+//       const customerEmailContent = `
+//         <html>
+//           <head>
+//             <style>
+//               body {
+//                 font-family: Arial, sans-serif;
+//                 background-color: #f4f4f4;
+//                 margin: 0;
+//                 padding: 0;
+//               }
+//               .container {
+//                 width: 100%;
+//                 max-width: 600px;
+//                 margin: 0 auto;
+//                 background-color: #fff;
+//                 padding: 20px;
+//                 border-radius: 8px;
+//                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//               }
+//               h3 {
+//                 text-align: center;
+//                 color: #333;
+//               }
+//               p {
+//                 font-size: 16px;
+//                 color: #555;
+//               }
+//               .highlight {
+//                 color: #007bff;
+//                 font-weight: bold;
+//               }
+//               .section-title {
+//                 margin-top: 20px;
+//                 font-size: 18px;
+//                 color: #333;
+//                 font-weight: bold;
+//               }
+//               .footer {
+//                 font-size: 14px;
+//                 text-align: center;
+//                 color: #888;
+//                 margin-top: 30px;
+//               }
+//               .button {
+//                 display: inline-block;
+//                 padding: 12px 24px;
+//                 background-color: #007bff;
+//                 color: white;
+//                 text-decoration: none;
+//                 font-weight: bold;
+//                 border-radius: 4px;
+//                 text-align: center;
+//               }
+//             </style>
+//           </head>
+//           <body>
+//             <div class="container">
+//               <h3>Order Confirmation</h3>
+//               <p><strong>Order ID:</strong> ${order.id}</p>
+//               <p><strong>Amount:</strong> ₹${amount}</p>
+//               <p><strong>Status:</strong> Pending</p>
+
+//               <div class="section-title">Addresses</div>
+//               ${["Home", "Office", "Hotel", "Other"].map(type => {
+//                 const addr = address[type] || {};
+//                 return generateAddressSection(addr, type);
+//               }).join('')}
+
+//               <div class="section-title">Gift Details</div>
+//               ${giftDetails.recipientName ? `<p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>` : ''}
+//               ${giftDetails.senderName ? `<p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>` : ''}
+//               ${giftDetails.recipientMobile ? `<p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>` : ''}
+//               ${giftDetails.message ? `<p><strong>Message:</strong> ${giftDetails.message}</p>` : ''}
+
+//               <p><strong>Order Tracking:</strong> Your order is now being processed and will be shipped soon. You will receive tracking updates once it is dispatched.</p>
+
+//               <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+
+//               <div class="footer">
+//                 <p>&copy; 2025 Your Company. All rights reserved.</p>
+//               </div>
+
+//               <p style="text-align: center;">
+//                 <a href="https://example.com" class="button">Visit Our Website</a>
+//               </p>
+//             </div>
+//           </body>
+//         </html>
+//       `;
+
+//       // Set up email options for the customer
+//       const customerMailOptions = {
+//         from: 'developer.govinda00@gmail.com',
+//         to: email, // Customer email address from the frontend
+//         subject: 'Your Order Confirmation',
+//         html: customerEmailContent,
+//       };
+
+//       // Send the email to the customer with the order details
+//       transporter.sendMail(customerMailOptions, (error, info) => {
+//         if (error) {
+//           console.error('Error sending customer email:', error);
+//           return res.status(500).json({ message: 'Error sending email to customer', error: error });
+//         }
+//         console.log('Customer email sent:', info.response);
+//       });
+
+//       // Respond with a success message after both emails are sent
+//       res.status(200).json({
+//         message: 'Order created successfully, and emails sent to both customer and admin.',
+//         order_id: order.id,
+//         key_id: process.env.RAZORPAY_KEY_ID,
+//       });
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error creating payment", error: error.message });
+//   }
+// });
+
 app.post("/create-order", async (req, res) => {
   try {
     const { amount, email, address, giftDetails } = req.body;
     console.log("Received address:", address); // Log the address to verify
 
-    // Get the first valid address
-    const selectedAddress = getFirstValidAddress(address);
     // Razorpay order options
     const options = {
       amount: amount * 100, // Amount in paise
@@ -218,28 +1117,71 @@ app.post("/create-order", async (req, res) => {
         order_id: order.id,
         amount: amount,
         status: "pending",
-        address: selectedAddress, // Store the selected address
+        address: address, // Store the entire address object
         giftDetails: giftDetails, // Store gift details
       });
       await payment.save();
 
-      // Prepare email content to send to your email address
+      const generateAddressSection = (addressObj, addressType) => {
+        const fields = [];
+        if (addressObj.house) fields.push(`<p><strong>House:</strong> ${addressObj.house}</p>`);
+        if (addressObj.landmark) fields.push(`<p><strong>Landmark:</strong> ${addressObj.landmark}</p>`);
+        if (addressObj.phone) fields.push(`<p><strong>Phone:</strong> ${addressObj.phone}</p>`);
+        if (addressObj.email) fields.push(`<p><strong>Email:</strong> ${addressObj.email}</p>`);
+        if (addressObj.locality) fields.push(`<p><strong>Locality:</strong> ${addressObj.locality}</p>`);
+      
+        if (fields.length === 0) return ''; // If no field is provided, return an empty string
+      
+        return `
+          <div>
+            <h4>${addressType} Address</h4>
+            ${fields.join('')}
+          </div>
+        `;
+      };
+      
+
+      // Prepare email content for the admin with inline styles
       const adminEmailContent = `
-        <h3>New Order Received</h3>
-        <p><strong>Order ID:</strong> ${order.id}</p>
-        <p><strong>Amount:</strong> ₹${amount}</p>
-        <p><strong>Status:</strong> Pending</p>
-        <h4>Shipping Address</h4>
-        <p><strong>House:</strong> ${selectedAddress.house || 'Not Provided'}</p>
-        <p><strong>Landmark:</strong> ${selectedAddress.landmark || 'Not Provided'}</p>
-        <p><strong>Phone:</strong> ${selectedAddress.phone || 'Not Provided'}</p>
-        <p><strong>Email:</strong> ${selectedAddress.email || 'Not Provided'}</p>
-        <p><strong>Locality:</strong> ${selectedAddress.locality || 'Not Provided'}</p>
-        <h4>Gift Details</h4>
-        <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
-        <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
-        <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
-        <p><strong>Message:</strong> ${giftDetails.message}</p>
+      <html>
+        <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
+          <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div style="text-align: center; padding-bottom: 20px;">
+              <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Company Logo" style="width: 150px;">
+            </div>
+            
+            <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
+            <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order details are below:</p>
+            
+            <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
+              <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
+              <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
+              <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
+            </div>
+            
+       <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Addresses</div>
+      ${Object.keys(address).map((key) => {
+        const addr = address[key]; // Get each address type (Home, Office, Hotel)
+        return generateAddressSection(addr, key);
+      }).join('')}
+            <h3 style="color: #333;">Gift Details</h3>
+            <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
+            <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
+            
+            <div style="margin-top: 20px; text-align: center;">
+              <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 100%; border-radius: 8px;">
+            </div>
+            
+            <div style="margin-top: 20px; text-align: center;">
+              <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
+              <p>&copy; 2025 celeberationbakers. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+      </html>
       `;
 
       // Set up email options for admin
@@ -253,32 +1195,55 @@ app.post("/create-order", async (req, res) => {
       // Send the email to admin with the order details
       transporter.sendMail(adminMailOptions, (error, info) => {
         if (error) {
-          // Log the error for debugging
           console.error('Error sending admin email:', error);
           return res.status(500).json({ message: 'Error sending email to admin', error: error });
         }
         console.log('Admin email sent:', info.response);
       });
 
-      // Prepare email content to send to the customer
-      const customerEmailContent = `
-        <h3>Order Confirmation</h3>
-        <p><strong>Order ID:</strong> ${order.id}</p>
-        <p><strong>Amount:</strong> ₹${amount}</p>
-        <p><strong>Status:</strong> Pending</p>
-        <h4>Shipping Address</h4>
-        <p><strong>House:</strong> ${selectedAddress.house || 'Not Provided'}</p>
-        <p><strong>Landmark:</strong> ${selectedAddress.landmark || 'Not Provided'}</p>
-        <p><strong>Phone:</strong> ${selectedAddress.phone || 'Not Provided'}</p>
-        <p><strong>Email:</strong> ${selectedAddress.email || 'Not Provided'}</p>
-        <p><strong>Locality:</strong> ${selectedAddress.locality || 'Not Provided'}</p>
-        <h4>Gift Details</h4>
-        <p><strong>Recipient Name:</strong> ${giftDetails.recipientName}</p>
-        <p><strong>Sender Name:</strong> ${giftDetails.senderName}</p>
-        <p><strong>Recipient Mobile:</strong> ${giftDetails.recipientMobile}</p>
-        <p><strong>Message:</strong> ${giftDetails.message}</p>
-        <p><strong>Order Tracking:</strong> Your order is now in processing and will be shipped soon. You will receive tracking updates once it is dispatched.</p>
+// Prepare email content to send to the customer with inline styles
+const customerEmailContent = `
+      <html>
+        <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
+          <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div style="text-align: center; padding-bottom: 20px;">
+              <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Company Logo" style="width: 150px;">
+            </div>
+            
+            <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
+            <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order details are below:</p>
+            
+            <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
+              <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
+              <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
+              <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
+            </div>
+            
+       <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Addresses</div>
+      ${Object.keys(address).map((key) => {
+        const addr = address[key]; // Get each address type (Home, Office, Hotel)
+        return generateAddressSection(addr, key);
+      }).join('')}
+            <h3 style="color: #333;">Gift Details</h3>
+            <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
+            <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
+            
+            <div style="margin-top: 20px; text-align: center;">
+              <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 100%; border-radius: 8px;">
+            </div>
+            
+            <div style="margin-top: 20px; text-align: center;">
+              <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
+              <p>&copy; 2025 celeberationbakers. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+      </html>
       `;
+
 
       // Set up email options for the customer
       const customerMailOptions = {
@@ -291,7 +1256,6 @@ app.post("/create-order", async (req, res) => {
       // Send the email to the customer with the order details
       transporter.sendMail(customerMailOptions, (error, info) => {
         if (error) {
-          // Log the error for debugging
           console.error('Error sending customer email:', error);
           return res.status(500).json({ message: 'Error sending email to customer', error: error });
         }
@@ -309,6 +1273,10 @@ app.post("/create-order", async (req, res) => {
     res.status(500).json({ message: "Error creating payment", error: error.message });
   }
 });
+
+
+
+
 
 app.post("/verify-payment", async (req, res) => {
   try {
