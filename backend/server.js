@@ -114,7 +114,7 @@ app.post("/create-order", async (req, res) => {
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
       <div style="text-align: center; padding-bottom: 20px;">
         <!-- Rounded Logo -->
-<img src="https://celebrationbakers.onrender.com/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+<img src="http://localhost:3000/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
       </div>
       
       <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
