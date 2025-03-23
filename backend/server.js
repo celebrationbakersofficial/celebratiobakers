@@ -114,7 +114,7 @@ app.post("/create-order", async (req, res) => {
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
       <div style="text-align: center; padding-bottom: 20px;">
         <!-- Rounded Logo -->
-<img src="/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+<img src="https://celebrationbakers.onrender.com/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
       </div>
       
       <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
@@ -176,7 +176,7 @@ const customerEmailContent = `
         <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
           <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div style="text-align: center; padding-bottom: 20px;">
-            <img src="/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+            <img src="https://celebrationbakers.onrender.com/images/logos.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
             </div>
             
             <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
