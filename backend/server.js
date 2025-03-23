@@ -153,14 +153,14 @@ app.post("/create-order", async (req, res) => {
         giftDetails: giftDetails, // Store gift details
       });
       await payment.save();
-      const logo = await Logo.findOne();  // Assuming only one logo in the database
+      const logo = await Logo.findOne();  // Assuming there's only one logo in the collection
 
-      // Check if the logo exists
+      // Check if logo exists
       if (!logo) {
-        return res.status(404).send("Logo not found in the database.");
+        return res.status(404).send("Logo not found.");
       }
   
-      // Convert the image buffer to a base64 string
+      // Convert the logo buffer to base64
       const logoBase64 = logo.image.toString('base64');
       const logoContentType = logo.contentType;
   
@@ -182,7 +182,9 @@ app.post("/create-order", async (req, res) => {
           </div>
         `;
       };
-
+      console.log("Base64 Logo Data:", logoBase64);  // Check if base64 data is valid
+      console.log("Content Type:", logoContentType);  // Check the content type
+      
       // Prepare email content for the admin with inline styles
       const adminEmailContent = `
 <html>
@@ -190,37 +192,28 @@ app.post("/create-order", async (req, res) => {
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
       <div style="text-align: center; padding-bottom: 20px;">
         <!-- Rounded Logo -->
-<img src="data:${logoContentType};base64,${logoBase64}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+        <img src="https://i.imgur.com/h9MavFP.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
       </div>
-      
-      <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
-      <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order details are below:</p>
-      
+
+      <h2 style="color: #333; text-align: center;">New Order Confirmed!</h2>
+      <p style="font-size: 16px; color: #555; text-align: center;">A new order has been confirmed. Below are the details:</p>
+
       <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
         <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
         <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
         <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
       </div>
-      
-      <!-- Address Section -->
-      <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Addresses</div>
+
+      <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Customer's Addresses</div>
       ${Object.keys(address).map((key) => {
         const addr = address[key]; // Get each address type (Home, Office, Hotel)
         return generateAddressSection(addr, key);
       }).join('')}
-      
+
       <h3 style="color: #333;">Gift Details</h3>
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-      
-      <div style="margin-top: 20px; text-align: center;">
-        <img src="https://cakelinks.in/cdn/shop/files/31_3.png?v=1703758524&width=1920" alt="Product Image" style="width: 10%; border-radius: 35%;">
-      </div>
-      
-      <div style="margin-top: 20px; text-align: center;">
-        <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
-      </div>
-      
+
       <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
         <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
       </div>
@@ -248,37 +241,42 @@ app.post("/create-order", async (req, res) => {
 
 // Prepare email content to send to the customer with inline styles
 const customerEmailContent = `
-      <html>
-        <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
-          <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <div style="text-align: center; padding-bottom: 20px;">
-            <img src="data:${logoContentType};base64,${logoBase64}" alt="Company Logo" style="width: 150px; border-radius: 50%;">
-            </div>
-            
-            <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
-            <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order details are below:</p>
-            
-            <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
-              <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
-              <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
-              <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
-            </div>
-            
-       <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Addresses</div>
+<html>
+  <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div style="text-align: center; padding-bottom: 20px;">
+        <img src="https://i.imgur.com/h9MavFP.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+      </div>
+
+      <h2 style="color: #333; text-align: center;">Your Order is Confirmed!</h2>
+      <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order has been confirmed. Here are your order details:</p>
+
+      <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
+        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
+      </div>
+
+      <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Delivery Addresses</div>
       ${Object.keys(address).map((key) => {
         const addr = address[key]; // Get each address type (Home, Office, Hotel)
         return generateAddressSection(addr, key);
       }).join('')}
-            <h3 style="color: #333;">Gift Details</h3>
-            <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
-            <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-            
-            <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
-              <p>&copy; 2025 celeberationbakers. All rights reserved.</p>
-            </div>
-          </div>
-        </body>
-      </html>
+
+      <h3 style="color: #333;">Gift Details</h3>
+      <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
+      <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
+      </div>
+
+      <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
+        <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
       `;
 
 
