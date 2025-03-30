@@ -819,6 +819,65 @@ import CakeImage50 from "./Black forest cake.jpg";
 import CakeImage51 from "./Chocolate cake.jpg";
 import CakeImage52 from "./Chocolate cake.jpg";
 
+import Kids_cake1 from "./images1/photo_2025-03-30_09-37-46.jpg";
+import Kids_cake2 from "./images1/photo_2025-03-30_09-37-44.jpg";
+import Kids_cake3 from "./images1/photo_2025-03-30_09-37-45.jpg";
+import Kids_cake4 from "./images1/photo_2025-03-30_09-37-43.jpg";
+
+import Kids_cake5 from "./images1/photo_2025-03-30_09-43-13.jpg";
+import Kids_cake6 from "./images1/photo_2025-03-30_09-43-14.jpg";
+import Kids_cake7 from "./images1/photo_2025-03-30_09-43-15.jpg";
+import Kids_cake8 from "./images1/photo_2025-03-30_09-43-16.jpg";
+import Kids_cake9 from "./images1/photo_2025-03-30_09-43-17.jpg";
+import Kids_cake10 from "./images1/photo_2025-03-30_09-43-18.jpg";
+import Kids_cake11 from "./images1/photo_2025-03-30_09-43-19.jpg";
+
+import customisedcake1 from "./images1/photo_2025-03-30_09-50-19.jpg";
+import customisedcake2 from "./images1/photo_2025-03-30_09-50-20.jpg";
+import customisedcake3 from "./images1/photo_2025-03-30_09-50-21.jpg";
+import customisedcake4 from "./images1/photo_2025-03-30_09-50-22.jpg";
+import customisedcake5 from "./images1/photo_2025-03-30_09-50-23.jpg";
+import customisedcake6 from "./images1/photo_2025-03-30_09-50-24.jpg";
+import customisedcake7 from "./images1/photo_2025-03-30_09-50-25.jpg";
+
+import Anniversary_cakes1 from "./images1/photo_2025-03-30_09-55-41.jpg";
+import Anniversary_cakes2 from "./images1/photo_2025-03-30_09-55-42.jpg";
+import Anniversary_cakes3 from "./images1/photo_2025-03-30_09-55-43.jpg";
+import Anniversary_cakes4 from "./images1/photo_2025-03-30_09-55-44.jpg";
+import Anniversary_cakes5 from "./images1/photo_2025-03-30_09-55-45.jpg";
+import Anniversary_cakes6 from "./images1/photo_2025-03-30_09-55-46.jpg";
+import Anniversary_cakes7 from "./images1/photo_2025-03-30_09-55-47.jpg";
+
+import Heartshape_cakes1 from "./images1/photo_2025-03-30_10-00-36.jpg";
+import Heartshape_cakes2 from "./images1/photo_2025-03-30_10-00-37.jpg";
+import Heartshape_cakes3 from "./images1/photo_2025-03-30_10-00-38.jpg";
+
+import Photo_cakes1 from "./images1/photo_2025-03-30_10-02-30.jpg";
+import Photo_cakes2 from "./images1/photo_2025-03-30_10-02-31.jpg";
+import Photo_cakes3 from "./images1/photo_2025-03-30_10-02-32.jpg";
+
+import chocolate1 from "./images1/photo_2025-03-30_10-07-04.jpg";
+import chocolate2 from "./images1/photo_2025-03-30_10-08-49.jpg";
+import chocolate3 from "./images1/photo_2025-03-30_10-10-31.jpg";
+import chocolate4 from "./images1/photo_2025-03-30_10-11-30.jpg";
+
+import drinks1 from "./images1/photo_2025-03-30_10-14-31.jpg";
+import drinks2 from "./images1/photo_2025-03-30_10-14-32.jpg";
+import drinks3 from "./images1/photo_2025-03-30_10-14-33.jpg";
+import drinks4 from "./images1/photo_2025-03-30_10-14-34.jpg";
+import drinks5 from "./images1/photo_2025-03-30_10-14-35.jpg";
+import drinks6 from "./images1/photo_2025-03-30_10-14-36.jpg";
+
+import cheese_cake1 from "./cheesecakes/photo_2025-03-30_10-34-05.jpg";
+import cheese_cake2 from "./cheesecakes/photo_2025-03-30_10-34-05.jpg";
+import cheese_cake3 from "./cheesecakes/photo_2025-03-30_10-34-06.jpg";
+import cheese_cake4 from "./cheesecakes/photo_2025-03-30_10-34-06.jpg";
+import cheese_pastry1 from "./pastry/photo_2025-03-30_10-33-30.jpg";
+import cheese_pastry2 from "./pastry/photo_2025-03-30_10-33-33.jpg";
+import cheesecake_jaar1 from "./jaars/photo_2025-03-30_10-32-49.jpg";
+import cheesecake_jaar2 from "./jaars/photo_2025-03-30_10-32-50.jpg";
+
+
 
 
 // static 
@@ -978,7 +1037,66 @@ const allProducts = [
   { name: "Black forest cake (1/2 kg)", category: "Cakes", price: "₹300", image: CakeImage49 },
   { name: "Black forest cake (1 kg)", category: "Cakes", price: "₹500", image: CakeImage50 },
   { name: "Chocolate cake (1/2 kg)", category: "Cakes", price: "₹300", image: CakeImage51 },
-  { name: "Chocolate cake (1 kg)", category: "Cakes", price: "₹550", image: CakeImage52 }
+  { name: "Chocolate cake (1 kg)", category: "Cakes", price: "₹550", image: CakeImage52 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake1 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake2 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake3 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake4 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake5 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake6 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake7 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake8 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake9 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake10 },
+  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake11 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake1 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake2 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake3 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake4 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake5 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake6 },
+  { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake7 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes1 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes2 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes3 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes4 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes5 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes6 },
+  { name: "Anniversary cakes", category: "Anniversary cakes", price: "₹700", image: Anniversary_cakes7 },
+  { name: "Heartshape cakes", category: "Heartshape cakes", price: "₹700", image: Heartshape_cakes1 },
+  { name: "Heartshape cakes", category: "Heartshape cakes", price: "₹700", image: Heartshape_cakes2 },
+  { name: "Heartshape cakes", category: "Heartshape cakes", price: "₹700", image: Heartshape_cakes3 },
+  { name: "Photo cakes", category: "Photo cakes", price: "₹700", image: Photo_cakes1 },
+  { name: "Photo cakes", category: "Photo cakes", price: "₹700", image: Photo_cakes2 },
+  { name: "Photo cakes", category: "Photo cakes", price: "₹700", image: Photo_cakes3 },
+  { name: "Cake +red roses+2 chocolate 400 gm", category: "chocolate cakes", price: "₹1400", image: chocolate1 },
+  { name: "Black forest cake with red roses 500gm", category: "chocolate cakes", price: "₹1199", image: chocolate2 },
+  { name: "Bouquet with chocolate cake 500 gm", category: "chocolate cakes", price: "₹1400", image: chocolate3 },
+  { name: "Butterscotch cake with bouquet", category: "chocolate cakes", price: "₹1199", image: chocolate4 },
+  { name: "Cold coffee", category: "Shakes", price: "₹80", image: drinks1 },
+  { name: "Strawberry shake", category: "Shakes", price: "₹70", image: drinks2 },
+  { name: "Pineapple shake", category: "Shakes", price: "₹80", image: drinks3 },
+  { name: "Kitkat shake", category: "Shakes", price: "₹120", image: drinks4 },
+  { name: "Brownie shake", category: "Shakes", price: "₹150", image: drinks5 },
+  { name: "Oreo shake", category: "Shakes", price: "₹100", image: drinks6 },
+  
+  // { name: "Pineapple pudding", category: "pudding", price: "₹70", image: puddin1 },
+  // { name: "Strawberry pudding", category: "pudding", price: "₹80", image: pudding2 },
+  // { name: "Blueberry pudding", category: "pudding", price: "₹100", image: pudding3 },
+  // { name: "Chocolate pudding", category: "pudding", price: "₹100", image: pudding4 },
+  // { name: "Oreo pudding", category: "pudding", price: "₹80", image: pudding5 },
+  // { name: "Brownie pudding", category: "pudding", price: "₹100", image: pudding6 },
+  
+  { name: "Blueberry cheesecake jaar", category: "cheesecake jaar", price: "₹300 (per piece)", image: cheesecake_jaar1 },
+  { name: "Lotus Biscoff cheese jaar", category: "cheesecake jaar", price: "₹280 (per piece)", image: cheesecake_jaar2 },
+  
+  { name: "Blueberry cheese pastry", category: "cheese pastry", price: "₹180 (per piece)", image: cheese_pastry1 },
+  { name: "Lotus Biscoff cheese pastry", category: "cheese pastry", price: "₹180 (per piece)", image: cheese_pastry2 },
+  
+  { name: "Blueberry cheese cake 400 gm", category: "cheese cake", price: "₹900", image: cheese_cake1 },
+  { name: "Blueberry cheese cake 700 gm", category: "cheese cake", price: "₹1600", image: cheese_cake2 },
+  { name: "Lotus Biscoff cheese cake 400 gm", category: "cheese cake", price: "₹1199", image: cheese_cake3 },
+  { name: "Lotus Biscoff cheese cake 700 gm", category: "cheese cake", price: "₹1000", image: cheese_cake4 },
 ];
 // static
 // const categories = [
@@ -1001,7 +1119,18 @@ const allProducts = [
 const categories = [
   "Cakes",
   // "Pastries",
-  ,"pastry"
+  ,"pastry",
+  "Kids cakes",
+  "customised cake",
+  "Anniversary cakes",
+  "Heartshape cakes",
+  "Photo cakes",
+  "chocolate cakes",
+  "Shakes",
+  // "pudding",
+  "cheesecake jaar",
+  "cheese pastry",
+  "cheese cake",
 ];
 
 const TheAllProducts = () => {
