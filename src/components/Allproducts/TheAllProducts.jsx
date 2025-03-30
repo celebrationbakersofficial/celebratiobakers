@@ -878,6 +878,13 @@ import cheesecake_jaar1 from "./jaars/photo_2025-03-30_10-32-49.jpg";
 import cheesecake_jaar2 from "./jaars/photo_2025-03-30_10-32-50.jpg";
 
 
+import pudding1 from "./pudding/photo_2025-03-30_18-29-04.jpg";
+import pudding2 from "./pudding/photo_2025-03-30_18-29-06.jpg";
+import pudding3 from "./pudding/photo_2025-03-30_18-29-07.jpg";
+import pudding4 from "./pudding/photo_2025-03-30_18-29-08.jpg";
+import pudding5 from "./pudding/photo_2025-03-30_18-29-08 (2).jpg";
+import pudding6 from "./pudding/photo_2025-03-30_18-29-09.jpg";
+
 
 
 // static 
@@ -1038,17 +1045,17 @@ const allProducts = [
   { name: "Black forest cake (1 kg)", category: "Cakes", price: "₹500", image: CakeImage50 },
   { name: "Chocolate cake (1/2 kg)", category: "Cakes", price: "₹300", image: CakeImage51 },
   { name: "Chocolate cake (1 kg)", category: "Cakes", price: "₹550", image: CakeImage52 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake1 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake2 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake3 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake4 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake5 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake6 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake7 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake8 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake9 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake10 },
-  { name: "Barbie cakes 500 gm", category: "Kids cake", price: "₹700", image: Kids_cake11 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake1 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake2 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake3 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake4 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake5 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake6 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake7 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake8 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake9 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake10 },
+  { name: "Barbie cakes 500 gm", category: "Kids cakes", price: "₹700", image: Kids_cake11 },
   { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake1 },
   { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake2 },
   { name: "customised cake", category: "customised cake", price: "₹700", image: customisedcake3 },
@@ -1080,12 +1087,12 @@ const allProducts = [
   { name: "Brownie shake", category: "Shakes", price: "₹150", image: drinks5 },
   { name: "Oreo shake", category: "Shakes", price: "₹100", image: drinks6 },
   
-  // { name: "Pineapple pudding", category: "pudding", price: "₹70", image: puddin1 },
-  // { name: "Strawberry pudding", category: "pudding", price: "₹80", image: pudding2 },
-  // { name: "Blueberry pudding", category: "pudding", price: "₹100", image: pudding3 },
-  // { name: "Chocolate pudding", category: "pudding", price: "₹100", image: pudding4 },
-  // { name: "Oreo pudding", category: "pudding", price: "₹80", image: pudding5 },
-  // { name: "Brownie pudding", category: "pudding", price: "₹100", image: pudding6 },
+  { name: "Pineapple pudding", category: "pudding", price: "₹70", image: pudding1 },
+  { name: "Strawberry pudding", category: "pudding", price: "₹80", image: pudding2 },
+  { name: "Blueberry pudding", category: "pudding", price: "₹100", image: pudding3 },
+  { name: "Chocolate pudding", category: "pudding", price: "₹100", image: pudding4 },
+  { name: "Oreo pudding", category: "pudding", price: "₹80", image: pudding5 },
+  { name: "Brownie pudding", category: "pudding", price: "₹100", image: pudding6 },
   
   { name: "Blueberry cheesecake jaar", category: "cheesecake jaar", price: "₹300 (per piece)", image: cheesecake_jaar1 },
   { name: "Lotus Biscoff cheese jaar", category: "cheesecake jaar", price: "₹280 (per piece)", image: cheesecake_jaar2 },
@@ -1127,7 +1134,7 @@ const categories = [
   "Photo cakes",
   "chocolate cakes",
   "Shakes",
-  // "pudding",
+  "pudding",
   "cheesecake jaar",
   "cheese pastry",
   "cheese cake",
