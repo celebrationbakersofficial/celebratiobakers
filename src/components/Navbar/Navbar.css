@@ -701,11 +701,19 @@
       left: 0;
       background-color: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: small;
     }
   
     .nav-links.open {
       display: flex;
     }
   }
-  
+  @media screen and (max-width: 1360) {
+/* #endregion */
+.navbar .nav-links li a {
+    /* color: black; */
+    font-size: small;
+}  
+}
+
   

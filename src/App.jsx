@@ -585,6 +585,9 @@ import ProductList from "./components/Allproducts/ProductList";
 import AddToCartUI from "./modals/AddToCartUI";
 import ProductPageDashboard from "./components/Allproducts/ProductPageDashboard";
 import CheckoutPage from "./components/checkout/CheckoutPage";
+import TermsAndConditions from "./termss/TermsAndConditions";
+import PrivacyPolicy from "./termss/PrivacyPolicy";
+import RefundPolicy from "./termss/RefundPolicy";
 const slides = [
   {
     image: slider1,
@@ -660,6 +663,9 @@ const App = () => {
     <Route path="/add" element={<AddToCartUI />} />
     <Route path="/ProductPageDashboard" element={<ProductPageDashboard />} />
     <Route path="/CheckoutPage" element={<CheckoutPage />} />
+    <Route path="/terms" element={<TermsAndConditions />} />
+    <Route path="/privacy" element={<PrivacyPolicy />} />
+    <Route path="/refund" element={<RefundPolicy />} />
     </Routes>
     </Router>
   );

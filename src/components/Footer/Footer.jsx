@@ -20,8 +20,8 @@ const Footer = () => {
           <div className="space-y-3">
             <p className="font-bold text-[15px] mb-2">OUR PRODUCTS</p>
             <p className="font-bold text-[15px]">COOKIE POLICY</p>
-            <a href="mailto:contact@celeberationbakers.in" className="block mt-4 text-[13px] hover:text-amber-700">
-              contact@celeberationbakers.in
+            <a href="mailto:celebrationbakersofficial@gmail.com" className="block mt-4 text-[13px] hover:text-amber-700">
+              celebrationbakersofficial@gmail.com
             </a>
           </div>
 
