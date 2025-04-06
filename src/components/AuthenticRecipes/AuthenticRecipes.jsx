@@ -12,11 +12,11 @@ const AuthenticRecipes = () => {
         </div>
 <div className="content">
         <div className="left w-full lg:w-1/2 p-4">
-          <h1 className="headings text-2xl font-bold text-gray-800">AUTHENTIC RECIPES</h1>
+          <h1 className="headings text-2xl font-bold text-gray-800">Authentic Recipes</h1>
           <p className="text-lg text-gray-600 mt-4">
             Our products are based on traditional home-style recipes using fresh ingredients.
           </p>
-          <h2 className="headings text-2xl font-semibold text-gray-700 mt-6">BAKED WITH LOVE</h2>
+          <h2 className="headings text-2xl font-semibold text-gray-700 mt-6">Baked With Love</h2>
           <p className="text-lg text-gray-600 mt-2">
             Our passion for baking is poured into every recipe, serving smiles on a plate every day.
           </p>

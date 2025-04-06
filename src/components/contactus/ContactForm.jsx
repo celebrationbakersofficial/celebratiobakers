@@ -1019,16 +1019,16 @@ const ContactForm = () => {
             </form>
           </div>
           <div className="flex flex-col justify-center text-gray-700">
-            <h3 className="font-semibold text-yellow-900">Theobroma Foods Private Limited</h3>
+            <h3 className="font-semibold text-yellow-900">Celebration Bakers</h3>
             <p className="mt-2 text-sm">Registered Address:</p>
             <p className="text-sm">
-              32/33 A, Deonar Village Road, Opp. Metal Box Company, Govandi East, Mumbai-400088, Maharashtra, India
+            225/5, Near Chandi Mata Mandir, Nayi Basti Colony, Railway Station Road, Lalitpur, Uttar Pradesh-284403
             </p>
-            <h3 className="mt-4 font-semibold text-yellow-900">Grievance & Nodal Officer:</h3>
-            <p className="text-sm">Ms. Simantini Budukh, General Counsel & Company Secretary</p>
+            <h3 className="mt-4 font-semibold text-yellow-900">Owner :</h3>
+            <p className="text-sm">Mr. Shivpratap Singh Bundela</p>
             <h3 className="mt-4 font-semibold text-yellow-900">Contact Details:</h3>
-            <p className="text-sm">📞 +91 8182-881881</p>
-            <p className="text-sm">📧 contact@theobroma.in</p>
+            <p className="text-sm">📞 +91 6306-442533</p>
+            <p className="text-sm">📧 celebrationbakersofficial@gmail.com</p>
           </div>
         </div>
       </div>

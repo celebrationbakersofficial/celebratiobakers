@@ -253,10 +253,10 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
 
       {/* Right-side buttons */}
       <div className="nav-right">
-        <div className="search-container">
+        {/* <div className="search-container">
           <input type="text" placeholder="Search" className="search-bar" />
-          <FaSearch className="search-icon" /> {/* Search icon inside the input */}
-        </div>
+          <FaSearch className="search-icon" />
+        </div> */}
         <button className="order-button">
         <Link to="/ProductPageDashboard">ORDER ONLINE</Link>
         </button>

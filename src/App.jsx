@@ -665,9 +665,9 @@ const App = () => {
     <Route path="/add" element={<AddToCartUI />} />
     <Route path="/ProductPageDashboard" element={<ProductPageDashboard />} />
     <Route path="/CheckoutPage" element={<CheckoutPage />} />
-    <Route path="/terms" element={<TermsAndConditions />} />
-    <Route path="/privacy" element={<PrivacyPolicy />} />
-    <Route path="/refund" element={<RefundPolicy />} />
+    <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+    <Route path="/refund-policy" element={<RefundPolicy />} />
     </Routes>
     </Router>
   );

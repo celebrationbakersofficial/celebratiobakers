@@ -290,25 +290,25 @@ const Footer = () => {
           {/* Column 1 */}
           <div className="space-y-4">
             <p className="font-semibold text-lg text-gray-900">OUR STORY</p>
-            <Link to="/privacy"
+            <Link to="/privacy-policy"
             onClick={scrollToTop} 
             className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">PRIVACY POLICY</Link>
-            <Link to="/terms" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">TERMS & CONDITIONS</Link>
+            <Link to="/terms-and-conditions" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">TERMS & CONDITIONS</Link>
             <a href="tel:+918182881881" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors mt-4">+91 6306-442533</a>
           </div>
 
           {/* Column 2 */}
           <div className="space-y-4">
             <p className="font-semibold text-lg text-gray-900">OUR PRODUCTS</p>
-            <Link to="/refund"
+            <Link to="/refund-policy"
               onClick={scrollToTop} // Trigger scroll to top
 
 className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Refund Policy</Link>
-            <Link to="/privacy"
+            <Link to="/privacy-policy"
                           onClick={scrollToTop} // Trigger scroll to top
 
              className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Privacy Policy</Link>
-            <Link to="/terms"
+            <Link to="/terms-and-conditions"
                           onClick={scrollToTop} // Trigger scroll to top
             className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Terms And Conditions</Link>
           </div>

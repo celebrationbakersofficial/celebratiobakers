@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 const TermsAndConditions = () => {
       const [isSticky, setIsSticky] = useState(false);
@@ -59,8 +60,8 @@ const TermsAndConditions = () => {
 
                 <h2 className="text-2xl font-semibold mt-6">5. Cancellation and Refund Policy</h2>
                 <p className="text-lg mb-4">
-                    Orders can be canceled within 24 hours of placing them. After this period, cancellations or changes to the order are not accepted. Please refer to our <a href="/refund" className="text-blue-500">Refund Policy</a> for more details.
-                </p>
+  Orders can be canceled within 24 hours of placing them. After this period, cancellations or changes to the order are not accepted. Please refer to our <Link to="/refund-policy" className="text-blue-500">Refund Policy</Link> for more details.
+</p>
 
                 <h2 className="text-2xl font-semibold mt-6">6. Delivery</h2>
                 <p className="text-lg mb-4">
