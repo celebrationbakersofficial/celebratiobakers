@@ -353,7 +353,7 @@ export default function AboutUs() {
         </div>
       </div>
       <OurPromise />
-      <OurTeam />
+      {/* <OurTeam /> */}
       <OrderSection />
       <Footer />
       <ScrollToTopButton />
