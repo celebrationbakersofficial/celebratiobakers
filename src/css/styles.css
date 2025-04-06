@@ -88,7 +88,7 @@
 .logo-containers {
   position: absolute;
   top: 169px;
-  z-index: 100;
+  z-index: 0;
 }
 
 .logos {
