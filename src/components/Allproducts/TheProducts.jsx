@@ -13,7 +13,7 @@ const TheProducts = () => {
           <div className="text-center">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold uppercase font-overlock text-white">
-              celebrationbakers
+              Celebration Bakers
               </h1>
             </div>
           </div>
