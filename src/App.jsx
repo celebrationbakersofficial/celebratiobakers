@@ -644,7 +644,7 @@ const App = () => {
       <SpecialHampers />
       <Products />
       <BakerySection />
-      {/* <TestimonialsSlider /> */}
+      <TestimonialsSlider />
       <TeaTimeDelights />
       <AuthenticRecipes />
       <OrderSection />
