@@ -231,7 +231,7 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
     <div>
     <div className="promo-banner">
     <p>
-      <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code:</strong>
+      <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code : </strong>
       <strong>FIRSTORDER5</strong>
     </p>
   </div>
