@@ -3,7 +3,7 @@ import images from "./colin-lee-1FXyOIpoIlI-unsplash-removebg.png"
 const OrderSection = () => {
   return (
     <div className="bg-[#f0f8f5] py-16 px-8 text-center relative">
-      <h2 className="text-2xl font-bold text-[#a67c00]">Like Our Products?</h2>
+      <h2 className="text-2xl font-bold text-[#ed8482]">Like Our Products?</h2>
       <div className="mt-2 mb-4">
         <div className="h-1 w-16 bg-blue-300 mx-auto"></div>
       </div>

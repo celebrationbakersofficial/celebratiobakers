@@ -5,15 +5,15 @@ import "./testimonial.css"
 const testimonials = [
   {
     text: "Always a delight coming here for pastries. This Theobrama outlet may not be very spacious but their pastries are lip-smacking good. Loved hazelnut pastry among the ones I tried. Value for money and a must-visit place!",
-    author: "Saurabh Mehra, Mumbai",
+    // author: "Saurabh Mehra, Mumbai",
   },
   {
     text: "The pastries here are absolutely delicious! The ambiance is cozy, and the service is great. Highly recommended for dessert lovers!",
-    author: "Anjali Sharma, Delhi",
+    // author: "Anjali Sharma, Delhi",
   },
   {
     text: "A hidden gem for sweet lovers. The cakes and pastries are fresh and tasty. Will definitely come back!",
-    author: "Rohan Patel, Bangalore",
+    // author: "Rohan Patel, Bangalore",
   },
 ];
 
