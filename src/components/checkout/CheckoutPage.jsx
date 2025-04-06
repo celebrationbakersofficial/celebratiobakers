@@ -782,7 +782,8 @@ export default function CheckoutPage() {
     handleCloseModal();  // Close the modal after collecting the email
 
     try {
-        const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
+        // const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
+        const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1220,7 +1221,8 @@ if (
 
   console.log("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]",paymentData)
     try {
-      const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
+      // const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
+      const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
