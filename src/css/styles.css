@@ -82,3 +82,31 @@
     animation: clickAnimation 0.3s ease-in-out;
   }
   
+  /* styles.css */
+
+/* Container for the logo */
+.logo-containers {
+  position: absolute;
+  top: 20px;  /* Adjust the distance from the top */
+  right: 20px; /* Adjust the distance from the right */
+  z-index: 100;  /* Ensure it appears on top of other elements */
+}
+
+/* Logo styling */
+.logos {
+  max-width: 150px; /* Set a max width for the logo */
+  height: auto;     /* Maintain aspect ratio */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logos {
+    max-width: 120px; /* Smaller logo size on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .logos {
+    max-width: 100px; /* Smaller logo size on mobile */
+  }
+}
