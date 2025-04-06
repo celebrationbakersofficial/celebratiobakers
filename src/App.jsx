@@ -588,6 +588,7 @@ import CheckoutPage from "./components/checkout/CheckoutPage";
 import TermsAndConditions from "./termss/TermsAndConditions";
 import PrivacyPolicy from "./termss/PrivacyPolicy";
 import RefundPolicy from "./termss/RefundPolicy";
+import ScrollToTop from "./ScrollToTop.JSX";
 const slides = [
   {
     image: slider1,
@@ -630,6 +631,7 @@ const App = () => {
 
   return (
     <Router>
+    <ScrollToTop />
     <Routes>
     <Route path="/" element={
     <div >

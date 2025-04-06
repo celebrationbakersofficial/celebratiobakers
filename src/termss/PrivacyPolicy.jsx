@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer';
 
 const PrivacyPolicy = () => {
+          const [isSticky, setIsSticky] = useState(false);
+          const [menuOpen, setMenuOpen] = useState(false); // State to track if menu is open
+        
+          // Handle scroll event to toggle sticky class
+          const handleScroll = () => {
+            if (window.scrollY > 50) {
+              setIsSticky(true);
+            } else {
+              setIsSticky(false);
+            }
+          };
+        
+          useEffect(() => {
+            window.addEventListener("scroll", handleScroll);
+            return () => {
+              window.removeEventListener("scroll", handleScroll);
+            };
+          }, []);
+        
+          const toggleMenu = (state) => {
+            setMenuOpen(state); // Toggle menu state when the hamburger icon is clicked
+          };
     return (
+        <>
+        <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
         <div className="bg-gray-100 min-h-screen flex items-center justify-center p-4">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
                 <h1 className="text-3xl font-bold text-center mb-6">Privacy Policy</h1>
@@ -45,6 +71,8 @@ const PrivacyPolicy = () => {
                 </p>
             </div>
         </div>
+      <Footer />
+</>
     );
 };
 

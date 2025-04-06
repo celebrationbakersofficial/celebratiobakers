@@ -278,6 +278,9 @@ import { Link } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaTelegram, FaTwitter } from 'react-icons/fa'; // Import React Icons
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <footer className="bg-[#b0dcd1] text-gray-800 text-sm font-sans shadow-lg">
       {/* Main Footer Content */}
@@ -287,7 +290,9 @@ const Footer = () => {
           {/* Column 1 */}
           <div className="space-y-4">
             <p className="font-semibold text-lg text-gray-900">OUR STORY</p>
-            <Link to="/privacy" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">PRIVACY POLICY</Link>
+            <Link to="/privacy"
+            onClick={scrollToTop} 
+            className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">PRIVACY POLICY</Link>
             <Link to="/terms" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">TERMS & CONDITIONS</Link>
             <a href="tel:+918182881881" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors mt-4">+91 6306-442533</a>
           </div>
@@ -295,10 +300,17 @@ const Footer = () => {
           {/* Column 2 */}
           <div className="space-y-4">
             <p className="font-semibold text-lg text-gray-900">OUR PRODUCTS</p>
-            <Link to="/refund" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Refund Policy</Link>
-            <Link to="/privacy" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Terms And Conditions</Link>
-            <a href="mailto:celebrationbakersofficial@gmail.com" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors mt-4">celebrationbakersofficial@gmail.com</a>
+            <Link to="/refund"
+              onClick={scrollToTop} // Trigger scroll to top
+
+className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Refund Policy</Link>
+            <Link to="/privacy"
+                          onClick={scrollToTop} // Trigger scroll to top
+
+             className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Privacy Policy</Link>
+            <Link to="/terms"
+                          onClick={scrollToTop} // Trigger scroll to top
+            className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">Terms And Conditions</Link>
           </div>
 
           {/* Column 3 */}
@@ -318,26 +330,28 @@ const Footer = () => {
                 <FaTelegram className="text-xl" />
               </a>
             </div>
+            <a href="mailto:celebrationbakersofficial@gmail.com" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors mt-4">celebrationbakersofficial@gmail.com</a>
           </div>
         </div>
 
         {/* Store Locations Section */}
         <div className="py-8 border-b border-gray-300">
-          <h3 className="font-semibold text-lg text-gray-900 mb-4">OUR STORES</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-sm text-gray-600">
-            {['Ambala'].map((city) => (
-              <span
-                key={city}
-                className="hover:text-amber-600 cursor-pointer transition-colors"
-              >
-                {city}
-              </span>
-            ))}
-          </div>
-        </div>
+  <h3 className="font-semibold text-lg text-gray-900 mb-4">OUR STORES</h3>
+  <div className="flex space-x-4 overflow-x-auto text-sm text-gray-600">
+    {['225/5, Near Chandi Mata Mandir, Nayi Basti Colony, Railway Station Road, Lalitpur, Uttar Pradesh-284403'].map((city) => (
+      <span
+        key={city}
+        className="hover:text-amber-600 cursor-pointer transition-colors"
+      >
+        {city}
+      </span>
+    ))}
+  </div>
+</div>
+
 
         {/* Sitemap & Newsletter Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center py-8 border-b border-gray-300">
+        {/* <div className="flex flex-col md:flex-row justify-between items-center py-8 border-b border-gray-300">
           <Link to="/sitemap" className="font-semibold text-lg text-gray-900 hover:text-amber-600 transition-colors mb-4 md:mb-0">
             HTML SITEMAP
           </Link>
@@ -351,11 +365,11 @@ const Footer = () => {
               Sign up for updates
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Copyright Section */}
         <div className="pt-8 mt-4 text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Celebration Bakers FOODS. ALL RIGHTS RESERVED.</p>
+          <p>© {new Date().getFullYear()} Celebration Bakers. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer';
 
 const TermsAndConditions = () => {
       const [isSticky, setIsSticky] = useState(false);
