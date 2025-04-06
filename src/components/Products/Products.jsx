@@ -23,6 +23,7 @@ const Products = () => {
             src={product.image} 
             alt={product.title} 
             className="product-image"
+            loading="lazy"
           />
           <div className="image-overlay"></div>
         </div>
