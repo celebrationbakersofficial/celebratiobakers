@@ -92,7 +92,7 @@ export default function Specialitycakes() {
         </h1>
         <p className="text-lg max-w-2xl mx-auto">
           Our made-to-order range of speciality cakes is here to make any
-          celebration great! From Theobroma classic cakes to gourmet cakes to
+          celebration great! From celeberationbakers classic cakes to gourmet cakes to
           customized theme cakes, we have something for every special occasion.
         </p>
       </div>
@@ -137,7 +137,7 @@ export default function Specialitycakes() {
             <p className="text-lg">
               We handcraft and customize celebration cakes for all special occasions. From theme-based and personalized birthday cakes to exquisite multi-tiered wedding cakes, we have all your celebrations covered!
               <br /><br />
-              Write to us with your customized theme cake requirements at - <a href="mailto:contact@theobroma.in" className="text-blue-600">contact@theobroma.in</a>
+              Write to us with your customized theme cake requirements at - <a href="mailto:celebrationbakersofficial@gmail.com" className="text-blue-600">celebrationbakersofficial@gmail.com</a>
             </p>
           </div>
           <div className="md:w-1/3 md:order-1 text-center">
@@ -150,16 +150,6 @@ export default function Specialitycakes() {
         </div>
       </div>
     </div>
-      
-      {/* Pre-Order Section */}
-      {/* <div className="bg-[#EFF3F1] py-10 text-center">
-        <h2 className="text-2xl text-[#9C722A] font-semibold">Pre Order Now!</h2>
-        <p className="text-gray-700 mt-2">Call us at +91 8182881881 or email us at <a href="mailto:contact@theobroma.in" className="text-blue-500">contact@theobroma.in</a></p>
-        <div className="mt-4">
-          <button className="bg-green-500 text-white px-6 py-2 rounded-lg mx-2">Call Now</button>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-lg mx-2">Email Us</button>
-        </div>
-      </div> */}
       <OrderSection />
     </div>
     <Footer />
