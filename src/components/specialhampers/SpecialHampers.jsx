@@ -1,6 +1,7 @@
 import React from 'react'
 import SpecialHamper from './anthony-demarino-MIghDHwPsVg-unsplash.jpg'
 import "./specialhampers.css";
+import { Link } from 'react-router-dom';
 
 function SpecialHampers() {
   return (
@@ -16,13 +17,12 @@ function SpecialHampers() {
             Now gift your loved ones our special hampers curated with our<br />
             signature products.
           </p>
-  
-          <a 
-            href="#know-more"
-            className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-full transition-colors duration-200 mt-8"
-          >
-            KNOW MORE
-          </a>
+          <Link 
+  to="/Aboutus"
+  className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-full transition-colors duration-200 mt-8"
+>
+  KNOW MORE
+</Link>
         </div>
 
         {/* Image Section */}
