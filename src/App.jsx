@@ -655,8 +655,8 @@ const App = () => {
       <ScrollToTopButton />
     </div>}
      />
-    <Route path="/finds-us" element={<ContactForm />} />
-    <Route path="/contact-us" element={<StoreLocator />} />
+    <Route path="/contact-us" element={<ContactForm />} />
+    <Route path="/finds-us" element={<StoreLocator />} />
     <Route path="/speciality-cakes" element={<Specialitycakes />} />
     <Route path="/products/:productName" element={<ProductPage />} />
     <Route path="/Aboutus" element={<AboutUs />} />
