@@ -877,6 +877,20 @@ export default function ProductPageDashboard() {
   const toggleMenu = (state) => {
     setMenuOpen(state);
   };
+  const [addedProductId, setAddedProductId] = useState(null);
+
+  const handleAddToCart = (product) => {
+    // Add product to cart (existing addToCart function)
+    addToCart(product);
+
+    // Update the state to show the button as added
+    setAddedProductId(product.id);
+
+    // Reset the added state after a short duration (optional)
+    setTimeout(() => {
+      setAddedProductId(null);
+    }, 1000); // Reset after 1 second
+  };
 
   const addToCart = (product) => {
     setCart((prev) => {
@@ -958,8 +972,12 @@ export default function ProductPageDashboard() {
                 <h3 className="text-md font-semibold">{product.name}</h3>
                 <p className="text-green-600 font-bold">{product.price}</p>
                 <button
-                  className="mt-2 bg-green-500 text-white py-1 px-3 rounded"
-                  onClick={() => addToCart(product)}
+                  className={`mt-2 bg-green-500 text-white py-1 px-3 rounded  transition-all duration-300 ${
+                addedProductId === product.id
+                  ? 'bg-green-700 text-white transform scale-105'
+                  : 'bg-green-500 text-white'
+              }`}
+                  onClick={() => handleAddToCart(product)}
                 >
                   ADD +
                 </button>
