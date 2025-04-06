@@ -224,8 +224,8 @@ app.post("/create-order", async (req, res) => {
 
       // Set up email options for admin
       const adminMailOptions = {
-        from: 'developer.govinda00@gmail.com',
-        to: 'aeroedgetechnologies@gmail.com',
+        from: 'celebrationbakersofficial@gmail.com',
+        to: 'celebrationbakersofficial@gmail.com',
         subject: 'New Order Notification',
         html: adminEmailContent,
       };
@@ -353,8 +353,8 @@ app.get("/", (req, res) => {
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'developer.govinda00@gmail.com',  // Your email (sender's address)
-    pass: 'coku kgqp bzze reyi',     // The app password you generated
+    user: 'celebrationbakersofficial@gmail.com',  // Your email (sender's address)
+    pass: 'lytv fmdo mhpk bjst',     // The app password you generated
   },
 });
 
@@ -364,7 +364,7 @@ app.post('/send-email', (req, res) => {
 
   const mailOptions = {
     from: email,  // From the user's email
-    to: 'aeroedgetechnologies@gmail.com',  // Your email address
+    to: 'celebrationbakersofficial@gmail.com',  // Your email address
     subject: subject || 'New Message from Contact Form',  // Subject
     text: `You have received a new message from ${name} (${email}):\n\n${message}`,  // Email body
   };
