@@ -669,7 +669,7 @@ const App = () => {
     <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     <Route path="/refund-policy" element={<RefundPolicy />} />
-    <Route path="/shipping-and-delievery" element={<ShippingAndDelivery />} />
+    <Route path="/shipping-and-delivery" element={<ShippingAndDelivery />} />
     </Routes>
     </Router>
   );
