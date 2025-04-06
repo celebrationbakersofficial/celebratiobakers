@@ -165,3 +165,9 @@
 .headings {
     color: #ec7a77;
 }
+.heading.left.w-full.lg\:w-1\/2.p-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

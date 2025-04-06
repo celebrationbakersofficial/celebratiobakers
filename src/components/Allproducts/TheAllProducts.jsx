@@ -1244,7 +1244,7 @@ const TheAllProducts = () => {
     {/* Sidebar (Hidden initially) */}
     {showFilters && (
       <div className="w-full md:w-1/4 border-r pr-6 md:pl-4 pl-4 md:block">
-        <h2 className="font-bold text-lg mb-4">FILTERS</h2>
+        {/* <h2 className="font-bold text-lg mb-4">FILTERS</h2>
         <label className="flex items-center space-x-2 mb-2">
           <input type="checkbox" className="accent-brown" />
           <span>Egg</span>
@@ -1252,7 +1252,7 @@ const TheAllProducts = () => {
         <label className="flex items-center space-x-2 mb-4">
           <input type="checkbox" className="accent-brown" />
           <span>Eggless</span>
-        </label>
+        </label> */}
 
         <h2 className="font-bold text-lg mb-4">PRODUCTS</h2>
         <ul className="space-y-2 text-gray-700">
