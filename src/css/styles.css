@@ -87,17 +87,15 @@
 /* Container for the logo */
 .logo-containers {
   position: absolute;
-  top: 20px;  /* Adjust the distance from the top */
-  right: 20px; /* Adjust the distance from the right */
-  z-index: 100;  /* Ensure it appears on top of other elements */
+  top: 169px;
+  right: 38px;
+  z-index: 100;
 }
 
-/* Logo styling */
 .logos {
-  max-width: 150px; /* Set a max width for the logo */
-  height: auto;     /* Maintain aspect ratio */
+  max-width: 180px;
+  height: auto;
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .logos {
