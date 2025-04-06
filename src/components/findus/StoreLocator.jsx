@@ -9,7 +9,7 @@ import "./StoreLocator.css"
 import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 export default function StoreLocator() {
   const [radius, setRadius] = useState(5);
-  const [location, setLocation] = useState({ lat: 30.3782, lng: 76.7767 }); // Default to Ambala Cantt
+  const location = { lat: 24.68687, lng: 78.40371}; // Lalitpur, UP
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -53,7 +53,7 @@ export default function StoreLocator() {
       <Navbar isSticky={isSticky} menuOpen={menuOpen} toggleMenu={toggleMenu} />
       <div className="bg-[#fdf1e6] flex flex-col items-center p-24 flex-grow sm:flex-row md:flex-col">
       <h2 className="text-lg text-gray-700 text-center mb-4">
-        We are present in over 200+ locations across 30+ cities. Find a Theobroma
+        We are present in over 200+ locations across 30+ cities. Find a Celebration Bakers
         Bakery Shop Near You.
       </h2>
       <div className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
@@ -75,7 +75,7 @@ export default function StoreLocator() {
               type="text"
               className="flex-1 outline-none px-2 text-sm"
               placeholder="Enter Location..."
-              defaultValue="Ambala Cantt"
+              defaultValue="Lalitpur"
             />
           </div>
           <div className="mb-4">
@@ -93,11 +93,10 @@ export default function StoreLocator() {
           </div>
           <div className="p-4 border rounded-lg">
             <div className="flex items-center gap-2 text-lg font-semibold">
-              <MapPin className="w-5 h-5 text-yellow-500" /> KIPPS Market
+              <MapPin className="w-5 h-5 text-yellow-500" /> 225/5 
             </div>
             <p className="text-sm text-gray-600 mt-1">
-              SCO 35, Ground floor, Left hand side portion
-              <br /> Kipps market, Kardhan Road, Ambala Cantt, Haryana - 133001
+             Lalitpur, Uttar Pradesh-284403
             </p>
           </div>
         </div>
