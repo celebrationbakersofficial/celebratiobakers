@@ -329,6 +329,7 @@
     /* Ensure it stays above other elements */
     transition: all 0.3s ease;
     /* Smooth transition */
+    white-space: nowrap; /* Prevents the words from breaking into multiple lines */
 }
 
 /* Promo Banner when sticky */
@@ -708,12 +709,5 @@
       display: flex;
     }
   }
-  @media screen and (max-width: 1360) {
-/* #endregion */
-.navbar .nav-links li a {
-    /* color: black; */
-    font-size: small;
-}  
-}
 
   

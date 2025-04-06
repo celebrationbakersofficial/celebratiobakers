@@ -1435,8 +1435,8 @@ if (
         <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6">
           {/* Theobroma Store Details */}
           <div className="flex items-center space-x-2 border-b pb-4">
-            <h2 className="text-lg font-semibold">celeberationbakers</h2>
-            <span className="text-gray-500 text-sm">Sadar Bazar, Ambala Cantt</span>
+            <h2 className="text-lg font-semibold">Celeberationbakers</h2>
+            <span className="text-gray-500 text-sm">Lalitpur, Uttar Pradesh</span>
           </div>
 
           {/* Delivery & Pickup Toggle */}
