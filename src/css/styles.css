@@ -88,7 +88,6 @@
 .logo-containers {
   position: absolute;
   top: 169px;
-  right: 38px;
   z-index: 100;
 }
 
@@ -107,4 +106,32 @@
   .logos {
     max-width: 100px; /* Smaller logo size on mobile */
   }
+}
+
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.logo-loader {
+  animation: spin 2s linear infinite;
+  width: 100px;  /* Adjust size of your logo */
+  height: 100px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-containers {
+  right: 17px;
 }

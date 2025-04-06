@@ -229,12 +229,14 @@ const Navbar = ({ isSticky, menuOpen, toggleMenu }) => {
 
   return (
     <div>
-    <div className="promo-banner">
-    <p>
-      <strong>Flat 10% OFF on the first order. </strong> <strong>Use Code : </strong>
-      <strong>FIRSTORDER5</strong>
-    </p>
-  </div>
+<div class="bg-pink-100 p-3 sm:p-4 text-center text-sm sm:text-base break-words max-w-full">
+  <p>
+    <strong class="font-bold">Flat 10% OFF on the first order. </strong>
+    <strong class="font-bold">Use Code : </strong>
+    <strong class="font-bold">FIRSTORDER5</strong>
+  </p>
+</div>
+
     <nav
       className={`navbar ${menuOpen ? "open" : ""} ${isSticky ? "sticky top-0 bg-white shadow-lg z-10 transition-all duration-300" : "bg-transparent"} transition-all duration-300`}
     >
