@@ -471,6 +471,8 @@ import React, { useEffect, useState } from "react";
 // import Cakes from "./ales-krivec-QnNqGoCnBg0-unsplash.jpg";
 // import Cakes1 from "./prakash-meghani-07bBNmiV7ag-unsplash (1).jpg";
 import Footer from "../Footer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTopButton from "../scrolltotop/ScrollToTopButton";
 import Navbar from "../Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -890,6 +892,14 @@ export default function ProductPageDashboard() {
       // If product doesn't exist in cart, add a new entry with quantity 1
       return [...prev, { ...product, quantity: 1 }];
     });
+    toast.success(`${product.name} added to the cart!`, {
+      position: "top-center",   // Position of the toast
+      autoClose: 3000,          // Duration of the toast
+      closeOnClick: true,       // Close when clicked
+      pauseOnHover: true,       // Pause on hover
+      draggable: true,          // Enable dragging
+      theme: "light",           // Theme (light/dark)
+    });
   };
 
   const updateQuantity = (id, change) => {
@@ -1006,6 +1016,17 @@ export default function ProductPageDashboard() {
           )}
         </aside>
       </div>
+      <ToastContainer 
+        position="top-center" 
+        autoClose={3000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Footer />
       <ScrollToTopButton />
     </div>
