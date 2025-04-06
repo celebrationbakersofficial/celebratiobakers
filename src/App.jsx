@@ -589,6 +589,7 @@ import TermsAndConditions from "./termss/TermsAndConditions";
 import PrivacyPolicy from "./termss/PrivacyPolicy";
 import RefundPolicy from "./termss/RefundPolicy";
 import ScrollToTop from "./ScrollToTop.JSX";
+import ShippingAndDelivery from "./termss/ShippingAndDelivery";
 const slides = [
   {
     image: slider1,
@@ -668,6 +669,7 @@ const App = () => {
     <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     <Route path="/refund-policy" element={<RefundPolicy />} />
+    <Route path="/shipping-and-delievery" element={<ShippingAndDelivery />} />
     </Routes>
     </Router>
   );

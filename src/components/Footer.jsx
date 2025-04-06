@@ -291,9 +291,14 @@ const Footer = () => {
           <div className="space-y-4">
             <p className="font-semibold text-lg text-gray-900">OUR STORY</p>
             <Link to="/privacy-policy"
-            onClick={scrollToTop} 
+            onClick={scrollToTop}
             className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">PRIVACY POLICY</Link>
-            <Link to="/terms-and-conditions" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">TERMS & CONDITIONS</Link>
+            <Link to="/terms-and-conditions"
+            onClick={scrollToTop}
+            className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">TERMS & CONDITIONS</Link>
+            <Link to="/shipping-and-delievery" 
+            onClick={scrollToTop}
+            className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">SHIPPING & DELIEVERY</Link>
             <a href="tel:+918182881881" className="block text-sm text-gray-600 hover:text-amber-600 transition-colors mt-4">+91 6306-442533</a>
           </div>
 
