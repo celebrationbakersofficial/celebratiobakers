@@ -325,13 +325,13 @@ className="block text-sm text-gray-600 hover:text-amber-600 transition-colors">R
               {/* <a href="https://facebook.com" className="text-gray-600 hover:text-amber-600 transition-colors">
                 <FaFacebookF className="text-xl" />
               </a> */}
-              <a href="https://www.instagram.com/celebration_bakers_lalitpur?utm_source=qr&igsh=OW04ejY2eXBmaGpn" className="text-gray-600 hover:text-amber-600 transition-colors">
+              <a href="https://www.instagram.com/celebration_bakers_lalitpur?utm_source=qr&igsh=OW04ejY2eXBmaGpn" className="text-gray-600 hover:text-amber-600 transition-colors" target='blank'>
                 <FaInstagram className="text-xl" />
               </a>
               {/* <a href="https://twitter.com" className="text-gray-600 hover:text-amber-600 transition-colors">
                 <FaTwitter className="text-xl" />
               </a> */}
-                            <a href="https://t.me/@parihar_78" className="text-gray-600 hover:text-amber-600 transition-colors">
+                            <a href="https://t.me/@parihar_78" className="text-gray-600 hover:text-amber-600 transition-colors" target='blank'>
                 <FaTelegram className="text-xl" />
               </a>
             </div>
