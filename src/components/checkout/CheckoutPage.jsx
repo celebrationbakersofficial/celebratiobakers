@@ -783,7 +783,8 @@ export default function CheckoutPage() {
 
     try {
         // const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
-        const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
+        // const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
+        const response = await fetch('http://localhost:3000/create-order', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -836,7 +837,12 @@ export default function CheckoutPage() {
   };
 
   const location = useLocation();
-  const { cart, subtotal, gst, total } = location.state || {};
+  // const { cart, subtotal, gst, total } = location.state || {};
+  const { cart, subtotal, gst } = location.state || {};
+const deliveryCharges = 30;
+const packagingCharges = 17;
+const total = subtotal + gst + deliveryCharges + packagingCharges;
+
 //   const handlePayment = () => {
 //     const options = {
 //       key: "rzp_test_HyQ8dXoaQtM9D7", // Replace this with your Razorpay key
@@ -1222,7 +1228,8 @@ if (
   console.log("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]",paymentData)
     try {
       // const response = await fetch('https://celebrationbakers.onrender.com/create-order', {
-      const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
+      // const response = await fetch('https://celebratiobakers.onrender.com/create-order', {
+      const response = await fetch('http://localhost:3000/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1628,12 +1635,12 @@ if (
           </div>
           <div className="flex justify-between text-sm">
             <span>Delivery Charges</span>
-            <span>₹21.19</span> {/* Adjust based on your logic */}
-          </div>
+            <span>₹{deliveryCharges.toFixed(2)}</span>
+            </div>
           <div className="flex justify-between text-sm">
             <span>Packaging Charges</span>
-            <span>₹16.95</span> {/* Adjust based on your logic */}
-          </div>
+            <span>₹{packagingCharges.toFixed(2)}</span>
+            </div>
           <div className="flex justify-between text-sm">
             <span>GST</span>
             <span>₹{gst.toFixed(2)}</span>

@@ -41,14 +41,17 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
       .text(`Date: ${new Date().toLocaleDateString()}`, 50, 135);
 
     // Bill From and Bill To
+    // Bill From Section (Fixed to match invoice layout)
     doc
       .fontSize(12)
       .fillColor('#000000')
       .text('Bill From:', 50, 160)
       .text('Celebration Bakers', 50, 175)
-      .text('0, M/S CELEBRATION BAKERS,Nai Basti, Behind Chandi Mata Mandir, Gandhi Naga, Lalitpur, Uttar Pradesh, 284403', 50, 190)
-      .text('Phone: +91 6306-442533', 50, 205)
-      .text('GST No.: 09FRDPP8191N1ZS', 50, 220); // Add your GST number here
+      .text('0, M/S CELEBRATION BAKERS, Nai Basti,', 50, 190)
+      .text('Behind Chandi Mata Mandir, Gandhi Nagar, Lalitpur,', 50, 205)
+      .text('Phone: +91 6306442533', 50, 220)
+      .text('GST No.: 09FRDPP8191N1ZS', 50, 235);
+
 
     doc
       .fontSize(12)
