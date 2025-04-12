@@ -109,9 +109,16 @@ app.get('/download-pdf/:orderId', async (req, res) => {
       return res.status(404).send("PDF not found.");
     }
 
+    // Handle Binary data to Buffer conversion
+    let pdfData = payment.pdf.data;
+    if (pdfData instanceof mongoose.mongo.Binary) {
+      pdfData = pdfData.buffer;
+    }
+
+    // Now send the file properly
     res.setHeader('Content-Type', payment.pdf.contentType);
     res.setHeader('Content-Disposition', `attachment; filename=order_${orderId}.pdf`);
-    res.send(payment.pdf.data);
+    res.send(pdfData);
   } catch (error) {
     console.error("Error fetching PDF:", error);
     res.status(500).send("Error downloading PDF");
