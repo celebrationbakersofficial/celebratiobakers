@@ -22,10 +22,6 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
       resolve(pdfData);
     });
 
-    // Logo (if available, you can add an image here)
-    // Uncomment and adjust the path if you have a logo
-    // doc.image('path/to/logo.png', 50, 45, { width: 50 });
-
     // Title and Invoice Number
     doc
       .fontSize(20)
@@ -40,100 +36,114 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
 
     doc
       .fontSize(10)
+      .fillColor('#000000')
       .text(`Invoice Number: ${orderId}`, 50, 120)
       .text(`Date: ${new Date().toLocaleDateString()}`, 50, 135);
 
     // Bill From and Bill To
     doc
       .fontSize(12)
+      .fillColor('#000000')
       .text('Bill From:', 50, 160)
       .text('Celebration Bakers', 50, 175)
       .text('123 Bakery Street, Bakerstown', 50, 190)
-      .text('Phone: +91-123-456-7890', 50, 205);
+      .text('Phone: +91-123-456-7890', 50, 205)
+      .text('GST No.: 1234567890ABC', 50, 220); // Add your GST number here
 
     doc
       .fontSize(12)
+      .fillColor('#000000')
       .text('Bill To:', 400, 160)
-      .text(`${giftDetails.recipientName || 'Customer Name'}`, 400, 175)
-      .text(`${address['home']?.locality || 'Customer Address'}`, 400, 190)
-      .text(`Phone: ${address['home']?.phone || '+91-987-654-3210'}`, 400, 205);
+      .text(`${giftDetails.recipientName || 'Customer Name'}`, 400, 175);
+    // Add delivery address (using the first available address, e.g., 'home')
+    const deliveryAddress = address['home'] || address[Object.keys(address)[0]] || {};
+    doc
+      .text(`${deliveryAddress.locality || 'Customer Address'}`, 400, 190)
+      .text(`Phone: ${deliveryAddress.phone || '+91-987-654-3210'}`, 400, 205);
 
     // Table Header
     doc
       .moveDown(2)
       .fontSize(12)
-      .text('Item', 50, 250)
-      .text('Quantity', 200, 250)
-      .text('Rate', 300, 250)
-      .text('Tax', 400, 250)
-      .text('Amount', 500, 250);
+      .fillColor('#000000')
+      .text('S.No', 50, 250)
+      .text('Item Name', 100, 250)
+      .text('Qty', 250, 250)
+      .text('Price', 320, 250)
+      .text('Total', 400, 250);
 
     // Table Border
     doc
       .lineWidth(1)
       .moveTo(50, 265)
-      .lineTo(550, 265)
+      .lineTo(450, 265)
       .stroke();
 
     // Sample Items (Replace with dynamic data if available)
     const items = [
-      { name: 'Custom Cake', qty: 1, rate: 500, tax: 0, amount: 500 },
-      { name: 'Cupcakes (12 pcs)', qty: 1, rate: 300, tax: 0, amount: 300 },
+      { name: 'Custom Cake', qty: 1, price: 500, total: 500 },
+      { name: 'Cupcakes (12 pcs)', qty: 1, price: 300, total: 300 },
     ];
     let yPosition = 270;
-    items.forEach(item => {
+    items.forEach((item, index) => {
       doc
         .fontSize(10)
-        .text(item.name, 50, yPosition)
-        .text(item.qty, 200, yPosition)
-        .text(`₹${item.rate}`, 300, yPosition)
-        .text(`₹${item.tax}`, 400, yPosition)
-        .text(`₹${item.amount}`, 500, yPosition);
+        .fillColor('#000000')
+        .text(index + 1, 50, yPosition)
+        .text(item.name, 100, yPosition)
+        .text(item.qty, 250, yPosition)
+        .text(`₹${item.price}`, 320, yPosition)
+        .text(`₹${item.total}`, 400, yPosition);
       yPosition += 20;
     });
 
     // Table Bottom Border
     doc
       .moveTo(50, yPosition - 10)
-      .lineTo(550, yPosition - 10)
+      .lineTo(450, yPosition - 10)
       .stroke();
 
-    // Totals
+    // Totals on right bottom
     yPosition += 20;
+    const subtotal = items.reduce((sum, item) => sum + item.total, 0);
+    const gst = subtotal * 0.18; // 18% GST
+    const grandTotal = subtotal + gst;
     doc
       .fontSize(12)
-      .text('Subtotal:', 400, yPosition)
-      .text(`₹${items.reduce((sum, item) => sum + item.amount, 0)}`, 500, yPosition);
+      .fillColor('#000000')
+      .text('Subtotal:', 300, yPosition)
+      .text(`₹${subtotal.toFixed(2)}`, 400, yPosition);
     yPosition += 20;
     doc
-      .text('Discount:', 400, yPosition)
-      .text('₹0.00', 500, yPosition);
-    yPosition += 20;
-    doc
-      .text('Tax:', 400, yPosition)
-      .text('₹0.00', 500, yPosition);
-    yPosition += 20;
-    doc
-      .text('Paid:', 400, yPosition)
-      .text('₹0.00', 500, yPosition);
+      .text('GST (18%):', 300, yPosition)
+      .text(`₹${gst.toFixed(2)}`, 400, yPosition);
     yPosition += 20;
     doc
       .fontSize(14)
       .fillColor('#0000FF')
-      .text('Total:', 400, yPosition)
-      .text(`₹${amount}`, 500, yPosition);
+      .text('Grand Total:', 300, yPosition)
+      .text(`₹${grandTotal.toFixed(2)}`, 400, yPosition);
 
     // Terms & Conditions
     doc
       .moveDown(2)
       .fontSize(10)
+      .fillColor('#000000')
       .text('Terms & Conditions:', 50, yPosition + 20)
       .text('1. Payment is due within 7 days.', 50, yPosition + 35)
       .text('2. No refunds after delivery.', 50, yPosition + 50);
 
+    // Order No. and Transaction No. at bottom left
+    doc
+      .fontSize(10)
+      .fillColor('#000000')
+      .text(`Order No.: ${orderId}`, 50, 700)
+      .text(`Transaction No.: ${order.id}`, 50, 715);
+
     doc.end();
   });
 }
+
 
 
 const app = express();
