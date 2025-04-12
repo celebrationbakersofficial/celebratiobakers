@@ -93,6 +93,10 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
     recipientMobile: String,
     message: String,
   },
+  pdf: {
+    data: Buffer,
+    contentType: String
+  }
 }));
 app.get('/download-pdf/:orderId', async (req, res) => {
   try {
