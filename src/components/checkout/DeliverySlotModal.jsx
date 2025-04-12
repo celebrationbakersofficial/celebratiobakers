@@ -444,6 +444,9 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { CalendarClock, Bike, X } from "lucide-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns"; // optional, for formatting date
 
 export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
   const [selectedOption, setSelectedOption] = useState("later");
@@ -451,9 +454,13 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const dates = [
-    { day: "Sun", date: "Mar 16" },
-    { day: "Mon", date: "Mar 17" },
-    { day: "Tue", date: "Mar 18" },
+    { day: "Sun",  },
+    { day: "Mon",  },
+    { day: "Tue",  },
+    { day: "Wed",  },
+    { day: "Thu",  },
+    { day: "Fri",  },
+    { day: "Sat",  },
   ];
 
   const slots = {
@@ -477,15 +484,27 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
   // }, [isOpen]);
 
   // Handle selecting a delivery slot
+  // const handleUpdateSlot = () => {
+  //   if (selectedOption === "later" && selectedSlot) {
+  //     const selectedDelivery = `${selectedDate} - ${selectedSlot}`;
+  //     onSelectSlot(selectedDelivery);  // Pass the selected delivery slot to the parent
+  //   } else if (selectedOption === "now") {
+  //     onSelectSlot("Deliver Now");  // Handle the "Deliver Now" option
+  //   }
+  //   onClose();  // Close the modal after selecting the slot
+  // };
+
   const handleUpdateSlot = () => {
     if (selectedOption === "later" && selectedSlot) {
-      const selectedDelivery = `${selectedDate} - ${selectedSlot}`;
-      onSelectSlot(selectedDelivery);  // Pass the selected delivery slot to the parent
+      const formattedDate = format(selectedDate, "yyyy-MM-dd"); // or any format your backend wants
+      const selectedDelivery = `${formattedDate} - ${selectedSlot}`;
+      onSelectSlot(selectedDelivery);
     } else if (selectedOption === "now") {
-      onSelectSlot("Deliver Now");  // Handle the "Deliver Now" option
+      onSelectSlot("Deliver Now");
     }
-    onClose();  // Close the modal after selecting the slot
+    onClose();
   };
+  
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -560,20 +579,17 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
           {selectedOption === "later" && (
             <div className="transition-all duration-300">
               {/* Date Selection */}
-              <div className="flex space-x-2 mt-3">
-                {dates.map(({ day, date }) => (
-                  <button
-                    key={date}
-                    className={`border p-2 rounded-md text-center w-20 ${
-                      selectedDate === date ? "border-black font-semibold" : "border-gray-300"
-                    }`}
-                    onClick={() => setSelectedDate(date)}
-                  >
-                    <span className="block font-medium">{date}</span>
-                    <span className="block text-gray-500 text-sm">{day}</span>
-                  </button>
-                ))}
-              </div>
+              <div className="mt-3">
+  <label className="block font-medium mb-1">Choose a date:</label>
+  <DatePicker
+    selected={selectedDate}
+    onChange={(date) => setSelectedDate(date)}
+    dateFormat="MMM dd, yyyy"
+    className="border p-2 rounded-md w-full"
+  />
+</div>
+
+
 
               {/* Time Slots */}
               {Object.entries(slots).map(([period, times]) => (
