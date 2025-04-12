@@ -9,7 +9,7 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-
+const PDFDocument = require('pdfkit');
 const app = express();
 const port = 3000;
 
@@ -127,6 +127,7 @@ app.post("/create-order", async (req, res) => {
   try {
     const { amount, email, address, giftDetails } = req.body;
     console.log("Received address:", address); // Log the address to verify
+    const customOrderId = '#' + Math.floor(1000000 + Math.random() * 9000000);
 
     // Razorpay order options
     const options = {
@@ -146,7 +147,9 @@ app.post("/create-order", async (req, res) => {
 
       // Save order details in MongoDB
       const payment = new Payment({
-        order_id: order.id,
+        transaction_id: order.id, // Save Razorpay's order ID here
+        order_id: customOrderId,  // Save our custom order ID
+        // order_id: order.id,
         amount: amount,
         status: "pending",
         address: address, // Store the entire address object
@@ -199,7 +202,8 @@ app.post("/create-order", async (req, res) => {
       <p style="font-size: 16px; color: #555; text-align: center;">A new order has been confirmed. Below are the details:</p>
 
       <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
-        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong>${customOrderId}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Transaction ID:</strong>${order.id}</p>
         <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
         <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
       </div>
@@ -252,7 +256,8 @@ const customerEmailContent = `
       <p style="font-size: 16px; color: #555; text-align: center;">Thank you for shopping with us. Your order has been confirmed. Here are your order details:</p>
 
       <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
-        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong> ${order.id}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong>${customOrderId}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Transaction ID:</strong>${order.id}</p>
         <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
         <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
       </div>
@@ -268,7 +273,7 @@ const customerEmailContent = `
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
 
       <div style="margin-top: 20px; text-align: center;">
-        <a href="https://celebrationbakers.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
+        <a href="https://celebrationbakers.com" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
       </div>
 
       <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
@@ -300,7 +305,8 @@ const customerEmailContent = `
       // Respond with a success message after both emails are sent
       res.status(200).json({
         message: 'Order created successfully, and emails sent to both customer and admin.',
-        order_id: order.id,
+        // order_id: order.id,
+        order_id: customOrderId,
         key_id: process.env.RAZORPAY_KEY_ID,
       });
     });
