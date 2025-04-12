@@ -25,8 +25,8 @@ mongoose.connect(MONGDB_URI)
 
 // Razorpay instance
 const razorpay = new Razorpay({
-  key_id: "rzp_live_DOFF33aaWtaaeG",
-  key_secret: "8FFsXYY0Z62Oiy7D8EcvKqzo",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 const addressSchema = new mongoose.Schema({
   house: { type: String },
