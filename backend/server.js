@@ -77,6 +77,7 @@ const addressSchema = new mongoose.Schema({
 });
 const Payment = mongoose.model("Payment", new mongoose.Schema({
   payment_id: String,
+  transaction_id: String,
   order_id: String,
   amount: Number,
   status: String,
