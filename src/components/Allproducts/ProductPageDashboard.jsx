@@ -824,7 +824,7 @@ const products = [
   { id: 91, name: "Kitkat shake", category: "Shakes", price: "₹120", image: drinks4 },
   { id: 92, name: "Brownie shake", category: "Shakes", price: "₹150", image: drinks5 },
   { id: 93, name: "Oreo shake", category: "Shakes", price: "₹100", image: drinks6 },
-  { id: 94, name: "Pineapple pudding", category: "pudding", price: "₹1", image: pudding1 },
+  { id: 94, name: "Pineapple pudding", category: "pudding", price: "₹70", image: pudding1 },
   { id: 95, name: "Strawberry pudding", category: "pudding", price: "₹80", image: pudding2 },
   { id: 96, name: "Blueberry pudding", category: "pudding", price: "₹100", image: pudding3 },
   { id: 97, name: "Chocolate pudding", category: "pudding", price: "₹100", image: pudding4 },
