@@ -30,7 +30,7 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
       .moveDown(0.5);
     doc
       .fontSize(25)
-      .fillColor('#0000FF')
+      .fillColor('#000000')
       .text('INVOICE', { align: 'center' })
       .moveDown(1);
 
@@ -46,9 +46,9 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
       .fillColor('#000000')
       .text('Bill From:', 50, 160)
       .text('Celebration Bakers', 50, 175)
-      .text('123 Bakery Street, Bakerstown', 50, 190)
-      .text('Phone: +91-123-456-7890', 50, 205)
-      .text('GST No.: 1234567890ABC', 50, 220); // Add your GST number here
+      .text('0, M/S CELEBRATION BAKERS,Nai Basti, Behind Chandi Mata Mandir, Gandhi Naga, Lalitpur, Uttar Pradesh, 284403', 50, 190)
+      .text('Phone: +91 6306-442533', 50, 205)
+      .text('GST No.: 09FRDPP8191N1ZS', 50, 220); // Add your GST number here
 
     doc
       .fontSize(12)
@@ -120,7 +120,7 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
     yPosition += 20;
     doc
       .fontSize(14)
-      .fillColor('#0000FF')
+      .fillColor('#000000')
       .text('Grand Total:', 300, yPosition)
       .text(`₹${grandTotal.toFixed(2)}`, 400, yPosition);
 

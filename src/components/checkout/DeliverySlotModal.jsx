@@ -457,9 +457,11 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
   ];
 
   const slots = {
-    Morning: ["11:00 AM - 12:00 PM"],
-    Afternoon: ["12:00 PM - 1:00 PM", "1:00 PM - 2:00 PM", "2:00 PM - 3:00 PM", "3:00 PM - 4:00 PM"],
-    Evening: ["4:00 PM - 5:00 PM", "5:00 PM - 6:00 PM", "6:00 PM - 7:00 PM"],
+    Morning: ["09:00 AM - 12:00 PM"],
+    // Afternoon: ["12:00 PM - 4:00 PM", "1:00 PM - 2:00 PM", "2:00 PM - 3:00 PM", "3:00 PM - 4:00 PM"],
+    Afternoon: ["12:00 PM - 4:00 PM"],
+    // Evening: ["4:00 PM - 5:00 PM", "5:00 PM - 6:00 PM", "6:00 PM - 7:00 PM"],
+    Evening: ["4:00 PM - 1:00 PM"],
   };
 
   // useEffect(() => {
