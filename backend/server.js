@@ -109,11 +109,19 @@ app.get('/download-pdf/:orderId', async (req, res) => {
       return res.status(404).send("PDF not found.");
     }
 
+    // Log the pdf data type for debugging
+    console.log("PDF Data Type:", typeof payment.pdf.data);
+
     // Handle Binary data to Buffer conversion
     let pdfData = payment.pdf.data;
+
+    // If the pdf data is stored as a mongoose Binary object, convert it to a Buffer
     if (pdfData instanceof mongoose.mongo.Binary) {
       pdfData = pdfData.buffer;
     }
+
+    // Log the pdfData to check if it's in Buffer format
+    console.log("PDF Data (Buffer):", pdfData);
 
     // Now send the file properly
     res.setHeader('Content-Type', payment.pdf.contentType);
@@ -124,6 +132,7 @@ app.get('/download-pdf/:orderId', async (req, res) => {
     res.status(500).send("Error downloading PDF");
   }
 });
+
 
 // Set up multer to store images in memory as buffers
 const storage = multer.memoryStorage();
@@ -293,7 +302,7 @@ app.post("/create-order", async (req, res) => {
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
 <p>
-  <a href="https://celebrationbakers.com/download-pdf/${order.id}" target="_blank"
+  <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
      Download Invoice PDF
   </a>
@@ -352,8 +361,8 @@ const customerEmailContent = `
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
 
-      <p>
-  <a href="https://celebrationbakers.com/download-pdf/${order.id}" target="_blank"
+<p>
+  <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
      Download Invoice PDF
   </a>
