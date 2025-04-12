@@ -10,9 +10,10 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
+
 function getPdfBuffer(orderId, order, amount, address, giftDetails) {
   return new Promise((resolve, reject) => {
-    const doc = new PDFDocument();
+    const doc = new PDFDocument({ margin: 50 });
     const buffers = [];
 
     doc.on('data', buffers.push.bind(buffers));
@@ -21,34 +22,119 @@ function getPdfBuffer(orderId, order, amount, address, giftDetails) {
       resolve(pdfData);
     });
 
-    doc.fontSize(25).text('Order Invoice', { align: 'center' });
-    doc.moveDown();
-    doc.fontSize(14).text(`Order ID: ${orderId}`);
-    doc.text(`Transaction ID: ${order.id}`);
-    doc.text(`Amount: ₹${amount}`);
-    doc.text(`Status: Pending`);
+    // Logo (if available, you can add an image here)
+    // Uncomment and adjust the path if you have a logo
+    // doc.image('path/to/logo.png', 50, 45, { width: 50 });
 
-    doc.moveDown().fontSize(16).text('Addresses:', { underline: true });
-    for (const [type, addr] of Object.entries(address)) {
-      if (Object.values(addr).some(val => val)) {
-        doc.moveDown().fontSize(14).text(`${type} Address:`);
-        if (addr.house) doc.text(`House: ${addr.house}`);
-        if (addr.landmark) doc.text(`Landmark: ${addr.landmark}`);
-        if (addr.locality) doc.text(`Locality: ${addr.locality}`);
-        if (addr.phone) doc.text(`Phone: ${addr.phone}`);
-        if (addr.email) doc.text(`Email: ${addr.email}`);
-      }
-    }
+    // Title and Invoice Number
+    doc
+      .fontSize(20)
+      .fillColor('#000000')
+      .text('Celebration Bakers', { align: 'center' })
+      .moveDown(0.5);
+    doc
+      .fontSize(25)
+      .fillColor('#0000FF')
+      .text('INVOICE', { align: 'center' })
+      .moveDown(1);
 
-    doc.moveDown().fontSize(16).text('Gift Details:', { underline: true });
-    if (giftDetails.recipientName) doc.text(`Recipient Name: ${giftDetails.recipientName}`);
-    if (giftDetails.senderName) doc.text(`Sender Name: ${giftDetails.senderName}`);
-    if (giftDetails.recipientMobile) doc.text(`Recipient Mobile: ${giftDetails.recipientMobile}`);
-    if (giftDetails.message) doc.text(`Message: ${giftDetails.message}`);
+    doc
+      .fontSize(10)
+      .text(`Invoice Number: ${orderId}`, 50, 120)
+      .text(`Date: ${new Date().toLocaleDateString()}`, 50, 135);
+
+    // Bill From and Bill To
+    doc
+      .fontSize(12)
+      .text('Bill From:', 50, 160)
+      .text('Celebration Bakers', 50, 175)
+      .text('123 Bakery Street, Bakerstown', 50, 190)
+      .text('Phone: +91-123-456-7890', 50, 205);
+
+    doc
+      .fontSize(12)
+      .text('Bill To:', 400, 160)
+      .text(`${giftDetails.recipientName || 'Customer Name'}`, 400, 175)
+      .text(`${address['home']?.locality || 'Customer Address'}`, 400, 190)
+      .text(`Phone: ${address['home']?.phone || '+91-987-654-3210'}`, 400, 205);
+
+    // Table Header
+    doc
+      .moveDown(2)
+      .fontSize(12)
+      .text('Item', 50, 250)
+      .text('Quantity', 200, 250)
+      .text('Rate', 300, 250)
+      .text('Tax', 400, 250)
+      .text('Amount', 500, 250);
+
+    // Table Border
+    doc
+      .lineWidth(1)
+      .moveTo(50, 265)
+      .lineTo(550, 265)
+      .stroke();
+
+    // Sample Items (Replace with dynamic data if available)
+    const items = [
+      { name: 'Custom Cake', qty: 1, rate: 500, tax: 0, amount: 500 },
+      { name: 'Cupcakes (12 pcs)', qty: 1, rate: 300, tax: 0, amount: 300 },
+    ];
+    let yPosition = 270;
+    items.forEach(item => {
+      doc
+        .fontSize(10)
+        .text(item.name, 50, yPosition)
+        .text(item.qty, 200, yPosition)
+        .text(`₹${item.rate}`, 300, yPosition)
+        .text(`₹${item.tax}`, 400, yPosition)
+        .text(`₹${item.amount}`, 500, yPosition);
+      yPosition += 20;
+    });
+
+    // Table Bottom Border
+    doc
+      .moveTo(50, yPosition - 10)
+      .lineTo(550, yPosition - 10)
+      .stroke();
+
+    // Totals
+    yPosition += 20;
+    doc
+      .fontSize(12)
+      .text('Subtotal:', 400, yPosition)
+      .text(`₹${items.reduce((sum, item) => sum + item.amount, 0)}`, 500, yPosition);
+    yPosition += 20;
+    doc
+      .text('Discount:', 400, yPosition)
+      .text('₹0.00', 500, yPosition);
+    yPosition += 20;
+    doc
+      .text('Tax:', 400, yPosition)
+      .text('₹0.00', 500, yPosition);
+    yPosition += 20;
+    doc
+      .text('Paid:', 400, yPosition)
+      .text('₹0.00', 500, yPosition);
+    yPosition += 20;
+    doc
+      .fontSize(14)
+      .fillColor('#0000FF')
+      .text('Total:', 400, yPosition)
+      .text(`₹${amount}`, 500, yPosition);
+
+    // Terms & Conditions
+    doc
+      .moveDown(2)
+      .fontSize(10)
+      .text('Terms & Conditions:', 50, yPosition + 20)
+      .text('1. Payment is due within 7 days.', 50, yPosition + 35)
+      .text('2. No refunds after delivery.', 50, yPosition + 50);
 
     doc.end();
   });
 }
+
 
 const app = express();
 const port = 3000;
