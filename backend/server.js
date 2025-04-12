@@ -9,6 +9,46 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const PDFDocument = require('pdfkit');
+function getPdfBuffer(orderId, order, amount, address, giftDetails) {
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument();
+    const buffers = [];
+
+    doc.on('data', buffers.push.bind(buffers));
+    doc.on('end', () => {
+      const pdfData = Buffer.concat(buffers);
+      resolve(pdfData);
+    });
+
+    doc.fontSize(25).text('Order Invoice', { align: 'center' });
+    doc.moveDown();
+    doc.fontSize(14).text(`Order ID: ${orderId}`);
+    doc.text(`Transaction ID: ${order.id}`);
+    doc.text(`Amount: ₹${amount}`);
+    doc.text(`Status: Pending`);
+
+    doc.moveDown().fontSize(16).text('Addresses:', { underline: true });
+    for (const [type, addr] of Object.entries(address)) {
+      if (Object.values(addr).some(val => val)) {
+        doc.moveDown().fontSize(14).text(`${type} Address:`);
+        if (addr.house) doc.text(`House: ${addr.house}`);
+        if (addr.landmark) doc.text(`Landmark: ${addr.landmark}`);
+        if (addr.locality) doc.text(`Locality: ${addr.locality}`);
+        if (addr.phone) doc.text(`Phone: ${addr.phone}`);
+        if (addr.email) doc.text(`Email: ${addr.email}`);
+      }
+    }
+
+    doc.moveDown().fontSize(16).text('Gift Details:', { underline: true });
+    if (giftDetails.recipientName) doc.text(`Recipient Name: ${giftDetails.recipientName}`);
+    if (giftDetails.senderName) doc.text(`Sender Name: ${giftDetails.senderName}`);
+    if (giftDetails.recipientMobile) doc.text(`Recipient Mobile: ${giftDetails.recipientMobile}`);
+    if (giftDetails.message) doc.text(`Message: ${giftDetails.message}`);
+
+    doc.end();
+  });
+}
 
 const app = express();
 const port = 3000;
@@ -54,6 +94,24 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
     message: String,
   },
 }));
+app.get('/download-pdf/:orderId', async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const payment = await Payment.findOne({ order_id: orderId });
+
+    if (!payment || !payment.pdf || !payment.pdf.data) {
+      return res.status(404).send("PDF not found.");
+    }
+
+    res.setHeader('Content-Type', payment.pdf.contentType);
+    res.setHeader('Content-Disposition', `attachment; filename=order_${orderId}.pdf`);
+    res.send(payment.pdf.data);
+  } catch (error) {
+    console.error("Error fetching PDF:", error);
+    res.status(500).send("Error downloading PDF");
+  }
+});
 
 // Set up multer to store images in memory as buffers
 const storage = multer.memoryStorage();
@@ -144,16 +202,21 @@ app.post("/create-order", async (req, res) => {
       if (err) {
         return res.status(500).json({ message: "Error creating order", error: err });
       }
+      const pdfBuffer = await getPdfBuffer(customOrderId, order, amount, address, giftDetails);
 
       // Save order details in MongoDB
       const payment = new Payment({
         transaction_id: order.id, // Save Razorpay's order ID here
-        order_id: customOrderId,  // Save our custom order ID
-        // order_id: order.id,
+        // order_id: customOrderId,  // Save our custom order ID
+        order_id: order.id,
         amount: amount,
         status: "pending",
         address: address, // Store the entire address object
         giftDetails: giftDetails, // Store gift details
+        pdf: {
+          data: pdfBuffer,
+          contentType: 'application/pdf',
+        }
       });
       await payment.save();
       const logo = await Logo.findOne();  // Assuming there's only one logo in the collection
@@ -217,7 +280,12 @@ app.post("/create-order", async (req, res) => {
       <h3 style="color: #333;">Gift Details</h3>
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-
+<p>
+  <a href="https://celebrationbakers.com/download-pdf/${order.id}" target="_blank"
+     style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
+     Download Invoice PDF
+  </a>
+</p>
       <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
         <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
       </div>
@@ -272,6 +340,12 @@ const customerEmailContent = `
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
 
+      <p>
+  <a href="https://celebrationbakers.com/download-pdf/${order.id}" target="_blank"
+     style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
+     Download Invoice PDF
+  </a>
+</p>
       <div style="margin-top: 20px; text-align: center;">
         <a href="https://celebrationbakers.com" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
       </div>
@@ -305,8 +379,8 @@ const customerEmailContent = `
       // Respond with a success message after both emails are sent
       res.status(200).json({
         message: 'Order created successfully, and emails sent to both customer and admin.',
-        // order_id: order.id,
-        order_id: customOrderId,
+        order_id: order.id,
+        // order_id: customOrderId,
         key_id: process.env.RAZORPAY_KEY_ID,
       });
     });
