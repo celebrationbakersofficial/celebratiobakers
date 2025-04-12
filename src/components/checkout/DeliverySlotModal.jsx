@@ -462,17 +462,17 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
     Evening: ["4:00 PM - 5:00 PM", "5:00 PM - 6:00 PM", "6:00 PM - 7:00 PM"],
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "";
-    }
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     document.documentElement.style.overflow = "hidden";
+  //   } else {
+  //     document.documentElement.style.overflow = "";
+  //   }
 
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
-  }, [isOpen]);
+  //   return () => {
+  //     document.documentElement.style.overflow = "";
+  //   };
+  // }, [isOpen]);
 
   // Handle selecting a delivery slot
   const handleUpdateSlot = () => {
@@ -492,6 +492,8 @@ export default function DeliverySlotModal({ isOpen, onClose, onSelectSlot }) {
         style={{
           backdropFilter: "blur(8px)",
           backgroundColor: "rgba(255, 255, 255, 0.95)",
+          maxHeight: "90vh",  // Make sure the modal doesn't exceed the screen height
+          overflowY: "auto",  // Enable vertical scrolling
         }}
       >
         <DialogHeader>
