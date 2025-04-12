@@ -9,7 +9,7 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const PDFDocument = require('pdfkit');
+
 const app = express();
 const port = 3000;
 
