@@ -400,12 +400,12 @@ app.post("/create-order", async (req, res) => {
       <h3 style="color: #333;">Gift Details</h3>
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-<p>
-  <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
-     style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
-     Download Invoice PDF
-  </a>
-</p>
+// <p>
+//   <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
+//      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
+//      Download Invoice PDF
+//   </a>
+// </p>
       <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
         <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
       </div>
@@ -460,12 +460,12 @@ const customerEmailContent = `
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
 
-<p>
-  <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
-     style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
-     Download Invoice PDF
-  </a>
-</p>
+// <p>
+//   <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
+//      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
+//      Download Invoice PDF
+//   </a>
+// </p>
       <div style="margin-top: 20px; text-align: center;">
         <a href="https://celebrationbakers.com" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
       </div>
@@ -513,37 +513,142 @@ const customerEmailContent = `
 
 
 
+// app.post("/verify-payment", async (req, res) => {
+//   try {
+//     const { payment_id, order_id, razorpay_signature } = req.body;
+
+//     // Find order in MongoDB
+//     const order = await Payment.findOne({ order_id });
+
+//     if (!order) {
+//       return res.status(400).json({ message: "Order not found" });
+//     }
+
+//     // Generate signature hash
+//     const body = order_id + "|" + payment_id;
+//     const expectedSignature = crypto
+//       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+//       .update(body)
+//       .digest("hex");
+
+//     if (expectedSignature === razorpay_signature) {
+//       // Payment is verified
+//       order.status = "paid";
+//       await order.save();
+//       res.json({ message: "Payment verified successfully", payment: order });
+//     } else {
+//       // Payment verification failed
+//       res.status(400).json({ message: "Payment verification failed" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: "Error verifying payment", error: error.message });
+//   }
+// });
+
+
 app.post("/verify-payment", async (req, res) => {
   try {
     const { payment_id, order_id, razorpay_signature } = req.body;
 
-    // Find order in MongoDB
     const order = await Payment.findOne({ order_id });
 
     if (!order) {
       return res.status(400).json({ message: "Order not found" });
     }
 
-    // Generate signature hash
     const body = order_id + "|" + payment_id;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(body)
       .digest("hex");
 
-    if (expectedSignature === razorpay_signature) {
-      // Payment is verified
-      order.status = "paid";
-      await order.save();
-      res.json({ message: "Payment verified successfully", payment: order });
-    } else {
-      // Payment verification failed
-      res.status(400).json({ message: "Payment verification failed" });
+    if (expectedSignature !== razorpay_signature) {
+      return res.status(400).json({ message: "Payment verification failed" });
     }
+
+    // Payment is verified
+    order.status = "paid";
+    await order.save();
+
+    // Generate invoice PDF
+    const pdfBuffer = await getPdfBuffer(order.order_id, order, order.amount, order.address, order.giftDetails);
+
+    order.pdf = {
+      data: pdfBuffer,
+      contentType: 'application/pdf',
+    };
+    await order.save();
+
+    const logo = await Logo.findOne();
+    const logoBase64 = logo?.image?.toString('base64') || '';
+
+    const generateAddressSection = (addressObj, addressType) => {
+      const fields = [];
+      if (addressObj.house) fields.push(`<p><strong>House:</strong> ${addressObj.house}</p>`);
+      if (addressObj.landmark) fields.push(`<p><strong>Landmark:</strong> ${addressObj.landmark}</p>`);
+      if (addressObj.phone) fields.push(`<p><strong>Phone:</strong> ${addressObj.phone}</p>`);
+      if (addressObj.email) fields.push(`<p><strong>Email:</strong> ${addressObj.email}</p>`);
+      if (addressObj.locality) fields.push(`<p><strong>Locality:</strong> ${addressObj.locality}</p>`);
+      if (fields.length === 0) return '';
+      return `
+        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #ddd;">
+          <h4 style="color: #007bff; margin-bottom: 10px;">${addressType} Address</h4>
+          ${fields.join('')}
+        </div>
+      `;
+    };
+
+    const invoiceLink = `https://celebratiobakers.onrender.com/download-pdf/${order.order_id}`;
+
+    // Admin Email
+    const adminEmailContent = `
+      <html><body>
+      <h2>New Paid Order Received!</h2>
+      <p><strong>Order ID:</strong> ${order.order_id}</p>
+      <p><strong>Amount:</strong> ₹${order.amount}</p>
+      <p><strong>Status:</strong> Paid</p>
+      <p><strong>Invoice:</strong> <a href="${invoiceLink}" target="_blank">Download</a></p>
+      ${Object.keys(order.address).map((key) => generateAddressSection(order.address[key], key)).join('')}
+      </body></html>
+    `;
+
+    // Customer Email
+    const customerEmailContent = `
+      <html><body>
+      <h2>Thank you for your payment!</h2>
+      <p>Your order has been successfully placed.</p>
+      <p><strong>Order ID:</strong> ${order.order_id}</p>
+      <p><strong>Amount:</strong> ₹${order.amount}</p>
+      <p><strong>Status:</strong> Paid</p>
+      <p><strong>Invoice:</strong> <a href="${invoiceLink}" target="_blank">Download PDF</a></p>
+      ${Object.keys(order.address).map((key) => generateAddressSection(order.address[key], key)).join('')}
+      <p><strong>Gift for:</strong> ${order.giftDetails.recipientName}</p>
+      <p><strong>Message:</strong> ${order.giftDetails.message}</p>
+      </body></html>
+    `;
+
+    await transporter.sendMail({
+      from: 'celebrationbakersofficial@gmail.com',
+      to: 'celebrationbakersofficial@gmail.com',
+      subject: 'New Paid Order Notification',
+      html: adminEmailContent,
+    });
+
+    await transporter.sendMail({
+      from: 'developer.govinda00@gmail.com',
+      to: order.email,
+      subject: 'Your Payment is Confirmed!',
+      html: customerEmailContent,
+    });
+
+    res.json({ message: "Payment verified, invoice generated, and emails sent.", payment: order });
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error verifying payment", error: error.message });
   }
 });
+
 
 app.get("/", (req, res) => {
   res.send("Backend is up and running!");
