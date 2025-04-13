@@ -400,12 +400,6 @@ app.post("/create-order", async (req, res) => {
       <h3 style="color: #333;">Gift Details</h3>
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-// <p>
-//   <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
-//      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
-//      Download Invoice PDF
-//   </a>
-// </p>
       <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
         <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
       </div>
@@ -459,13 +453,6 @@ const customerEmailContent = `
       <h3 style="color: #333;">Gift Details</h3>
       <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
       <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
-
-// <p>
-//   <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
-//      style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
-//      Download Invoice PDF
-//   </a>
-// </p>
       <div style="margin-top: 20px; text-align: center;">
         <a href="https://celebrationbakers.com" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; font-weight: bold; border-radius: 4px;">Track Your Order</a>
       </div>
