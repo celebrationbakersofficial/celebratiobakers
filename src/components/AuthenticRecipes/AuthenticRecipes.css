@@ -1,0 +1,173 @@
+.authentic-recipes {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+    img.mx-auto.mb-4.rounded-lg.shadow-lg {
+        width: 22vw;
+    }
+.image-container {
+    position: relative;
+    height: 261px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* Make the image container responsive */
+    max-width: 544px; /* Set a max width for larger screens */
+    border-radius: 17px;
+    margin-bottom: 20px; /* Add some space between image and content */
+}
+
+.know-more-btn {
+    position: absolute;
+    bottom: 10px;
+    background-color: #ff6600;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.know-more-btn:hover {
+    background-color: #e55b00;
+}
+
+.authentic-recipes hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+}
+
+/* Media Query for mobile responsiveness */
+@media (max-width: 768px) {
+    .authentic-recipes {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .image-container {
+        height: 200px; /* Adjust the height for smaller screens */
+        max-width: 100%;  /* Make the image container fully responsive */
+    }
+
+    .know-more-btn {
+        font-size: 1em;  /* Reduce font size for smaller devices */
+        padding: 8px 16px;  /* Adjust button padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .authentic-recipes {
+        padding: 10px; /* Further reduce padding on very small screens */
+    }
+
+    .image-container {
+        height: 180px; /* Further reduce the image container height */
+    }
+
+    .know-more-btn {
+        font-size: 0.9em; /* Smaller font size for very small screens */
+        padding: 7px 14px;  /* Adjust padding for smaller screens */
+    }
+}
+.content {
+    display: flex;
+    gap: 31px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .authentic-recipes {
+        padding: 15px;
+    }
+
+    .image-container {
+        height: 200px; /* Adjust height for mobile */
+        max-width: 100%;
+    }
+
+    .know-more-btn {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    .content {
+        flex-direction: column;  /* Stack items vertically */
+        gap: 16px; /* Reduce gap between items */
+        align-items: center;  /* Center content */
+    }
+
+    .left, .right {
+        width: 100%;  /* Ensure sections take full width */
+    }
+}
+
+/* Media Query for Smaller Screens (Max width 480px) */
+@media (max-width: 480px) {
+    .authentic-recipes {
+        padding: 1px; /* Even smaller padding */
+    }
+
+    .image-container {
+        height: 180px;  /* Further reduce image height */
+    }
+
+    .know-more-btn {
+        font-size: 0.9em;
+        padding: 7px 14px;
+    }
+
+    .content {
+        display: flex;
+        gap: 31px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+    }
+    img.mx-auto.mb-4.rounded-lg.shadow-lg {
+        width: 222vw;
+    }
+    
+}
+
+/* Ensure full responsiveness for large desktop (Min width 1200px) */
+@media (min-width: 1200px) {
+    .authentic-recipes {
+        padding: 25px; /* Add extra padding for larger screens */
+    }
+
+    .image-container {
+        height: 300px; /* Slightly larger image on bigger screens */
+        max-width: 80%; /* Max width for large screens */
+    }
+
+    .know-more-btn {
+        font-size: 1.2em; /* Larger button text */
+        padding: 12px 24px; /* Larger button padding */
+    }
+
+    .content {
+        gap: 40px; /* Increased gap on larger screens */
+    }
+}
+.headings {
+    color: #662a36;
+}
+.heading.left.w-full.lg\:w-1\/2.p-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

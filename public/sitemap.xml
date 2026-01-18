@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://celeberationbakers.com/</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Main Pages -->
+  <url>
+    <loc>https://celeberationbakers.com/products</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/speciality-cakes</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/Aboutus</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/contact-us</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/finds-us</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Product Categories -->
+  <url>
+    <loc>https://celeberationbakers.com/collections/Cakes</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/VANTO%20Cakes</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/Pastries</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/Cheese%20Cakes</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/Breads</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/Cookies</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/collections/Coffee</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Speciality Cakes -->
+  <url>
+    <loc>https://celeberationbakers.com/products/special-order/customised-vanto-cakes</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/products/special-order/custom-theme-cake</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/products/special-order/cake-pastry-snack-combo</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://celeberationbakers.com/terms-and-conditions</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/privacy-policy</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/refund-policy</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://celeberationbakers.com/shipping-and-delivery</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+</urlset>
