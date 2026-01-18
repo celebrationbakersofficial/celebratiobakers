@@ -1,0 +1,142 @@
+
+/* .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+} */
+
+/* Swiper Background Slider */
+.background-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slide {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  
+  .scroll-to-top-btn:hover {
+    background-color: #ff4500;
+  }
+  
+  .scroll-to-top-btn:focus {
+    outline: none;
+  }
+  @media (max-width: 480px) {
+
+  .hero {
+    height: 96vh;
+    z-index: -1 !important;
+}
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      height: 96vh;
+      z-index: -1 !important;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .hero {
+      height: 90vh;
+      z-index: -1 !important;
+    }
+  }
+
+
+  
+  @keyframes clickAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .clicked {
+    animation: clickAnimation 0.3s ease-in-out;
+  }
+  
+  /* styles.css */
+
+/* Container for the logo */
+.logo-containers {
+  position: absolute;
+  top: 169px;
+  z-index: 0;
+}
+
+.logos {
+  max-width: 180px;
+  height: auto;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logos {
+    max-width: 120px; /* Smaller logo size on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .logos {
+    max-width: 100px; /* Smaller logo size on mobile */
+  }
+}
+
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.logo-loader {
+  animation: spin 2s linear infinite;
+  width: 100px;  /* Adjust size of your logo */
+  height: 100px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-containers {
+  right: 17px;
+}
+
+
+.bg-white.p-6.rounded-lg.shadow-lg {
+  width: 32rem;
+}

@@ -1,0 +1,556 @@
+require("dotenv").config();
+const express = require('express');
+const { Resend } = require('resend');
+const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
+const cors = require('cors');
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
+const PDFDocument = require('pdfkit');
+
+function getPdfBuffer(orderId, order, amount, address, giftDetails) {
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument({ margin: 50 });
+    const buffers = [];
+
+    doc.on('data', buffers.push.bind(buffers));
+    doc.on('end', () => {
+      const pdfData = Buffer.concat(buffers);
+      resolve(pdfData);
+    });
+
+    // Title and Invoice Number
+    doc
+      .fontSize(20)
+      .fillColor('#000000')
+      .text('Celebration Bakers', { align: 'center' })
+      .moveDown(0.5);
+    doc
+      .fontSize(25)
+      .fillColor('#000000')
+      .text('INVOICE', { align: 'center' })
+      .moveDown(1);
+
+    doc
+      .fontSize(10)
+      .fillColor('#000000')
+      .text(`Invoice Number: ${orderId}`, 50, 120)
+      .text(`Date: ${new Date().toLocaleDateString()}`, 50, 135);
+
+    // Bill From and Bill To
+    // Bill From Section (Fixed to match invoice layout)
+    doc
+      .fontSize(12)
+      .fillColor('#000000')
+      .text('Bill From:', 50, 160)
+      .text('Celebration Bakers', 50, 175)
+      .text('0, M/S CELEBRATION BAKERS, Nai Basti,', 50, 190)
+      .text('Behind Chandi Mata Mandir, Gandhi Nagar, Lalitpur,', 50, 205)
+      .text('Phone: +91 6306442533', 50, 220)
+      .text('GST No.: 09FRDPP8191N1ZS', 50, 235);
+
+
+    doc
+      .fontSize(12)
+      .fillColor('#000000')
+      .text('Bill To:', 400, 160)
+      .text(`${giftDetails.recipientName || 'Customer Name'}`, 400, 175);
+    // Add delivery address (using the first available address, e.g., 'home')
+    const deliveryAddress = address['home'] || address[Object.keys(address)[0]] || {};
+    doc
+      .text(`${deliveryAddress.locality || 'Customer Address'}`, 400, 190)
+      .text(`Phone: ${deliveryAddress.phone || '+91-987-654-3210'}`, 400, 205);
+
+    // Table Header
+    doc
+      .moveDown(2)
+      .fontSize(12)
+      .fillColor('#000000')
+      .text('S.No', 50, 250)
+      .text('Item Name', 100, 250)
+      .text('Qty', 250, 250)
+      .text('Price', 320, 250)
+      .text('Total', 400, 250);
+
+    // Table Border
+    doc
+      .lineWidth(1)
+      .moveTo(50, 265)
+      .lineTo(450, 265)
+      .stroke();
+
+    // Sample Items (Replace with dynamic data if available)
+    const items = [
+      { name: 'Custom Cake', qty: 1, price: 500, total: 500 },
+      { name: 'Cupcakes (12 pcs)', qty: 1, price: 300, total: 300 },
+    ];
+    let yPosition = 270;
+    items.forEach((item, index) => {
+      doc
+        .fontSize(10)
+        .fillColor('#000000')
+        .text(index + 1, 50, yPosition)
+        .text(item.name, 100, yPosition)
+        .text(item.qty, 250, yPosition)
+        .text(`₹${item.price}`, 320, yPosition)
+        .text(`₹${item.total}`, 400, yPosition);
+      yPosition += 20;
+    });
+
+    // Table Bottom Border
+    doc
+      .moveTo(50, yPosition - 10)
+      .lineTo(450, yPosition - 10)
+      .stroke();
+
+    // Totals on right bottom
+    yPosition += 20;
+    const subtotal = items.reduce((sum, item) => sum + item.total, 0);
+    const gst = subtotal * 0.18; // 18% GST
+    const grandTotal = subtotal + gst;
+    doc
+      .fontSize(12)
+      .fillColor('#000000')
+      .text('Subtotal:', 300, yPosition)
+      .text(`₹${subtotal.toFixed(2)}`, 400, yPosition);
+    yPosition += 20;
+    doc
+      .text('GST (18%):', 300, yPosition)
+      .text(`₹${gst.toFixed(2)}`, 400, yPosition);
+    yPosition += 20;
+    doc
+      .fontSize(14)
+      .fillColor('#000000')
+      .text('Grand Total:', 300, yPosition)
+      .text(`₹${grandTotal.toFixed(2)}`, 400, yPosition);
+
+    // Terms & Conditions
+    doc
+      .moveDown(2)
+      .fontSize(10)
+      .fillColor('#000000')
+      .text('Terms & Conditions:', 50, yPosition + 20)
+      .text('1. Payment is due within 7 days.', 50, yPosition + 35)
+      .text('2. No refunds after delivery.', 50, yPosition + 50);
+
+    // Order No. and Transaction No. at bottom left
+    doc
+      .fontSize(10)
+      .fillColor('#000000')
+      .text(`Order No.: ${orderId}`, 50, 700)
+      .text(`Transaction No.: ${order.id}`, 50, 715);
+
+    doc.end();
+  });
+}
+
+
+
+const app = express();
+const port = 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// MongoDB connection
+const { MONGDB_URI } = process.env;
+mongoose.connect(MONGDB_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.log(err));
+
+// Razorpay instance
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+// Resend client
+const resend = new Resend(process.env.RESEND_API_KEY || 're_aZi2wLFH_5ER99jW2YBhZHVpZWJz5cqgn');
+
+// Verify Resend connection
+console.log('✅ Resend client initialized');
+
+const addressSchema = new mongoose.Schema({
+  house: { type: String },
+  landmark: { type: String },
+  phone: { type: String },
+  email: { type: String },
+  locality: { type: String }
+});
+const Payment = mongoose.model("Payment", new mongoose.Schema({
+  payment_id: String,
+  transaction_id: String,
+  order_id: String,
+  amount: Number,
+  status: String,
+  email: String, // Store customer email
+  customOrderId: String, // Store custom order ID
+  created_at: { type: Date, default: Date.now },
+  address: {
+    Home: addressSchema,
+    Office: addressSchema,
+    Hotel: addressSchema,
+    Other: addressSchema,
+  },
+  giftDetails: {
+    recipientName: String,
+    senderName: String,
+    recipientMobile: String,
+    message: String,
+  },
+  pdf: {
+    data: Buffer,
+    contentType: String
+  }
+}));
+app.get('/download-pdf/:orderId', async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const payment = await Payment.findOne({ order_id: orderId });
+
+    if (!payment || !payment.pdf || !payment.pdf.data) {
+      return res.status(404).send("PDF not found.");
+    }
+
+    // Log the pdf data type for debugging
+    console.log("PDF Data Type:", typeof payment.pdf.data);
+
+    // Handle Binary data to Buffer conversion
+    let pdfData = payment.pdf.data;
+
+    // If the pdf data is stored as a mongoose Binary object, convert it to a Buffer
+    if (pdfData instanceof mongoose.mongo.Binary) {
+      pdfData = pdfData.buffer;
+    }
+
+    // Log the pdfData to check if it's in Buffer format
+    console.log("PDF Data (Buffer):", pdfData);
+
+    // Now send the file properly
+    res.setHeader('Content-Type', payment.pdf.contentType);
+    res.setHeader('Content-Disposition', `attachment; filename=order_${orderId}.pdf`);
+    res.send(pdfData);
+  } catch (error) {
+    console.error("Error fetching PDF:", error);
+    res.status(500).send("Error downloading PDF");
+  }
+});
+
+
+// Set up multer to store images in memory as buffers
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+// Define the Logo schema with image as Buffer and contentType
+const logoSchema = new mongoose.Schema({
+  image: { type: Buffer, required: true },  // Store image as a Buffer
+  contentType: { type: String, required: true },  // Content type (e.g., image/png)
+}, { timestamps: true });
+
+const Logo = mongoose.model("Logo", logoSchema);
+// Function to save the logo to MongoDB (this will run automatically on server start)
+const saveLogoToDB = async () => {
+  try {
+    // Define the path to the image
+    const imagePath = path.join(__dirname, 'public', 'images', 'logos.png');
+
+    // Check if the file exists
+    if (!fs.existsSync(imagePath)) {
+      console.log('Image file not found!');
+      return;
+    }
+
+    // Read the image as a Buffer
+    const imageBuffer = fs.readFileSync(imagePath);
+    const contentType = 'image/png';  // Set the appropriate content type (e.g., image/png)
+
+    // Check if the logo already exists in the database
+    const existingLogo = await Logo.findOne();
+    if (existingLogo) {
+      console.log('Logo already exists in the database!');
+      return;
+    }
+
+    // Save the logo to MongoDB
+    const newLogo = new Logo({
+      image: imageBuffer,  // Store the image as a Buffer
+      contentType: contentType,  // Store the content type
+    });
+
+    await newLogo.save();
+    console.log('Logo saved to MongoDB successfully!');
+  } catch (err) {
+    console.error('Error saving logo:', err);
+  }
+};
+
+
+// // Function to insert logo into the database (without a route)
+// async function addLogoToDatabase() {
+//   try {
+//     const logoPath = path.join(__dirname, 'public', 'images', 'logos.png'); // Path to the logo file
+//     const logoBuffer = fs.readFileSync(logoPath); // Read image file as a buffer
+
+//     const logo = new Logo({
+//       image: logoBuffer,  // Store image as a Buffer
+//       contentType: 'image/png',  // You can modify this based on your image type
+//     });
+
+//     await logo.save();
+//     console.log("Logo saved successfully!");
+//   } catch (err) {
+//     console.error("Error saving logo", err);
+//   }
+// }
+
+// // Call the function once when the app starts to insert the logo
+// addLogoToDatabase();  // Make sure this is called when the app starts
+
+app.post("/create-order", async (req, res) => {
+  try {
+    const { amount, email, address, giftDetails } = req.body;
+    console.log("Received address:", address); // Log the address to verify
+    const customOrderId = '#' + Math.floor(1000000 + Math.random() * 9000000);
+
+    // Razorpay order options
+    const options = {
+      amount: amount * 100, // Amount in paise
+      currency: "INR",
+      receipt: "receipt#1",
+      notes: {
+        key1: "value3",
+        key2: "value2",
+      },
+    };
+
+    razorpay.orders.create(options, async (err, order) => {
+      if (err) {
+        return res.status(500).json({ message: "Error creating order", error: err });
+      }
+      const pdfBuffer = await getPdfBuffer(customOrderId, order, amount, address, giftDetails);
+
+      // Save order details in MongoDB
+      const payment = new Payment({
+        transaction_id: order.id, // Save Razorpay's order ID here
+        order_id: order.id,
+        amount: amount,
+        status: "pending",
+        email: email, // Store customer email
+        customOrderId: customOrderId, // Store custom order ID
+        address: address, // Store the entire address object
+        giftDetails: giftDetails, // Store gift details
+        pdf: {
+          data: pdfBuffer,
+          contentType: 'application/pdf',
+        }
+      });
+      await payment.save();
+      const logo = await Logo.findOne();
+
+      if (!logo) {
+        return res.status(404).send("Logo not found.");
+      }
+
+      const logoBase64 = logo.image.toString('base64');
+      const logoContentType = logo.contentType;
+
+      const generateAddressSection = (addressObj, addressType) => {
+        const fields = [];
+
+        if (addressObj.house) fields.push(`<p><strong>House:</strong> ${addressObj.house}</p>`);
+        if (addressObj.landmark) fields.push(`<p><strong>Landmark:</strong> ${addressObj.landmark}</p>`);
+        if (addressObj.phone) fields.push(`<p><strong>Phone:</strong> ${addressObj.phone}</p>`);
+        if (addressObj.email) fields.push(`<p><strong>Email:</strong> ${addressObj.email}</p>`);
+        if (addressObj.locality) fields.push(`<p><strong>Locality:</strong> ${addressObj.locality}</p>`);
+
+        if (fields.length === 0) return '';
+
+        return `
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #ddd;">
+            <h4 style="color: #007bff; margin-bottom: 10px;">${addressType} Address</h4>
+            ${fields.join('')}
+          </div>
+        `;
+      };
+
+      // Prepare email content for the admin
+      const adminEmailContent = `
+<html>
+  <body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div style="text-align: center; padding-bottom: 20px;">
+        <img src="https://i.imgur.com/ll4hIXN.png" alt="Company Logo" style="width: 150px; border-radius: 50%;">
+      </div>
+
+      <h2 style="color: #333; text-align: center;">New Order Confirmed!</h2>
+      <p style="font-size: 16px; color: #555; text-align: center;">A new order has been confirmed. Below are the details:</p>
+
+      <div style="border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px;">
+        <p style="font-size: 16px; color: #555;"><strong>Order ID:</strong>${customOrderId}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Transaction ID:</strong>${order.id}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Amount:</strong> ₹${amount}</p>
+        <p style="font-size: 16px; color: #555;"><strong>Status:</strong> Pending</p>
+      </div>
+
+      <div style="font-size: 18px; color: #333; font-weight: bold; margin-top: 20px;">Customer's Addresses</div>
+      ${Object.keys(address).map((key) => {
+        const addr = address[key];
+        return generateAddressSection(addr, key);
+      }).join('')}
+
+      <h3 style="color: #333;">Gift Details</h3>
+      <p style="font-size: 16px; color: #555;"><strong>Recipient:</strong> ${giftDetails.recipientName}</p>
+      <p style="font-size: 16px; color: #555;"><strong>Message:</strong> ${giftDetails.message}</p>
+      <p>
+        <a href="https://celebratiobakers.onrender.com/download-pdf/${order.id}" target="_blank"
+           style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">
+           Download Invoice PDF
+        </a>
+      </p>
+      <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #888;">
+        <p>&copy; 2025 celebrationbakers. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
+      `;
+
+      // Send the email to admin using Resend
+      try {
+        const adminResult = await resend.emails.send({
+          from: 'Celebration Bakers <onboarding@resend.dev>',
+          to: process.env.EMAIL_USER || 'celebrationbakersofficial@gmail.com',
+          subject: 'New Order Notification',
+          html: adminEmailContent,
+        });
+
+        if (adminResult.error) {
+          console.error('❌ Resend API Error (admin):', adminResult.error);
+        } else {
+          console.log('✅ Admin email sent successfully. MessageId:', adminResult.data?.id);
+        }
+      } catch (error) {
+        console.error('❌ Error sending admin email:', error);
+        console.error('Error details:', error.message);
+        if (error.response) {
+          console.error('Error response:', error.response);
+        }
+      }
+
+      // Customer email sending disabled - Resend requires domain verification to send to other recipients
+      // To enable: verify domain at resend.com/domains and update from address
+      console.log('ℹ️  Customer email skipped - Resend requires verified domain to send to other recipients');
+
+      // Respond with a success message
+      res.status(200).json({
+        message: 'Order created successfully, and email sent to admin.',
+        order_id: order.id,
+        key_id: process.env.RAZORPAY_KEY_ID,
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error creating payment", error: error.message });
+  }
+});
+
+
+
+
+
+app.post("/verify-payment", async (req, res) => {
+  try {
+    const { payment_id, order_id, razorpay_signature } = req.body;
+
+    // Find order in MongoDB
+    const order = await Payment.findOne({ order_id });
+
+    if (!order) {
+      return res.status(400).json({ message: "Order not found" });
+    }
+
+    // Generate signature hash
+    const body = order_id + "|" + payment_id;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body)
+      .digest("hex");
+
+    if (expectedSignature === razorpay_signature) {
+      // Payment is verified
+      order.status = "paid";
+      await order.save();
+      res.json({ message: "Payment verified successfully", payment: order });
+    } else {
+      // Payment verification failed
+      res.status(400).json({ message: "Payment verification failed" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error verifying payment", error: error.message });
+  }
+});
+
+app.get("/", (req, res) => {
+  res.send("Backend is up and running!");
+});
+
+// Email health check endpoint for testing on Render
+app.get('/email-health', async (req, res) => {
+  try {
+    const result = await resend.emails.send({
+      from: 'Celebration Bakers <onboarding@resend.dev>',
+      to: process.env.EMAIL_USER || 'celebrationbakersofficial@gmail.com',
+      subject: 'Render Email Health Check',
+      text: 'If you got this, Resend works on Render.',
+    });
+
+    if (result.error) {
+      console.error('Resend API Error:', result.error);
+      return res.status(500).json({
+        error: 'Email sending failed',
+        details: result.error,
+        message: 'Check Resend dashboard for more details'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Email sent successfully!',
+      messageId: result.data?.id,
+      note: 'Check your email inbox and spam folder. Also check Resend dashboard at https://resend.com/emails'
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({
+      error: err.message,
+      stack: err.stack
+    });
+  }
+});
+
+// POST route to handle form submission
+app.post('/send-email', async (req, res) => {
+  try {
+    const { name, email, message, subject } = req.body;
+
+    // Send the email using Resend
+    const result = await resend.emails.send({
+      from: 'Celebration Bakers <onboarding@resend.dev>',
+      to: process.env.EMAIL_USER || 'celebrationbakersofficial@gmail.com',
+      subject: subject || 'New Message from Contact Form',
+      replyTo: email, // Set reply-to to the user's email
+      text: `You have received a new message from ${name} (${email}):\n\n${message}`,
+    });
+
+    res.status(200).json({ message: 'Email sent successfully', info: result.data });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Error sending email', error: error.message });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
